@@ -17,6 +17,9 @@ public class 변수_7 {
 		b=temp; // b=a => b=200
 		System.out.println("a="+a);
 		System.out.println("b="+b);
+		
+		char c1='A';
+		char c2='B';
 	}
 
 }
