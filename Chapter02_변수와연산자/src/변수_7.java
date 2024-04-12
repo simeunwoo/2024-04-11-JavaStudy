@@ -20,6 +20,7 @@ public class 변수_7 {
 		
 		char c1='A';
 		char c2='B';
+		// 정렬
 	}
 
 }
