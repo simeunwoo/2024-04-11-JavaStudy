@@ -81,6 +81,19 @@
  * 			int temp=a;
  * 			a=b;
  * 			b=temp
+ * 		-------------------------------
+ * 		### 변수에 값을 대입할 때는 (왼쪽에 받는 것의 값이 커야 한다)
+ * 		byte b = byte값
+ * 		char c = char값, int값
+ * 		int i = byte값, char값, int값
+ * 		long l = byte값, char값, int값, long값
+ * 		double d = byte값, char값, int값, long값, double값
+ * 		-------------------------------
+ * 		### 작은 데이터형을 대입하면 자동으로 변경
+ * 		char c = 65 => c='A'
+ * 		int a = 'A' => a=65
+ * 		long a = 10 => a=10L
+ * 		double a = 'A' => a=65.0
  */
 public class 변수_정리 {
 
