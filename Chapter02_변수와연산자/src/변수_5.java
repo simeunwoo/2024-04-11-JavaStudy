@@ -7,9 +7,9 @@
  * 			=> 크기의 기준 : 수 표현의 갯수
  * 				1 => 1.000000 (float) => 1.000000000000000 (double)
  * 
- * 		int a=10L => 오류 (4byte 안에 8byte를 넣을 수 없다)(int는 4byte이고 long(L)은 8byte이기 때문에 알맞지 않다)
- * 		long a=10 => 가능 (8byte 안에 4byte를 넣을 수 있다)
- * 		long a=10 => 가능 (8byte 안에 8byte를 넣을 수 있다)
+ * 		int a=10L => 오류 (8byte로부터 4byte를 만들 수 없다)(int는 4byte이고 long(L)은 8byte이기 때문에 알맞지 않다)
+ * 		long a=10 => 가능 (4byte로부터 8byte를 만들 수 있다)
+ * 		long a=10 => 가능 (8byte로부터 8byte를 만들 수 있다)
  * 		int a='A' => 가능 (문자형 A가 정수형 int의 a로 변형되었다 => 65로 출력된다)(오른쪽에서 왼쪽으로)
  * 		char c=65 => 가능 (A로 출력된다)(오른쪽에서 왼쪽으로)
  * 		double d='A' => 가능 (65.0으로 출력된다)(오른족에서 왼쪽으로)
