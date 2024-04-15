@@ -41,8 +41,11 @@ public class 연산자_논리연산자_1 {
 		int x=10;
 		int y=9;
 		boolean bCheck= x==y && ++y==x; // x==y에서 이미 false이므로 뒤쪽과 상관없이 무조건 false
+		//				----
+		//				false => 효율적인 연산
 		// boolean bCheck= x==y || ++y==x; // 이 경우 x=10, y=10이 나온다
-											// ||에서 앞이 false이므로 뒤에도 계산해봐야 한다
+		//				   ----				// ||에서 앞이 false이므로 뒤에도 계산해봐야 한다
+		//				   true => 효율적인 연산
 		System.out.println("bCheck="+bCheck); // bCheck=false
 		System.out.println("x="+x); // x=10
 		System.out.println("y="+y); // y=9
