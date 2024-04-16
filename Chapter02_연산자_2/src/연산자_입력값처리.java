@@ -34,7 +34,7 @@ public class 연산자_입력값처리 {
 		
 		System.out.println("===== 결과 ====="); // ===== 결과 =====
 		System.out.println("총점="+total); // 총점=199
-		System.out.printf("평균:%.2f",avg); // 평균=66.33
+		System.out.printf("평균=%.2f",avg); // 평균=66.33
 	}
 
 }
