@@ -6,6 +6,10 @@
  * 	Python
  * 	머신러닝 - 딥러닝 - AI : 시간 당 295000 (데이터 분석)
  * 
+ * 	교육 과정
+ * 	Java - Oracle - HTML/CSS/JavaScript - JSP - MVC - Spring
+ * 	... Vue React ...
+ * 
  * 	변수 / 연산자 / 제어문 => 데이터베이스 => 웹 사이트
  * 	-----------------------------
  * 		  ㅣ
