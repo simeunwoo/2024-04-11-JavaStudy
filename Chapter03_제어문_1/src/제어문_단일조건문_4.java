@@ -32,14 +32,26 @@ public class 제어문_단일조건문_4 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scan=new Scanner(System.in);
-		System.out.println("문자 입력:");
+		System.out.println("문자 입력:"); // 문자 입력:심
 		char c=scan.next().charAt(0);
 		
 		// 출력 => 결과값
 		// 대문자 => c>='A' && c<='Z'
 		// 소문자 => c>='a' && c<='z'
 		// 알파벳이 아니다 => !((c>='A' && c<='Z') || (c>='a' && c<='z'))
-		
+		System.out.println("=== 결과 ==="); // === 결과 ===
+		if(c>='A' && c<='Z')
+		{
+			System.out.println(c+"는(은) 대문자이다");
+		}
+		if(c>='a' && c<='z')
+		{
+			System.out.println(c+"는(은) 소문자이다");
+		}
+		if(!((c>='A' && c<='Z') || (c>='a' && c<='z')))
+		{
+			System.out.println(c+"는(은) 알파벳이 아니다"); // 심는(은) 알파벳이 아니다
+		}
 	}
 
 }
