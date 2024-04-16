@@ -17,7 +17,6 @@ public class 연산자_입력값처리 {
 		
 		System.out.println("국어,영어,수학 입력:"); // 국어,영어,수학 입력:78,64,57(직접 입력)
 											   // => 한번에 입력 <방법 1>
-		
 		// System.out.println("국어 점수:"); // 국어 점수:78(직접 입력) => 한개씩 입력 <방법 2>
 		kor=scan.nextInt();
 		
