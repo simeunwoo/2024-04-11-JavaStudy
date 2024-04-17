@@ -16,5 +16,6 @@ public class 문제0417_3 {
 		else
 			System.out.println("a="+(-a));
 	}
-
+	// System.out.println(Math.abs(num));; // 양수만 출력
+										  // abs(절댓값)
 }

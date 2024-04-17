@@ -6,31 +6,28 @@ public class 문제0417_5 {
 		// TODO Auto-generated method stub
 		Scanner scan=new Scanner(System.in);
 		System.out.print("정수 입력:");
-		int a;
-		char b=' ';
-		a=scan.nextInt();
-		
-		if(a>=90 && a<=100)
+		int a=(int)(Math.random()*101); // 0~100
+
+		if(a>=90)
 		{
-			b='A';
+			System.out.println("A학점입니다");
 		}
 		else if(a>=80 && a<90)
 		{
-			b='B';
+			System.out.println("B학점입니다");
 		}
 		else if(a>=70 && a<80)
 		{
-			b='C';
+			System.out.println("C학점입니다");
 		}
 		else if(a>=60 && a<70)
 		{
-			b='D';
+			System.out.println("D학점입니다");
 		}
-		else if(a>=0 && a<60)
+		else if(a<60)
 		{
-			b='F';
+			System.out.println("F학점입니다");
 		}
-		System.out.println(b+"학점입니다");
 	}
 
 }

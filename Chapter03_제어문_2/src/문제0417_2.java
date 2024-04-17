@@ -11,7 +11,7 @@ public class 문제0417_2 {
 		
 		if(a>=0)
 		{
-			if(a%3==0)
+			if(a%3==0 && a!=0)
 			{
 				System.out.println(a+"는(은) 3의 배수입니다");
 			}
