@@ -27,5 +27,11 @@ public class 제어문_조건문_10 {
 			System.out.println("아무것도 아니다");
 		}
 	}
-
+/*
+ * 		난수 => 0,1,2
+ * 		if(num==0)
+ * 		else if(num==1)
+ * 		else if(num==2)
+ * 			=> 이와 같이 값이 고정된 상태 => else 문장을 사용할 필요가 X
+ */
 }
