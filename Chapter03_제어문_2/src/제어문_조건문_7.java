@@ -67,6 +67,31 @@ public class 제어문_조건문_7 {
 		System.out.println("총점:"+(kor+eng+math));
 		System.out.printf("평균:%.2f\n",(kor+eng+math)/3.0);
 		// 요청 => 학점 => 다중조건문
+		char score='A';
+		int avg=(kor+eng+math)/3;
+		
+		if(avg>=90)
+		{
+			score='A'; // 평균이 90점 이상일 때 여기서 종료
+						//	=> 여기서는 밑에 if가 아닌 else if를 설정해야 한다
+		}
+		else if(avg>=80)
+		{
+			score='B';
+		}
+		else if(avg>=70)
+		{
+			score='C';
+		}
+		else if(avg>=60)
+		{
+			score='D';
+		}
+		else
+		{
+			score='F';
+		}
+		System.out.println("학점:"+score);
 	}
 
 }
