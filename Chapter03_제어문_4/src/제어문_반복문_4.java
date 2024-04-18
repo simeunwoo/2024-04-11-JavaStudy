@@ -29,11 +29,14 @@ import java.io.IOException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
-
+import java.util.Scanner;
 public class 제어문_반복문_4 {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+		Scanner scan=new Scanner(System.in);
+		System.out.print("여행 가고 싶다");
+		String data=scan.next();
 		int k=1;
 		for(int i=1;i<=4;i++)
 		{
@@ -42,9 +45,13 @@ public class 제어문_반복문_4 {
 			Elements singer=doc.select("table.list-wrap a.artist");
 			for(int j=0;j<title.size();j++)
 			{
+				if(title.get(j).text().contains(data))
+				{
 				System.out.println(k++);
 				System.out.println(title.get(j).text());
 				System.out.println(singer.get(j).text());
+				
+				}
 			}
 		}
 	}
