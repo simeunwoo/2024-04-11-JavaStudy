@@ -7,11 +7,19 @@ public class 문제0418_1 {
 		Scanner scan=new Scanner(System.in);
 		System.out.print("정수 입력:");
 		int b=scan.nextInt();
+		// if(b<0 && b>100)
+		// System.out.println("잘못 입력");
+		// continue; ===> 이런 방식 : 유효성 검사
 		int a=b/10;
 		
 		switch(a)
 		{
 		case 10:
+			if(b!=100)
+				System.out.println("잘못 입력");
+			else
+				System.out.println("A학점입니다");
+			break;
 		case 9:
 			System.out.println("A학점입니다");
 			break;
@@ -24,12 +32,7 @@ public class 문제0418_1 {
 		case 6:
 			System.out.println("D학점입니다");
 			break;
-		case 5:
-		case 4:
-		case 3:
-		case 2:
-		case 1:
-		case 0:
+		case 5,4,3,2,1,0:
 			System.out.println("F학점입니다");
 			break;
 		default:
