@@ -5,7 +5,7 @@ public class 제어문_선택문_4 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int score=(int)(Math.random()*11); // 0~10 사이의 정수
-		
+		System.out.println("score="+score);
 		switch(score)
 		{
 			case 10:
