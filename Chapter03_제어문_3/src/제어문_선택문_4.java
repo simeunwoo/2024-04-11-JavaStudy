@@ -8,7 +8,7 @@ public class 제어문_선택문_4 {
 		System.out.println("score="+score);
 		switch(score)
 		{
-			case 10:
+			case 10: // 조건문에서는 'if(score==10 || score==9)'와 같다
 			case 9:
 				System.out.println("A학점");
 				break;
