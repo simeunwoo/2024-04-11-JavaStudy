@@ -9,8 +9,10 @@ public class 문제0419_8 {
 			if(a%2==0)
 				{
 			sum+=a;
-				System.out.println(sum);}
+				}
+			
 		}
+		System.out.println(sum);
 	}
 
 }
