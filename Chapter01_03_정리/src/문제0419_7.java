@@ -7,7 +7,10 @@ public class 문제0419_7 {
 		for(int a=5;a<=16;a++)
 		sum+=a;
 		System.out.println(sum);
-		
+	
+/*		for(int i=1;i<=100;i++)
+			if(i%11==0)
+				System.out.print(i+" "); */
 	}
 
 }

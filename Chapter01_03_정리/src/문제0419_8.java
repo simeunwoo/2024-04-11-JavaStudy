@@ -13,6 +13,7 @@ public class 문제0419_8 {
 			
 		}
 		System.out.println(sum);
+		
 	}
 
 }
