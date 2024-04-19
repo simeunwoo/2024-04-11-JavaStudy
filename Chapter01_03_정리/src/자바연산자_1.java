@@ -63,17 +63,56 @@
  * 					int+double=double / int+char=int / long+int+double=double
  * 					*** int 이하 (byte,char)는 연산 결과가 int로 나온다
  * 					byte+byte=int / byte+char=int / char+char=int
- * 			= 비교연산자
+ * 			= 비교연산자 => 기준은 왼쪽
+ * 				=> 결과값 : boolean => 조건문, 반복문에서 주로 사용
+ * 				== 같다 / != 같지 않다 / < 작다 / > 크다
+ * 				<= 작거나 같다 (< || =) / >= 크거나 같다 (> || =)
  * 			= 논리연산자
+ * 				=> 결과값 : boolean
+ * 				&&(and), ||(or)
+ * 				*** &&가 ||보다는 우선순위 => ()는 최우선 순위 연산자
+ * 				------------------------------
+ * 				(조건)	(조건)	 &&	 	 ||
+ * 				------------------------------
+ * 				true	true	true	true
+ * 				------------------------------
+ *				true	false	false	true 
+ * 				------------------------------
+ * 				false	true	false	true
+ * 				------------------------------
+ * 				false	false	false	false
+ * 				------------------------------
+ * 				&&는 두개의 조건이 true일 때만 true, 나머지 경우는 false
+ * 				||는 둘 중에 1개가 true면 true (= 두개의 조건이 false일 때만 false, 나머지 경우는 true)
  * 			= 대입연산자
+ * 				= : 대입
+ * 				+= : 여러개 증가
+ *					int a=10;
+ *					a+=10 => a=a+10 => 10
+ *				-= : 여러개 감소
+ *					int a=10;
+ *					a-=10 -> a=a-10 => a=0
+ *				*** 1개 증가 = a++, ++a, a+=1, a=a+1
+ *				*** 1개 감소 = a--, --a, a-=1, a=a-1
+ *				*** *=, /=, %= : 사용빈도가 없다
  * 		3. 삼항연산자
- * 	
+ * 			(조건) ? 값1 : 값2
+ * 			true => 값1 / false => 값2
+ * 			------------------------- (= if~else문)
+ * 			HTML => 자바연결
+ * 
+ * 		산술연산자 = 형변환연산 결합 => 통계, 평균 => 단독으로 사용
+ * 		비교연산자, 논리연산자 => 제어문에서 주로 사용 (if/for)
+ * 
+ * 		자바 => 기본 => 누가 빨리 찾기 (헛수고 줄이기)
+ * 		80% 이미 제작 => 20%
  */
 public class 자바연산자_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int a=10;
+		new Thread().interrupt(); // ???????????
 	//	System.out.println(a++); // 10
 		System.out.println(++a); // 11
 	}
