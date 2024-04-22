@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+// 72~73page
 public class 자바제어문_반복문_8 {
 
 	public static void main(String[] args) {
