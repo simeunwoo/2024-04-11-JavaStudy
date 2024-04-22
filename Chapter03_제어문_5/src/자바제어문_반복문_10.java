@@ -9,6 +9,7 @@ public class 자바제어문_반복문_10 {
 			sum+=i;
 			System.out.println("sum="+sum); // sum=1(\n)sum=2(\n)...sum=100
 		}
+		// vs (차이점을 잘 알아보자!)
 		
 		int sum=0;
 		for(int i=1;i<=100;i++)
