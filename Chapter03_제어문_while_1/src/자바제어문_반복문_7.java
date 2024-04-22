@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 public class 자바제어문_반복문_7 {
 
-	public static void main(String[] args) throws Exception // Exception : 예외처리 {
+	public static void main(String[] args) throws Exception { // Exception : 예외처리
 		// TODO Auto-generated method stub
 		FileReader fr=new FileReader("c:\\javaDev\\movie.txt");
 		int i=0; // 한글 읽기 => 정수값을 읽는다
