@@ -8,9 +8,15 @@ public class 문제0422_3 {
 		{
 			if(i%3!=0)
 			{
-				
+			i++;
+			continue;
+			}
+			else
+			{
+			sum+=i;
+			i++;
+			}
 		}
+		System.out.println(sum);
 	}
-
-}
 }
