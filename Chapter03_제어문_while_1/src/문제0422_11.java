@@ -8,6 +8,12 @@ public class 문제0422_11 {
 		System.out.print("점수 입력:");
 		int score=scan.nextInt();
 		
+		if(score<0 || score>100)
+		{
+			System.out.println("잘못된 입력");
+		}
+		else
+		{	
 		if(score>=60 && score<=100)
 		{
 			System.out.println("합격");
@@ -15,6 +21,7 @@ public class 문제0422_11 {
 		else
 		{
 			System.out.println("불합격");
+		}
 		}
 	}
 
