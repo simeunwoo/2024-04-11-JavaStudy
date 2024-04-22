@@ -1,4 +1,4 @@
-
+// 변수가 필요없는 문제
 public class 문제0422_10 {
 
 	public static void main(String[] args) {
