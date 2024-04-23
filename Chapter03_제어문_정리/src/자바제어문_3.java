@@ -7,7 +7,7 @@ public class 자바제어문_3 {
 		boolean run=true;
 		int balance=0;
 		Scanner scan=new Scanner(System.in);
-		while(run) // while(true) : 무한루프
+		while(run) // while(true) : 무한루프 // for(;;)도 가능
 		{
 			System.out.println("-----------");
 			System.out.println("1. 예금 | 2. 출금 | 3. 잔고 | 4. 종료");
@@ -61,6 +61,7 @@ public class 자바제어문_3 {
 			else if(menu==4)
 			{
 				run=false;
+						// for(;;) 였다면 break를 걸어야 한다
 			} */
 				
 		}
