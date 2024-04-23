@@ -54,12 +54,67 @@
  * 	String : 문자열을 저장하는 데이터형 (웹에서 가장 많이 사용)
  * 	브라우저 => 자바로 값 전송
  * 	-------------------- => 무조건 문자열
+ * 
+ *	whlie : 무한 반복 (반복 횟수를 모르는 경우)
+ *		=> 초기값에서 false면 조건식으로 가기도 전에 종료 가능
+ *		=> 서버 프로그램 (Back-End)
+ *		=> 파일 읽기 / 데이터베이스 / 빅데이터 (챗봇)
+ * 	반복제어문 : break, continue
+ * 	break => 제어문을 종료 => 반복문, 선택문
+ * 	continue => 반복문에서만 사용 => 제외
+ * 
+ * 	
+ * 	###	for, while => break를 사용하면 종료
+ * 	### for => continue => 증가식으로 이동
+ * 	### while => continue => 조건식으로 이동
+ *
+ *	### while(조건문) => 주의점 : continue를 잘못 사용하면 무한루프에 빠질 수 있다
+ *
+ *		int i=1;
+ *		while(i<=5)
+ *		{
+ *			if(i==3) continue; => 무한루프의 덫 => while(true)
+ *			System.out.println(i)
+ *			i++;
+ *		}
+ *
+ *		i=1 => i<=5 => 1 => i++
+ *		i=2 => i<=5 => 2 => i++
+ *		i=3 => continue => i<=5 (무한루프의 덫)
+ *
  */
 public class 자바제어문_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		System.out.println("=== for-break 반복문 중단 ===");
+		for(int i=1;i<=5;i++)
+		{
+			if(i==3)
+				break; // 3일 때 종료 명령
+			System.out.println("i="+i); // i=1, i=2 // i=3 (X) => 앞에서 break 했기 때문
+		}
+		
+		System.out.println("=== while=break 반복문 중단===");
+		int i=1;
+		while(i<=5)
+		{
+			if(i==3)
+				break;
+			System.out.println("i="+i);
+			i++;
+		}
+		
+		System.out.println("=== do~while 반복문 중단===");
+		i=1;
+		do
+		{
+			if(i==3)
+				break;
+			System.out.println("i="+i);
+			i++;
+		}
+		while(i<=5);
 	}
 
 }
