@@ -7,6 +7,7 @@ public class 문자열_4 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		// 문자열 => 저장 가능 제한이 없다
 		String title="도시락 반찬으로 최고! 스팸감자조림^^";
 		String chef="냠냠간단요리";
 		String star="★★★★★";
