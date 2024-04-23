@@ -13,7 +13,8 @@ public class 문자열_6 {
 		String id=" admin ";
 		System.out.println(id+"의 문자 갯수:"+id.length()); //  admin 의 문자 갯수:7
 		// " " => space
-		id=id.trim(); // trim() : 문자의 좌우 공백 제거 => 검색, 입력
+		id=id.trim(); // => id="admin"이 된다
+					  // trim() : 문자의 좌우 공백 제거 => 검색, 입력
 		System.out.println(id+"의 문자 갯수:"+id.length()); // admin의 문자 갯수:5
 		
 		// " 감자" => 실수 (space)
