@@ -3,7 +3,7 @@
  * 	JDBC => DBCP => MyBatis => (JPA)
  * 	Ajax => Vue => React => Redux => React-Query => Next
  * 									 ------------------- 요즘 기술
- * 	MSA (히든 카드)(요즘 대기업 주요 기술)
+ * 	MSA (히든 카드) (요즘 대기업 주요 기술)
  */
 import java.util.Scanner;
 
@@ -14,6 +14,7 @@ public class 문자열_2 {
 
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
+		// JSoup 셀레니즘
 		Scanner scan=new Scanner(System.in);
 		System.out.print("1. 노래명 검색, 2. 가수명 검색:"); // 1. 노래명 검색, 2. 가수명 검색:1
 		int menu=scan.nextInt();
