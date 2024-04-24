@@ -34,6 +34,43 @@ public class 배열_4 {
 		int[] total=new int[3];
 		double[] avg=new double[3];
 		char[] score=new char[3];
+		
+		for(int i=0;i<3;i++)
+		{
+			System.out.print((i+1)+"번째 국어 점수 입력:");
+			kor[i]=scan.nextInt();
+			System.out.print((i+1)+"번째 영어 점수 입력:");
+			eng[i]=scan.nextInt();
+			System.out.print((i+1)+"번째 수학 점수 입력:");
+			math[i]=scan.nextInt();
+			
+			total[i]=kor[i]+eng[i]+math[i];
+			avg[i]=total[i]/3.0;
+			
+			switch(total[i]/30)
+			{
+			case 10: case 9:
+				score[i]='A';
+				break;
+			case 8:
+				score[i]='B';
+				break;
+			case 7:
+				score[i]='C';
+				break;
+			case 6:
+				score[i]='D';
+				break;
+			default:
+				score[i]='F';
+			}
+		}
+		// 출력
+		for(int i=0;i<3;i++)
+		{
+			System.out.printf("%-5d%-5d%-5d%-7d%-7.2f%-3c\n",
+					kor[i],eng[i],math[i],total[i],avg[i],score[i]);
+		}
 	}
 
 }
