@@ -5,7 +5,7 @@ public class 문제0424_7 {
 		// TODO Auto-generated method stub
 		int[] a=new int[10];
 		int b=0;
-		for(int i=0;i<10;i++)
+		for(int i=0;i<a.length;i++)
 		{
 			a[i]=(int)(Math.random()*10)+1;
 			System.out.print(a[i]+" ");
