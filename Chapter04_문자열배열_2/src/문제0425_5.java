@@ -1,4 +1,4 @@
-
+import java.util.*;
 public class 문제0425_5 {
 
 	public static void main(String[] args) {
@@ -9,7 +9,6 @@ public class 문제0425_5 {
 		for(int i=0;i<a.length;i++)
 		{
 			a[i]=(int)(Math.random()*100)+1;
-			System.out.print(a[i]+" ");
 			
 			if(a[i]%2==0)
 			{
@@ -20,8 +19,9 @@ public class 문제0425_5 {
 				홀수+=a[i];
 			}
 		}
-		System.out.println("\n짝수 합:"+짝수);
-		System.out.println("홀수 합:"+홀수);
+		System.out.println(Arrays.toString(a)); // [80, 10, 39, 79, 88, 86, 26, 85, 54, 84]
+		System.out.println("짝수 합:"+짝수); // 짝수 합:428
+		System.out.println("홀수 합:"+홀수); // 홀수 합:203
 	}
 
 }
