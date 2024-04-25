@@ -78,7 +78,7 @@
  *												   ------ 갯수 => length
  *			=> 배열 복사
  *				얕은 복사 : 공유
- *				깊은 복사 : 새로운 배열을 생성
+ *				깊은 복사 : 새로운 배열을 생성 (clone)
  * 		4) 출력 => for-each
  */
 public class 배열_1 {
@@ -119,6 +119,9 @@ public class 배열_1 {
 		System.out.println("temp[1]="+temp[1]); // temp[1]=200
 		System.out.println("arr[0]="+arr[0]); // arr[0]=10
 		System.out.println("arr[1]="+arr[1]); // arr[1]=20
+		
+		// 배열은 메모리 주소 => 원본이 변경될 수 있다 => 깊은 복사
+		// 주소값은 대입이 가능
 	}
 
 }
