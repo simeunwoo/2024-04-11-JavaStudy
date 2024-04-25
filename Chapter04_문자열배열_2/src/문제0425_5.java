@@ -1,0 +1,27 @@
+
+public class 문제0425_5 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] a=new int[10];
+		int 짝수=0;
+		int 홀수=0;
+		for(int i=0;i<a.length;i++)
+		{
+			a[i]=(int)(Math.random()*100)+1;
+			System.out.print(a[i]+" ");
+			
+			if(a[i]%2==0)
+			{
+				짝수+=a[i];
+			}
+			if(a[i]%2!=0)
+			{
+				홀수+=a[i];
+			}
+		}
+		System.out.println("\n짝수 합:"+짝수);
+		System.out.println("홀수 합:"+홀수);
+	}
+
+}
