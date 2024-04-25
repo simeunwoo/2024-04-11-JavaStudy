@@ -17,6 +17,7 @@ public class 문제0425_7 {
 		{
 			System.out.print(alpha[i]+" "); // T K H G C 
 		}
+		// => 선택 정렬 / 버블 정렬 => 이차 for문
 	}
 
 }
