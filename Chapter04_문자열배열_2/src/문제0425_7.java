@@ -11,9 +11,9 @@ public class 문제0425_7 {
 		System.out.println("변경 전:");
 		System.out.println(Arrays.toString(alpha)); // [H, C, G, T, K]
 		System.out.println("변경 후:");
-		Arrays.sort(alpha); // 오름차순
+		Arrays.sort(alpha); // ASC => 오름차순
 		System.out.println(Arrays.toString(alpha)); // [C, G, H, K, T]
-		for(int i=alpha.length-1;i>=0;i--)
+		for(int i=alpha.length-1;i>=0;i--) // DESC => 내림차순
 		{
 			System.out.print(alpha[i]+" "); // T K H G C 
 		}
