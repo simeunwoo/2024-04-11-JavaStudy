@@ -214,11 +214,38 @@ public class 문자열배열_1 {
 		
 		// 노래 검색 => contains => Oracle에서는 'LIKE'로 사용됨
 		Scanner scan=new Scanner(System.in);
-		System.out.print("검색어 입력:");
+		System.out.print("검색어 입력:"); // 검색어 입력:Feat
 		String fd=scan.next();
+		int count=0;
 		for(String t:title)
 		{
-			if(t.contains(fd)) // 제목 안에 단어가 포함되었는가?
+			if(t.contains(fd)) // 제목 안에 단어가 포함되었는가? => true/false
+			{
+				System.out.println(t);
+				count++;
+			}
+		}
+		System.out.println("검색 결과 총 "+count+"건"); // 검색 결과 총 12건
+		System.out.println("~~~~~~~~~~~~~~~~");
+		System.out.println("=== 등폭 출력 ===");
+		// 상승 / 하락 / 유지
+		for(int i=0;i<title.length;i++) // 여러개의 배열을 동시에 제어 => 인덱스 이용
+		{
+			String temp="";
+			if(state[i].equals("상승")) // 같은 문자열이라면
+			{
+				temp="▲ "+modify[i];
+			}
+			else if(state[i].equals("하강"))
+			{
+				temp="▽ "+modify[i];
+			}
+			else // 유지
+			{
+				temp="-";
+			}
+			System.out.println(temp+"   "+title[i]+"   "+singer[i]);
+			// -   Your Lights   이수 (엠씨더맥스)...▽ 1   잠이 오질 않네요   장범준...▲ 26   Lovesick Girls   BLACKPINK...
 		}
 	}
 
