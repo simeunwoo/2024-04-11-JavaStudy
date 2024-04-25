@@ -77,18 +77,48 @@
  *												   ------ 0번부터
  *												   ------ 갯수 => length
  *			=> 배열 복사
- *				얕은 복사
- *				깊은 복사
+ *				얕은 복사 : 공유
+ *				깊은 복사 : 새로운 배열을 생성
  * 		4) 출력 => for-each
  */
 public class 배열_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] arr=new int[5];
+/*		int[] arr=new int[5];
 		System.out.println(arr); // [I@6f2b958e
 		int[] arr1=new int[5];
 		System.out.println(arr1); // [I@1eb44e46 : 주소값이 서로 다르다 (주소니까 같을 순 없잖아?)
+		*/
+		
+		// 메소드 => Call By Reference
+		// 얕은 복사
+/*		int[] arr={10,20,30,40,50};
+		int[] temp=arr;
+		temp[0]=100;
+		temp[1]=200;
+		// arr[0]=100, arr[1]=200 => 값(주소값)이 바뀌어버림 => 얕은 복사 (영향을 줌)
+		System.out.println("temp[0]="+temp[0]); // temp[0]=100
+		System.out.println("temp[1]="+temp[1]); // temp[1]=200
+		System.out.println("arr[0]="+arr[0]); // arr[0]=100
+		System.out.println("arr[1]="+arr[1]); // arr[1]=200
+		*/
+		
+		int[] arr={10,20,30,40,50};
+		int[] temp=arr.clone(); // 새로운 배열 생성
+		// 설정된 그대로 복사 => 새로운 배열을 생성 => clone => 깊은 복사
+		// 배열은 메모리 주소를 이용한다 => 주소를 대입하면 => 별칭 => 같은 메모리를 제어
+		int[] temp2=arr;
+		System.out.println("arr="+arr); // arr=[I@6f2b958e
+		System.out.println("temp="+temp); // temp=[I@1f89ab83
+		System.out.println("temp2="+temp2); // temp2=[I@6f2b958e // arr와 주소가 같다
+		// 같은 주소면 같은 영역을 제어, 다른 주소면 다른 영역을 제어 // *클래스도 주소 개념
+		temp[0]=100;
+		temp[1]=200;
+		System.out.println("temp[0]="+temp[0]); // temp[0]=100
+		System.out.println("temp[1]="+temp[1]); // temp[1]=200
+		System.out.println("arr[0]="+arr[0]); // arr[0]=10
+		System.out.println("arr[1]="+arr[1]); // arr[1]=20
 	}
 
 }
