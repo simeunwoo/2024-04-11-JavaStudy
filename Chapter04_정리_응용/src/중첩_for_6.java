@@ -50,12 +50,98 @@ public class 중첩_for_6 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Scanner scan=new Scanner(System.in);
 		// 1. 컴퓨터가 난수를 발생 => 1~9 사이의 중복이 없는 숫자 3개
-		// 2. 사용자 입력 요청
-		// 3. 비교 => 힌트
-		// 4. 정답 여부 확인 => 정답이면 종료 (break) / 오답이면 다시 입력 (continue)
 		int[] com=new int[3];
+		for(int i=0;i<com.length;i++)
+		{
+			com[i]=(int)(Math.random()*9)+1;
+			// 중복 여부 확인
+			for(int j=0;j<i;j++) // 생성된 난수만큼만 비교
+			{
+				if(com[i]==com[j]) // 같은 수가 있는지 확인 => 비교연산/논리연산 만
+				{
+					i--; // 다시 난수를 발생한다
+					break; // j가 있는 for문만 종료 => i++로 이동한다
+				}
+			}
+		}
+	//	System.out.println(Arrays.toString(com)); // [9, 7, 4]
+		
+		// 사용자가 입력한 데이터 저장
+		int[] user=new int[3];
+		Scanner scan=new Scanner(System.in);
+		
+		// 2. 사용자 입력 요청
+		while(true) // 반복 횟수가 없다 => 무한루프 => 정답에 종료
+		{
+			System.out.print("세자리 정수를 입력해라:");
+			int input=scan.nextInt();
+			// 오류 처리 => 세자리 정수가 입력되지 않은 경우
+			if(input<100 || input>999)
+			{
+				System.out.println("☞ 다시 해 : 세자리잖아");
+				// while문의 처음으로 이동
+				continue;
+			}
+			// 세자리 정수를 입력한 경우
+			user[0]=input/100; // 백의 자리
+			user[1]=(input%100)/10; // 십의 자리
+			user[2]=input%10; // 일의 자리
+			
+			// 오류 처리 2개
+			// 오류 처리 1. 같은 수인 경우는 안된다
+			if(user[0]==user[1] || user[1]==user[2] || user[0]==user[2])
+			{
+				System.out.println("☞ 다시 해 : 같은 수면 안된다");
+				continue;
+			}
+			// 오류 처리 2. 0을 입력하면 안된다 ex) 036(X)
+			if(user[0]==0 || user[1]==0 || user[2]==0)
+			{
+				System.out.println("☞ 다시 해 : 0은 안된다");
+				continue;
+			}
+			
+			// 정상 입력이 되었다면
+			// 3. 비교 => 힌트
+			int s=0, b=0; // s는 숫자와 자리수가 맞는 경우 (Strike)
+						  // b는 숫자와 자리수가 맞지 않는 경우 (Ball)
+			for(int i=0;i<3;i++) // com
+			{
+				for(int j=0;j<3;j++) // user
+				{
+					if(com[i]==user[j]) // 같은 수가 존재하는지 확인
+					{
+						if(i==j) // 같은 수인데 자리도 같다면
+							s++;
+						else // 같은 수이지만 자리가 다르다면
+							b++;
+					}
+				}
+			}
+			// 힌트 제공
+			System.out.printf("Input Number:%d,Result:%dS-%dB\n",input,s,b);
+
+			// 4. 정답 여부 확인 => 정답이면 종료 (break) / 오답이면 다시 입력 (continue)
+			if(s==3)
+			{	System.out.println("정답!!!!!!!!!!!!!");
+			break;
+			}
+/* (출력 결과)
+세자리 정수를 입력해라:123
+Input Number:123,Result:0S-1B
+세자리 정수를 입력해라:456
+Input Number:456,Result:0S-1B
+세자리 정수를 입력해라:369
+Input Number:369,Result:1S-0B
+세자리 정수를 입력해라:358
+Input Number:358,Result:1S-1B
+세자리 정수를 입력해라:375
+Input Number:375,Result:3S-0B
+정답!!!!!!!!!!!!!
+
+			 */
+		}
 	}
 
 }
