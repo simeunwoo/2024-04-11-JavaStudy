@@ -1,4 +1,4 @@
-/* =======================> 오류가 있음
+/*
  * 	중복이 없는 난수
  * 	1~10 => 10개의 난수 발생 => 중복 없이
  */
@@ -17,15 +17,17 @@ public class 중첩_for_5 {
 			arr[i]=(int)(Math.random()*10)+1;
 			for(int j=0;j<i;j++)
 			{
-				if(arr[i]==arr[j])
+				if(arr[j]==arr[i])
+				{
 					i--; // 같은 값이 나오면 다시 i를 1 줄여서 난수를 다시 설정한다
 					break;
+				}
 			}
 		}
 		// 초기화 완료 => 출력
 		for(int i:arr)
 		{
-			System.out.print(i+" ");
+			System.out.print(i+" "); // 4 3 10 9 8 6 7 5 2 1 
 		}
 	}
 
