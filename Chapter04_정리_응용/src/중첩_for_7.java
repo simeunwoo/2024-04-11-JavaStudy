@@ -14,7 +14,7 @@
 // 3명의 국어 영어 수학 점수를 입력 받아서 총점, 평균, 학점, 등수(2차 for문) 출력
 import java.util.Scanner;
 public class 중첩_for_7 {
-///////////////////////////////////////////////////////////////////// 오류가 있음
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -41,7 +41,6 @@ public class 중첩_for_7 {
 			eng[i]=scan.nextInt();
 			System.out.print((i+1)+"번째 수학:");
 			math[i]=scan.nextInt();
-			System.out.print((i+1)+"번째 총점:");
 			total[i]=kor[i]+eng[i]+math[i];
 			avg[i]=total[i]/(double)kor.length;
 			
@@ -81,7 +80,7 @@ public class 중첩_for_7 {
 		for(int i=0;i<kor.length;i++)
 		{
 			System.out.printf("%-7s%-5d%-5d%-5d%-5d%-7.2f%3c\n", // '-'는 왼쪽 정렬, '+'는 오른쪽 정렬
-					kor[i],eng[i],math[i],total[i],avg[i],score[i]);
+					name[i],kor[i],eng[i],math[i],total[i],avg[i],score[i]);
 		}
 		// => 변수 선언 => 프로그램의 85%를 차지
 	}
