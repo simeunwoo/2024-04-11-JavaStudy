@@ -24,7 +24,7 @@ public class 중첩_for_10 {
 				{
 					char temp=alpha[c];
 					alpha[c]=alpha[d];
-					temp=alpha[d];
+					alpha[d]=temp;
 				}
 			}
 		}

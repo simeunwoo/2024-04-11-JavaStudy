@@ -24,11 +24,11 @@ public class 중첩_for_13 {
 		{
 			for(int j=0;j<alpha.length-1-i;j++)
 			{
-				if(alpha[j]<alpha[j+1])
+				if(alpha[j]<alpha[j+1]) // ex) j => 10, j+1 => 20
 				{
-					char temp=alpha[j];
-					alpha[j]=alpha[j+1];
-					alpha[j+1]=temp;
+					char temp=alpha[j]; // temp => 10
+					alpha[j]=alpha[j+1]; // j => 20
+					alpha[j+1]=temp; // j+1 => 10
 				}
 			}
 		}
