@@ -21,7 +21,7 @@ public class 중첩_for_9 {
 		System.out.println(Arrays.toString(lotto)); // [30, 37, 19, 43, 29, 31]
 		
 		// 정렬해서 출력 => 정렬 알고리즘
-		for(int i=0;i<lotto.length-1;i++)
+		for(int i=0;i<lotto.length-1;i++) // 정렬할 때는 1개씩 빼고 정렬하는 걸 잘 이용하여 => length에 1을 뺀다
 		{
 			for(int j=i+1;j<lotto.length;j++)
 			{

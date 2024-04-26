@@ -17,7 +17,7 @@ public class 중첩_for_11 {
 						  	//    오버로딩				 오버라이딩	
 		
 		// 정렬
-		Arrays.sort(arr);
+		Arrays.sort(arr); // Arrays.sort : 오름차순 or 내림차순 가능
 		System.out.println("정렬 후:");
 		System.out.println(Arrays.toString(arr)); // ASC // [6, 12, 21, 21, 31, 31, 58, 71, 92, 97]
 		

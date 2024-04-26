@@ -14,7 +14,7 @@ public class 중첩_for_10 {
 		{
 			alpha[c]=(char)((Math.random()*26)+65);
 		}
-		System.out.println(Arrays.toString(alpha));
+		System.out.println(Arrays.toString(alpha)); // [H, Z, G, T, G, F, C, J, S, E]
 		
 		for(int c=0;c<alpha.length-1;c++)
 		{
@@ -28,7 +28,7 @@ public class 중첩_for_10 {
 				}
 			}
 		}
-				System.out.println(Arrays.toString(alpha));
+				System.out.println(Arrays.toString(alpha)); // [C, E, F, G, G, H, J, S, T, Z]
 		
 	}
 
