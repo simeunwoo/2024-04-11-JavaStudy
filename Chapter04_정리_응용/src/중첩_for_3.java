@@ -32,6 +32,11 @@
  * 		★★☆★★
  * 		★☆★★★
  * 		☆★★★★
+ * 
+ * 		♠♥♣◈
+ * 		♠♥♣◈
+ * 		♠♥♣◈
+ * 		♠♥♣◈
  */
 
 public class 중첩_for_3 {
@@ -112,6 +117,19 @@ public class 중첩_for_3 {
 			}
 			System.out.println();
 		}
+		
+		System.out.println("================");
+		
+		String[] a={"♠","♥","♣","◈"};
+		for(int i=1;i<=4;i++)
+		{
+			for(int j=0;j<a.length;j++)
+			{
+				System.out.print(a[j]);
+			}
+			System.out.println();
+		}
+				
 	}
 
 }
