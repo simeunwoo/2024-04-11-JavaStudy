@@ -119,18 +119,100 @@
  *				   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 메소드
  * 
  * 		2. 메소드 사용법
+ * 			메소드 => 호출 방법
+ * 			1) 결과값이 없는 경우
+ * 			메소드명(매개변수)
+ * 			2) 결과값이 있는 경우
+ * 			데이터형 변수명=메소드명(매개변수)
+ * 			double d=Math.random()
+ * 				 	 -------------
+ * 			-------- 일치 => 형변환 / 큰 데이터형으로 받는 경우
  * 
  * 		3. 반복을 제거
+ * 			예)
+ * 			=> 오라클 연결
+ * 			=> 오라클 닫기
+ * ---------------------------- 메소드화
+ * 			오라클 연결
+ * 			문장 => 전송 (SELECT)
+ * 			오라클 닫기
+ * 
+ * 			오라클 연결
+ * 			문장 => 전송 (INSERT)
+ * 			오라클 닫기
+ * 
+ * 			오라클 연결
+ * 			문장 => 전송 (UPDATE)
+ * 			오라클 닫기
+ * 
+ * 			오라클 연결
+ * 			문장 => 전송 (DELETE)
+ * 			오라클 닫기
+ * 
+ *			...
+ * ---------------------------- 반복구간 => 메소드화
+ * 
+ * 형식)
+ * 		[접근지정어][옵션] 리턴형 메소드명([매개변수]...)
+ * 		{
+ * 			...
+ * 			...
+ * 			... 기능 구현
+ * 			결과값 전송
+ * 			return 값; => 값은 1개만 사용 가능
+ * 						 ---------------- java/c/c++
+ * 		}				 python은 여러개 사용 가능
+ * 		---------		데이터가 많은 경우 => [], 클래스를 이용하여 모아서 보내준다
+ * 		public
+ * 		private
+ * 		protected
+ * 		default
+ * 		--------- 같은 폴더 안에서만 사용 가능
+ * 		*** 모든 메소드는 메소드 종료를 나타내는 => return
+ * 		*** 단, void일 경우에는 return을 생략할 수 있다
+ * 							------
+ * 							 | 컴파일러가 자동으로 추가
+ * 		*** 클래스
+ * 			= 사용자 데이터형 => 데이터만 저장할 목적 => ~VO, ~DTO, ~Bean
+ * 			= 액션 클래스 => 메소드(기능만) => ~DAO, ~Manager
+ * 				| 중심
+ * 				=> 실습(2주) => 관리자 페이지 만들어서 제출
+ * 							  댓글형 게시판 만들어서 제출
+ * 							  예약, 결제,... 만들어서 제출
+ * 			---------------------------------------------------
+ * 
+ *  	옵션 => 1. 선언 만 하는 메소드 => abstract
+ *			   2. 공유 => 자동으로 메모리에 올라간다 => static
  */
+// 메소드 호출 방법
 public class 메소드_1 {
-
+	// 자동 메모리 할당 => 메소드 메모리에 저장해서 사용
+	static void display(String name) // void => 자체 처리 => 출력을 메소드 안에서 처리
+						// 매개변수 => 사용자가 보내준 값
+	{
+		System.out.println("display : 진입");
+		System.out.println("사용자가 보내준 값 : "+name);
+		System.out.println("display : 처리 완료");
+		System.out.println("display : 종료");
+	}
 	public static void main(String[] args) {
+	//		공유	  결과값이 없다	메소드명	 매개변수
 		// TODO Auto-generated method stub
-		System.out.println("Hello Method"); // void java.io.PrintStream.println(String x)
+/*		System.out.println("Hello Method"); // void java.io.PrintStream.println(String x)
 		Math.random(); // double java.lang.Math.random()
 		String s="";
 		s.substring(0); // String java.lang.String.substring(int beginIndex)
-		// 원형 => 라이브러리 => 메소드 (리턴형 / 매개변수)
+		// 원형 => 라이브러리 => 메소드 (리턴형 / 매개변수) */
+		
+		System.out.println("display 진입전");
+		display("홍길동");
+		System.out.println("=============");
+		System.out.println("display 진입전");
+		display("심청이");
+		System.out.println("=============");
+		System.out.println("display 진입전");
+		display("이순신");
+		
 	}
 
 }
