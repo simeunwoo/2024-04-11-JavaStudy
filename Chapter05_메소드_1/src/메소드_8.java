@@ -72,9 +72,14 @@ public class 메소드_8 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner scan=new Scanner(System.in);
-		System.out.print("검색어 입력:");
+		System.out.print("검색어 입력:"); // 검색어 입력:까
 		String fd=scan.next();
 		find(fd); // void일 때 호출하는 메소드
+/*
+우린 어쩌다 헤어진 걸까
+한잔이면 지워질까
+그날에 나는 맘이 편했을까
+ */
 		/*
 		 * 	리턴형
 		 * 	데이터형 변수=메소드명(데이터형에 맞는 실제값)
