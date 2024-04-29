@@ -7,7 +7,7 @@ public class 문제0429_1 {
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		one();
+		one(); // 리턴형이 없는 경우
 	}
 /*
  * 		메소드 => 전체 소스를 분리해서 작업 (분업화)
