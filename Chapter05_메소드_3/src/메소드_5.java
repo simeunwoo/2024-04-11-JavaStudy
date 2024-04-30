@@ -1,8 +1,30 @@
 import java.util.Scanner;
 
-public class 메소드_5 {
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 
-	public static void main(String[] args) {
+
+
+public class 메소드_5 {
+	static void find(int type,String fd) throws Exception
+	{
+		Document doc=Jsoup.connect("https://www.melon.com/chart/index.htm").get();
+		Elements title=doc.select("div.wrap_song_info div.rank01");
+		Elements singer=doc.select("div.wrap_song_info div.rank02");
+		// Jsoup => 미리보기에 데이터가 출력된 경우에만 읽는다
+		for(int i=0;i<title.size();i++)
+		{
+			boolean bCheck=false;
+			if(type==1)
+				bCheck=title.get(i).text().contains(fd);
+			else
+				bCheck=singer.get(i).text().contains(fd);
+			
+			if(bCheck)
+				System.out.println((i+1)+"."+title.get(i).text()+"["+singer.get(i).text()+"]");
+		}
+	}
+	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		Scanner scan=new Scanner(System.in);
 		while(true)
@@ -17,15 +39,25 @@ public class 메소드_5 {
 			int menu=scan.nextInt();
 			if(menu==1)
 			{
-				
+				Document doc=Jsoup.connect("https://www.melon.com/chart/index.htm").get();
+				Elements title=doc.select("div.wrap_song_info div.rank01");
+				Elements singer=doc.select("div.wrap_song_info div.rank02");
+				for(int i=0;i<title.size();i++)
+				{
+					System.out.println((i+1)+"."+title.get(i).text());
+				}
 			}
 			else if(menu==2)
 			{
-				
+				System.out.print("검색어 입력:");
+				String fd=scan.next();
+				find(1,fd);				
 			}
 			else if(menu==3)
 			{
-				
+				System.out.print("가수 입력:");
+				String fd=scan.next();
+				find(2,fd);
 			}
 			else if(menu==4)
 			{
