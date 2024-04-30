@@ -13,7 +13,7 @@
  * 	---------------
  */
 import java.util.Scanner;
-public class 메소드_구조적프로그램_1 {
+public class 메소드_7 {
 	// 1. 입력 부분 => 반복 제거
 	static int input(String msg)
 	{
