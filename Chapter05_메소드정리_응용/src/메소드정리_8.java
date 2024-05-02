@@ -1,7 +1,7 @@
 ////////////////////////////// 오류 있음
 ㅇㄴㅁㄹ
 public class 메소드정리_8 {
-	String[] title={
+	static String[] title={
             "Your Lights",
 		"겨울잠",
 		"우린 어쩌다 헤어진 걸까",
