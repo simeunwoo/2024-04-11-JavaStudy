@@ -30,7 +30,7 @@
  *	double[] avg
  *	int[] rank
  *	char[] score
- *	-------------------
+ *	------------------- 사용자 정의 데이터형
  *	class Student
  *	{
  *		String name;
