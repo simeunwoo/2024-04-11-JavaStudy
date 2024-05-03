@@ -34,6 +34,8 @@
  *				=> 실제 배열에 저장된 값을 읽어온다
  *				=> front => HTML
  *		=> 향상된 for문 => JSP/Spring에서 주로 사용
+ *
+ *		메소드를 통해서 => 다른 클래스와 연결...
  */
 import java.util.*;
 public class 배열정리 {
