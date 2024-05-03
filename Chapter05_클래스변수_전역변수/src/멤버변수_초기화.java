@@ -69,6 +69,11 @@ public class 멤버변수_초기화 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		멤버변수_초기화 m=new 멤버변수_초기화();
+		/*
+		 * 		m
+		 * 		=> movies[1938]
+		 * 		=> m.movies
+		 */
 		Scanner scan=new Scanner(System.in);
 		System.out.println("=== 영화 목록 ===");
 		for(Movie movie:m.movies)
@@ -102,10 +107,12 @@ public class 멤버변수_초기화 {
 			}
 		}
 		System.out.println("영화 총 "+count+"건입니다");
-/*
-...
-1938|니드 포 스피드|액션, 범죄, 드라마, 스릴러|https://movie...
- */
+		
+		System.out.println("===== Top 10 =====");
+		for(int i=0;i<10;i++)
+		{
+			System.out.println(m.movies[i].mno+"."+m.movies[i].title);
+		}
 	}
 
 }
