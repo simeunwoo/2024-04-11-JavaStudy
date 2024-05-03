@@ -65,10 +65,43 @@ public class 멤버변수_초기화 {
 			}
 		}catch(Exception ex) {}
 	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		멤버변수_초기화 m=new 멤버변수_초기화();
 		Scanner scan=new Scanner(System.in);
+		System.out.println("=== 영화 목록 ===");
+		for(Movie movie:m.movies)
+		{
+			System.out.println(movie.mno+"."+movie.title);
+		}
+		System.out.println("------- 출연진 검색 -------");
+		System.out.print("출연자명 입력:");
+		String actor=scan.next();
+		int count=0;
+		for(Movie movie:m.movies)
+		{
+			if(movie.actor.contains(actor))
+			{
+				System.out.println(movie.title+"("+movie.actor+")");
+				count++;
+			}
+		}
+		System.out.println("출연한 영화 총 "+count+"건입니다");
+		
+		System.out.println("------- 영화명 검색 -------");
+		System.out.print("영화명 입력:");
+		String mno=scan.next();
+		count=0;
+		for(Movie movie:m.movies)
+		{
+			if(movie.title.contains(mno))
+			{
+				System.out.println(movie.title+"("+movie.actor+")");
+				count++;
+			}
+		}
+		System.out.println("영화 총 "+count+"건입니다");
 /*
 ...
 1938|니드 포 스피드|액션, 범죄, 드라마, 스릴러|https://movie...
