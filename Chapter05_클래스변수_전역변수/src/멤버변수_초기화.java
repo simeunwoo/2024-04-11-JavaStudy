@@ -23,7 +23,7 @@ class Movie
 	String director;
 }
 public class 멤버변수_초기화 {
-	Movie[] movies=new Movie[1938]; // 선언만 하는 영역
+	Movie[] movies=new Movie[1938]; // 선언만 하는 영역 // 멤버 변수
 	// int[] arr=new int[5] => 0
 	// 멤버 변수 => 프로그램 종료 시까지 유지
 	// 초기화 => 시작
@@ -75,7 +75,7 @@ public class 멤버변수_초기화 {
 		 * 		=> m.movies
 		 */
 		Scanner scan=new Scanner(System.in);
-		System.out.println("=== 영화 목록 ===");
+/*		System.out.println("=== 영화 목록 ===");
 		for(Movie movie:m.movies)
 		{
 			System.out.println(movie.mno+"."+movie.title);
@@ -113,6 +113,18 @@ public class 멤버변수_초기화 {
 		{
 			System.out.println(m.movies[i].mno+"."+m.movies[i].title);
 		}
+		*/
+		
+		System.out.println("1~1938번 사이의 정수 입력:");
+		int no=scan.nextInt();
+		Movie mm=m.movies[no-1];
+		System.out.println("순위:"+mm.mno);
+		System.out.println("영화명:"+mm.title);
+		System.out.println("출연:"+mm.actor);
+		System.out.println("이미지:"+mm.poster);
+		System.out.println("장르:"+mm.genre);
+		System.out.println("등급:"+mm.grade);
+		System.out.println("감독:"+mm.director);
 	}
 
 }
