@@ -1,5 +1,5 @@
 ////////////////////////////// 오류 있음
-ㅇㄴㅁㄹ
+
 public class 메소드정리_8 {
 	static String[] title={
             "Your Lights",
