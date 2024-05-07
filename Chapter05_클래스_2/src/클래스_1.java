@@ -156,17 +156,167 @@
  * 							=> 기능 처리
  * 						}
  * 					2) 공통 메소드 : 객체가 동일하게 사용하는 메소드
- * 						[접근지정어] static 리턴형 메소드 (매개변수...)
+ * 						[접근지정어] static 리턴형 메소드(매개변수...)
  * 						{
  * 							=> 한글 변환, 데이터베이스 연동 ... 디도스 공격
  * 						}
- * 			------------------------
+ * 					3) 종단 메소드 : 수정이 불가능한 메소드
+ * 						[접근지정어] final 리턴형 메소드(매개변수...)
+ * 						=> String / System / Math ... => 있는 그대로 사용
+ * 					4) 추상 메소드 : 선언만 되어 있다 => 프로그램에 맞게 구현해서 사용
+ * 						=> 윈도우
+ * 						버튼 클릭 / 마우스 클릭 / 키보드 입력 ...
+ * 						 | 클릭 => 프로그램마다 처리하는 내용이 틀리다
+ * 							=> 로그인 버튼, 계산기 버튼, 검색 버튼, 취소 버튼,...
+ * 									=> 호출은 가능, 구현은 불가능
+ * 						=> 인터페이스
+ * 						   ------- 다른 클래스를 연결 시에 주로 사용
+ * 						   스프링 <=> 오라클
+ * 						   스프링 <=> 자바스크립트 연동
+ * 						   ---- 인터페이스 기반
+ * 			------------------------ ===========> 한개의 메모리에 저장한 후에 관리하는 역할
+ * 														=> 객체 (변수)
+ * 														=> 클래스를 저장하는 변수
  * 		}
  */
+// 클래스에 선언되는 변수
+/*
+ * 	Card 설계
+ * 	=> number / type => 따로 가지고 있다
+ * 	=> width / height => 모든 카드가 동일 => static
+ */
+class Card
+{
+	// 각자 사용되는 변수 => 인스턴스
+	int number; // 0으로 초기화
+	String type; // null로 초기화
+	// 아직 저장이 안됨 => new를 사용해야 저장 가능
+	
+	// 공통으로 사용되는 변수 => 정적 변수 => static
+	static int width=200, height=300; // 명시적인 초기화 => 저장 => static은 컴파일 시에 저장
+	
+	// 프로그램 종료 시까지 메모리가 유지 => Heap (프로그래머가 담당하는 메모리 영역)
+	// 지역변수, 매개변수는 밤색
+	/*
+	 * 		-----------------------------------------------------------
+	 * 		종류		메모리 저장 시점		메모리에서 해제		저장 위치		사용 범위
+	 * 		-----------------------------------------------------------
+	 * 		지역변수	메소드 호출			메소드가 종료		Stack		메소드 안에서만 사용 가능
+	 * 				=> 메모리에 저장	return에 해제
+	 * 		-----------------------------------------------------------
+	 * 	  인스턴스변수	new를 이용할 경우	프로그램 종료 시		Heap	클래스 전체에서 사용 가능
+	 * 															=> 다른 클래스에서도 사용 가능
+	 * 		-----------------------------------------------------------
+	 * 		정적변수	컴파일 시에 저장		프로그램 종료 시		Method Area		클래스 전체에서 사용 가능
+	 * 		static													=> 다른 클래스에서도 사용 가능
+	 * 		-----------------------------------------------------------
+	 * 
+	 * 	인스턴스 변수
+	 * 	class A
+	 * 	{
+	 * 		int aa;
+	 * 	}
+	 * 	=> A a=new A();
+	 * 		a는 변수/메소드를 관리하는 공간 => 객체
+	 * 		---- a ----
+	 * 		  --aa--
+	 * 
+	 * 		  ------
+	 * 		----------- => a.aa (.은 메모리 주소 접근 연산자)
+	 * 						=> a 주소 안에 저장되어 있는 aa라는 변수에 접근
+	 * 
+	 * 	정적 변수
+	 * 	static
+	 * 
+	 * 	class A
+	 * 	{
+	 * 		static int a; => new 없이 저장 가능 => 모든 클래스에서 공통으로 사용되는 변수
+	 * 	}
+	 *  => A aa=new A();
+	 *  => aa.a => 객체를 통하여 접근 가능
+	 *  => A.a => 클래스명으로 접근 가능
+	 */
+}
 public class 클래스_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		// 카드 1장 저장
+		Card card1=new Card();
+		System.out.println("card1="+card1); // card1=Card@1eb44e46
+											// 실제 저장되어 있는 주소
+		// 변수의 초기화
+		card1.number=3;
+		card1.type="♠";
+		System.out.println("number="+card1.number); // number=3
+		System.out.println("type="+card1.type); // type=♠
+		System.out.println("width="+card1.width); // width=200
+		System.out.println("type="+card1.height); // type=300
+		/*
+		 * 		static => 별도의 영역에 따로 1개만 저장된다 => card1, card2 모두 접근 가능
+		 * 
+		 * 		----- card 1 -----
+		 * 		저장된 메모리 주소
+		 * 		Card@1eb44e46	↘
+		 * 		------------------	Card@1eb44e46 -------------
+		 *											------- 
+		 *												3 => number => card1.number
+		 *											-------				(주소.변수)
+		 *
+		 *											-------
+		 *												♠ => type => card1.type
+		 *											-------
+		 */
+		Card card2=new Card(); // new를 이용할 때마다 주소가 계속해서 바뀐다
+		card2.number=5;
+		card2.type="§";
+		System.out.println("card2="+card2); // card2=Card@e73f9ac
+		System.out.println("number="+card2.number); // number=5
+		System.out.println("type="+card2.type); // type=§
+		System.out.println("width="+card2.width); // width=200
+		System.out.println("type="+card2.height); // type=300
+		
+		// static 변수 변경 => 같은 메모리 공간을 제어 => 모든 변경
+		card1.width=300;
+		card1.height=500;
+
+		card2.width=1200;
+		card2.height=1500;
+		
+		Card.width=700;
+		Card.height=1000;
+		
+		System.out.println("width="+card1.width); // width=700
+		System.out.println("type="+card1.height); // type=1000
+		System.out.println("width="+card2.width); // width=700
+		System.out.println("type="+card2.height); // type=1000
+		System.out.println("width="+Card.width); // width=700
+		System.out.println("type="+Card.height); // type=1000
+		
+		// static 변수 => 같은 영역 내에 있기 때문에 최종값으로 나온다
+		
+		card1.number=7;
+		card1.type="◀";
+
+		card2.number=11;
+		card2.type="♬";
+		
+		System.out.println("card1.number="+card1.number); // card1.number=7
+		System.out.println("card1.type="+card1.type); // card1.type=◀
+		System.out.println("card2.number="+card2.number); // card2.number=11
+		System.out.println("card2.type="+card2.type); // card2.type=♬
+		
+		// 인스턴스 변수는 따로 생성되는 변수이기 때문에 주소가 다르다 => 다른 영역
+		
+		/*
+		 * 	프로그램에서 데이터 관리 => React / Vue => 데이터 관리
+		 * 	-----------------
+		 * 	변수 => 배열 => 클래스	연산자/제어문 => 변경(X)
+		 * 	=> 파일 => 오라클
+		 * 
+		 * 	공통 저장 : static => 정적 변수 => 컴파일 시에 생성
+		 * 	따로 저장 : 변수 선언 => 인스턴스 변수 => 메모리가 별도로 생성 (new)
+		 */
 
 	}
 
