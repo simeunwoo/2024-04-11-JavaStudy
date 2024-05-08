@@ -1,4 +1,5 @@
 package com.sist.vo;
+import lombok.Data;
 /*
  * 	1|
  * 	쇼생크 탈출|
@@ -8,11 +9,11 @@ package com.sist.vo;
  * 	|15세 관람가|프랭크 다라본트
 
  */
-
+@Data
 public class Movie {
 	// 접근지정어 => default => 같은 패키지에서만 접근 이 가능
 	private int mno;
-	private String title;
+	protected String title;
 	private String genre;
 	private String poster;
 	private String actor;
@@ -21,4 +22,6 @@ public class Movie {
 	private String director;
 	// Movie 클래스에서만 사용이 가능 => 다른 클래스에서는 사용 불가능
 	// => 사용이 가능하게 => 기능을 추가 (변수 : 저장 / 값 읽기) => getter/setter
+	
+	// Outline에서 => protected : 노란색 / private : 빨간색
 }
