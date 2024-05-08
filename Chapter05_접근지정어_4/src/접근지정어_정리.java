@@ -102,12 +102,30 @@
  *						패키지
  *
  *	=> 관련된 내용 : 127page
+ *
+ *	*** 멤버변수 (지역변수 제외) => private
+ *	*** 클래스, 메소드, 생성자 => 다른 클래스와 연결 => public
+ *
+ *	클래스 : 설계
+ *	메소드 : 기능 설정
+ *	생성자 : 시작점, 초기화
+ *	변수 : 화면을 출력할 데이터를 모아준다
+ *
+ *	자바 => 인터페이스, 예외 처리, 추상 클래스 => 추가 => 7장
+ *	=> 객체지향 프로그램 : 유지보수 : 수정, 추가
+ *	=> 캡슐화, 상속, 수정, 추가 => 다형성 : 수정 및 추가
+ *	*** 필수가 아니라 객체 지향 프로그램의 권장
+ *		*** 유일하게 사용
+ *			--------- 캡슐화
+ *			=> 변수는 private => 사용 가능하게 getter/setter
  */
+import java.util.Scanner;
 public class 접근지정어_정리 {
 
+	static Scanner scan=new Scanner(System.in); // static 사용!!!
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-	}
+
+}
 
 }
