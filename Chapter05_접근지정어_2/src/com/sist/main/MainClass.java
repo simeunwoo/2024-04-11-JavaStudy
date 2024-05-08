@@ -2,7 +2,7 @@ package com.sist.main;
 // Movie 클래스를 불러온다
 import com.sist.vo.Movie;
 // 클래스가 다른 폴더에 저장된 경우는 반드시 import를 이용해서 불러온다
-// 		 ------- 패키지
+// 		 ------- 패키지 : 폴더 개념
 /*
  * 	private / public
  * 
@@ -25,7 +25,7 @@ public class MainClass {
 		Movie movie=new Movie();
 	//	com.sist.vo.Movie movie=new com.sist.vo.Movie(); // import를 붙이지 않을 경우 해야 하는 코딩
 		Date date=new Date();
-	//	java.util.Date date=new java.util.Date(); // 역시 import 대신 할 수 있는 코딩
+	//	java.util.Date date=new java.util.Date(); // 클래스 충돌 / 역시 import 대신 할 수 있는 코딩
 		// 데이터 초기화
 		movie.setRank(1);
 		System.out.println("순위:"+movie.getRank());
