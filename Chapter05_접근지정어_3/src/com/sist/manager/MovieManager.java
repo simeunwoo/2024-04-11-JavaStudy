@@ -66,6 +66,7 @@ public class MovieManager {
 			i=0;
 			for(String movie:strMovie)
 			{
+				System.out.println(movie);
 				String[] m=movie.split("\\|");
 				movies[i].setMno(m[0]);
 				movies[i].setTitle(m[1]);
@@ -78,6 +79,37 @@ public class MovieManager {
 				i++;
 			}
 			
-		}catch(Exception ex) {}
+		}catch(Exception ex) {ex.printStackTrace();}
+	}
+	public static Movie[] getMovieData(int page) // static public 순으로 써도 상관 없음 (다만 저질 취급 받음)
+	{
+		int total=movieTotalPage();
+		int leng=20;
+		if(page==total)
+			leng=18;
+		Movie[] movie=new Movie[leng];
+		
+		int j=0; // j : 20개씩 나눠주는 변수
+		int rowSize=20;
+		int pagecnt=(page*rowSize)-rowSize; // 데이터를 저장할 시작점
+		// => 1page => pagecnt=0 0~19
+		// => 2page => pagecnt=20 20~39
+		for(int i=0;i<movies.length;i++)
+		{
+			if(j<20 && i>=pagecnt)
+			{
+				movie[j]=new Movie();
+				movie[j]=movies[i]; // movie 배열 => movies에 저장된 내용을 채워준다
+				j++;
+			}
+		}
+		
+		return movie;
+	}
+	
+	public static int movieTotalPage()
+	{
+		return (int)(Math.ceil(movies.length/20.0));
+		// ceil => 올림메소드 : 소수점 이하는 올림을 한다 => 총 페이지
 	}
 }

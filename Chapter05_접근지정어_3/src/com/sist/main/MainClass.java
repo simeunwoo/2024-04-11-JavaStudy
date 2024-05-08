@@ -1,5 +1,7 @@
 package com.sist.main;
-import com.sist.manager.*;
+import java.util.Scanner;
+
+import com.sist.manager.MovieManager;
 import com.sist.vo.Movie;
 /*
  * 	변수
@@ -112,11 +114,20 @@ import com.sist.vo.Movie;
  * 		2. free(A) : 메모리 해제
  * 			=> delete
  * 	-----------------
+ * 
+ * 	# 변수
+ * 		저장하는 데이터가 여러개 => 따로 메모리를 만들어서 저장 : 인스턴스
+ * 		저장하는 데이터가 1개 => static
+ * 		사용하고 더 이상 필요 없다 => 지역변수
  */
 public class MainClass {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		Scanner scan=new Scanner(System.in);
+		System.out.print("페이지 입력:");
+		int page=scan.nextInt();
+		Movie[] m=MovieManager.getMovieData(page);
 		// 1. 목록
 		System.out.println("=== 영화 목록 ===");
 		// 메모리에 저장이 된 상태 => 컴파일 시에 메모리에 저장 => Method Area
@@ -124,7 +135,9 @@ public class MainClass {
 		// 변경 => 모든 클래스에서 변경된 데이터를 사용
 		for(Movie movie:MovieManager.movies) // movies(public) => 접근이 가능 static => 클래스명으로 접근
 		{
-			
+			System.out.println(movie.getMno()+"."+movie.getTitle());
+			// 값을 출력 / 값을 읽는 경우 : getXxx() / ex) 너 몇 살이야? 나 28살
+			// 값을 저장 / 값을 변경 : setXxx() / ex) 너 이제 25살로 하자
 		}
 	}
 
