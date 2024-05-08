@@ -44,7 +44,7 @@ public class MovieManager {
 	 * 		   aa.a;
 	 * 
 	 * 		static int b;
-	 * 		=> A.a
+	 * 		=> A.a;
 	 */
 	//	static에 대한 초기화 블록
 	static // 컴파일러에 의하여 자동 처리 => 호출하지 않는다 (생성자는 호출해야 된다)
@@ -62,6 +62,21 @@ public class MovieManager {
 			fr.close(); // 파일 닫기
 			
 			// 읽어 온 데이터를 => movies에 저장
+			String[] strMovie=sb.toString().split("\n"); // 한줄씩 배열에 저장
+			i=0;
+			for(String movie:strMovie)
+			{
+				String[] m=movie.split("\\|");
+				movies[i].setMno(m[0]);
+				movies[i].setTitle(m[1]);
+				movies[i].setGenre(m[2]);
+				movies[i].setPoster(m[3]);
+				movies[i].setActor(m[4]);
+				movies[i].setRegdate(m[5]);
+				movies[i].setGrade(m[6]);
+				movies[i].setDirector(m[7]);
+				i++;
+			}
 			
 		}catch(Exception ex) {}
 	}

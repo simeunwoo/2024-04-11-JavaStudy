@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 public class Movie {
 	// 접근지정어 => default => 같은 패키지에서만 접근 이 가능
-	private int mno;
+	private String mno;
 	protected String title;
 	private String genre;
 	private String poster;
