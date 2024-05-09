@@ -193,8 +193,84 @@ package com.sist.main;
  *	옵션 : static : 공통으로 사용 => 한글 변환, 암호화, 복호화 / abstract
  *	리턴형 (요청 결과값) : 기본형, 배열, 클래스
  *	매개변수 (사용자 요청값) : 0 이상 / 매개변수가 없을 수도 있다 => 매개변수가 3개 이상일 경우 추가하지 않고 배열/클래스로 활용
+ *
+ *	=> 경우의 수
+ *	-----------------------------------
+ *				리턴형		매개변수
+ *				요청처리값		사용자요청값
+ *	-----------------------------------
+ *				O			O		=> String
+ *										String substring(int s,int e)
+ *										s부터 e까지 자른 문자열을 달라
+ *	-----------------------------------
+ *				O			X		=> String trim() : 공백을 제거한 문자열
+ *									=> String ToUpperCase() : 대문자로 변환 후의 문자열
+ *	-----------------------------------
+ *				X			O		=> void System.out.println(String s)
+ *										s를 출력하라
+ *										=> 메소드 자체 처리 => 결과값이 없다 : void
+ *										=> 오라클에 추가, 수정, 삭제
+ *	-----------------------------------
+ *				X			X		=> 사용 빈도가 거의 없다
+ *										void System.out.println() : 다음줄에 출력
+ *	-----------------------------------
  *	
  *	= 메소드 호출
+ *		class A
+ *		{
+ *			private int a;
+ *			private int b;
+ *			private static int c; // 저장 : static이 있으면 변수/메소드는 컴파일 시에 저장
+ *			private static int d;
+ *			public void aaa(){}
+ *			public static void bbb(){} // 저장
+ *			public int ccc(){}
+ *			public static void ddd(){} // 저장
+ *		}
+ *
+ *	static 저장 => Method Area
+ *	(시작하자마자 저장)
+ *		0 => c => A.c => 클래스명.변수
+ *		bbb() => A.bbb() => 클래스명.메소드명()
+ *		ddd() => 결과값을 받는다 => int result=A.ddd() => A.ddd()와 같이 리턴형이 있는 경우에는 결과값을 받아서 저장
+ *
+ *	나머지
+ *		A aa=new A();
+ *	
+ *	Stack
+ *	-- aa --
+ *	0x100	=> 메모리 주소에 있는 메소드나 변수를 가지고 온다 => . => aa. (.는 메모리 주소 접근 연산자)
+ *	--------
+ *
+ *	Heap
+ *	-------- 0x100
+ *	0 => a => 객체명.변수명 => aa.a
+ *	--------
+ *	0 => b => aa.b
+ *	--------
+ *	aaa() => 객체명.메소드명() => aa.aaa()
+ *	--------
+ *	ccc() => 리턴형이 있는 경우 : int result=aa.ccc()
+ *	--------
+ *
+ *	메소드 수행
+ *	--------
+ *	public int aaa()
+ *	{
+ *		1. 문장
+ *		2. 문장
+ *		3. 문장
+ *		return 10;
+ *	}
+ *
+ *	int a=aaa() => 호출
+ *	1. 문장
+ *	2. 문장
+ *	3. 문장
+ *	===========> a에 10을 대입한다 === 밑에 문장 수행
+ *	호출 => 메소드에 있는 모든 문장을 수행 => 호출된 위치 복귀
+ *	메소드는 호출 시마다 => 메소드 처음부터 다시 수행
+ *
  * 	------------------------
  * 	=> 패키지 / 임포트
  * 	=> 데이터 보호 : 캡슐화
@@ -209,18 +285,84 @@ package com.sist.main;
  * 			  ----------------------------- 요구 사항 분석 => 구글링 / GPT
  * 	개념 => 자바 / Spring
  * 	자바 면접 => 객체 지향 프로그램 / 예외 처리 / 컬렉션
+ * 
+ * 	*** 프로그램에서는 특별한 경우가 아니면 static 메소드는 사용 빈도가 거의 없다 => 주로 인스턴스 메소드 사용 : 웹
+ * 	static 메소드 사용 : 데이터베이스 / 네트워크 프로그램을 제어
  */
 public class 클래스구성요소_변수 {
 //	int a;
 //	a=100; // 따로 구현하면 오류 발생
 	
-	int a;
+/*	int a;
 	{
 		a=100; // 요런식으로 구현해야 함
+	} */
+	
+	// 저장이 안된 상태 => 인스턴스 (new를 이용하여 저장)
+	/*
+	 * 	인스턴스 : 객체 (인스턴스 == 객체)
+	 * 		클래스의 내용 : 변수, 메소드 => 메모리에 저장한 상태 => 각자 따로 저장 (객체니깐) => new를 이용해야 사용 가능
+	 * 
+	 * 	인스턴스 : 변수, 메소드
+	 * 	static : 변수, 메소드
+	 * 
+	 * 	class A
+	 * 	{
+	 * 		private int a=10; // 객체 자신이 가지고 있는 변수
+	 * 		private static int b=20; // 객체마다 공통으로 사용하고 있는 변수
+	 * 
+	 * 		public void aaa() // 객체 자신이 가지고 있는 메소드
+	 * 		{
+	 * 			=> ccc() / a / b => 사용 가능
+	 * 		}
+	 * 		public static void bbb() // 객체마다 공통으로 사용되는 메소드
+	 * 		{
+	 * 			=> b만 사용 가능 => static에서는 static으로 선언된 변수/메소드만 가능
+	 * 			=> aaa(), bbb(), a
+	 * 			A aa=new A(); => 객체 선언 후 사용 가능
+	 * 		}
+	 * 		public void ccc() // 객체 자신이 가지고 있는 메소드
+	 * 		{
+	 * 			=> aaa() / a / b
+	 * 		}
+	 * 		인스턴스 메소드는 클래스에 있는 모든 데이터/메소드 사용 가능
+	 * 	}
+	 * 
+	 * 	메소드는 호출이 되면 => return이 있는 곳까지 수행
+	 */
+	public void aaa()
+	{
+		System.out.println("aaa() 진입 ...");
+		bbb();
+		System.out.println("aaa() 종료 ...");
+		return;
+	}
+	public void bbb()
+	{
+		System.out.println("bbb() 진입 ...");
+		ccc();
+		System.out.println("bbb() 종료 ...");
+		// return을 생략 (void일 때만 가능) => 자동 추가 => 마지막에 return이 있다고 봐야
+	}
+	public void ccc()
+	{
+		System.out.println("ccc() 진입 ...");
+		System.out.println("ccc() 종료 ...");
+		// return을 생략 (void일 때만 가능) => 자동 추가 => 마지막에 return이 있다고 봐야
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		System.out.println();
+		// 객체 생성 후에 메소드를 사용할 수 있다
+		클래스구성요소_변수 aa=new 클래스구성요소_변수();
+		aa.aaa();
+/*
+aaa() 진입 ...
+bbb() 진입 ...
+ccc() 진입 ...
+ccc() 종료 ...
+bbb() 종료 ...
+aaa() 종료 ...
+ */
 	}
 
 }
