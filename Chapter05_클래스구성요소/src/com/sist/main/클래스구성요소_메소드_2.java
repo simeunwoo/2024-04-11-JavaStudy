@@ -73,7 +73,7 @@ class Diary2{
 	}
   	
 }
-public class 클래스구성요소_메소드2 {
+public class 클래스구성요소_메소드_2 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
