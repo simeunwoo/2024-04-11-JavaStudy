@@ -13,6 +13,7 @@ import lombok.Data;
  * 프랭크 다라본트
  */
 @Data
+// lombok => getter/setter, 생성자와 관련된
 public class Movie {
 	private String rank;
 	private String title;

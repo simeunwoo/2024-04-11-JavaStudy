@@ -38,9 +38,11 @@ public class MovieManager {
 			FileReader fr=new FileReader("c:\\javadev\\movie.txt");
 			int i=0; // fr.read() => 리턴형 : int (문자의 번호를 읽어온다)
 			StringBuffer sb=new StringBuffer(); // 읽어서 데이터를 누적
+//			String data="";
 			while((i=fr.read())!=-1) // -1 : 파일 끝 (EOF)
 			{
 				sb.append((char)i);
+//				data+=(char)i;
 			}
 			// 반드시 파일 닫기
 			fr.close();
@@ -110,13 +112,46 @@ public class MovieManager {
 	}
 	public int movieTotalPage()
 	{
-		return (int)(Math.ceil(movies.length/20.0));
+		return (int)(Math.ceil(movies.length/20.0)); // ceil : 올림
+	}
+	
+	// 상세보기
+	public Movie movieDetailData(int mno)
+	{
+		return movies[mno-1];
+	}
+	
+	// 검색
+	public Movie[] movieFindData(String title)
+	{
+		int count=0;
+		for(Movie m:movies)
+		{
+			if(m.getTitle().contains(title))
+			{
+				count++;
+			}
+		}
+		
+		// 선언 => 갯수 확인 => 데이터값 채우기
+		Movie[] movie=new Movie[count]; // 동적
+		int i=0;
+		for(Movie m:movies)
+		{
+			if(m.getTitle().contains(title))
+			{
+				movie[i]=m;
+				i++;
+			}
+		}
+		
+		return movie;
 	}
 	
 	public static void main(String[] args) {
 		Scanner scan=new Scanner(System.in);
 		MovieManager m=new MovieManager();
-		int total=m.movieTotalPage();
+/*		int total=m.movieTotalPage();
 		// 인스턴스변수나 인스턴스메소드가 훨씬 더 많다 => 99:1
 		System.out.print("1~"+total+" 사이의 페이지 입력:");
 		int page=scan.nextInt();
@@ -126,6 +161,43 @@ public class MovieManager {
 		for(Movie mm:movie)
 		{
 			System.out.println(mm.getRank()+"."+mm.getTitle());
+		} */
+		
+		System.out.print("검색어 입력:");
+		String title=scan.next();
+		
+		Movie[] movie=m.movieFindData(title);
+		for(Movie mm:movie)
+		{
+			System.out.println(mm.getRank()+"."+mm.getTitle());
 		}
+		
+		System.out.println("==================================");
+		System.out.print("상세볼 영화번호:");
+		int mno=scan.nextInt();
+		
+		Movie mmm=m.movieDetailData(mno);
+		// 메소드 (요청 처리 => 기능)
+		// 처리 기능 / 데이터만 있는 클래스 (데이터형)
+		// 파일 / 오라클 => 데이터만 있는 클래스에 값을 채워서 전송
+		System.out.println("순위:"+mmm.getRank());
+		System.out.println("영화명:"+mmm.getTitle());
+		System.out.println("감독:"+mmm.getDirector());
+		System.out.println("출연:"+mmm.getActor());
+		System.out.println("장르:"+mmm.getGenre());
+		System.out.println("개봉일:"+mmm.getRegdate());
+		System.out.println("등급:"+mmm.getGrade());
+		
+		// => 목록 / 상세 보기 / 검색 => 기본
+		
 	}
+	/*
+	 * 	<주력>
+	 * 	데이터 모으기 : Movie => 멤버변수
+	 * 	기능 설정 => 목록 / 상세 / 검색 / 예약 / 댓글 ... => 메소드 => 액션 클래스
+	 * 			데이터 읽기 => 초기화 (전체 목록) => 생성자
+	 * 	다른 클래스에서 활용 : 접근지정어 : private / protected / default => 사용할 수 없다 (접근이 안된다)
+	 * 								public
+	 * 	데이터의 접근 금지로 인하여 => 데이터 기능 설정 메소드 : getXxx()/setXxx() => getter/setter
+	 */
 }
