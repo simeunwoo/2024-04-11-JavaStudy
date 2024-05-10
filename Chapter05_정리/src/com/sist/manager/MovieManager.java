@@ -35,7 +35,7 @@ public class MovieManager {
 		{
 			// 정상적으로 수행 => 명령문
 			// => 예외 처리는 모든 문장에 있다 => 생략 => 파일 입출력 / 네트워크 / 데이터베이스
-			FileReader fr=new FileReader("c:\\javadev\\movie.txt");
+			FileReader fr=new FileReader("c:\\javaDev\\movie.txt");
 			int i=0; // fr.read() => 리턴형 : int (문자의 번호를 읽어온다)
 			StringBuffer sb=new StringBuffer(); // 읽어서 데이터를 누적
 //			String data="";
