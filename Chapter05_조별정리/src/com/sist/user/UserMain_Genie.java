@@ -37,8 +37,8 @@ public class UserMain_Genie {
 			{
 				System.out.print("검색어 입력:");
 				String title=scan.next();
-				Genie[] movie=gm.genieFindData(title);
-				for(Genie g:movie)
+				Genie[] genie=gm.genieFindData(title);
+				for(Genie g:genie)
 				{
 					System.out.println(g.getRank()+"."+g.getTitle());
 				}
