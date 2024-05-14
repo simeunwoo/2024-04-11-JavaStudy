@@ -15,3 +15,4 @@ public class ControllerPanel extends JPanel {
 		add("FIND",fp); // 먼저 설정 시. 배경이 magenta로 나옴
 	}
 }
+
