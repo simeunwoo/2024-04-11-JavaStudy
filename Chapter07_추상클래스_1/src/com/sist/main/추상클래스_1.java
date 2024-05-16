@@ -72,6 +72,9 @@ package com.sist.main;
  * 			-------------------------------
  * 		}
  * 
+ * 		=> 유지 보수가 어려운 경우 => 기능 설정 => 필요 시마다 구현
+ * 		=> 경우의 수가 많은 경우 : 기능은 같다 => 구현이 다른 경우
+ * 
  * 	2) 인터페이스
  * 
  * 	3) 내부 클래스
@@ -112,13 +115,69 @@ package com.sist.main;
  * 					java.lang => String, System, Math, Wrapper ... => 상속 받을 수 없다
  * 					=> public final class String
  */
-import java.util.*;
+//import java.util.*;
+
+abstract class 도형
+{
+	// 그리다 => 선,원,사각,삼각...
+	public abstract void draw(); // 메소드가 구현이 안되면 => 미완성된 클래스 => 메모리에 저장이 불가능
+	// => 상속을 받아서 구현 후 사용
+	// => 여러개의 관련된 클래스를 모아서 관리
+}
+
+class 선 extends 도형
+{
+	/*
+	 *  오버라이딩 => 재정의
+	 *  1. 메소드명이 동일
+	 *  2. 매개 변수가 동일
+	 *  3. 리턴형이 동일
+	 *  4. 접근지정어는 확장이 가능
+	 *  	private : 데이터 보호 목적 => 변수
+	 *  	public : 클래스, 메소드, 생성자 => 다른 클래스와 연결
+	 *  	=> 접근 범위를 늘리는 경우
+	 *  	private < default < protected < public
+	 *  5. 추상 클래스는 반드시 상속을 내려서 => 선언된 메소드를 구현하여 사용 가능 (추상 클래스는 메모리 할당이 불가능)
+	 *  
+	 *  	동물 => 걸어다닌다, 먹는다, 말을 한다 ... => 추상 클래스
+	 *  	|
+	 *  ---------
+	 *  |	|	|
+	 *  개	돼지	인간 => 일반 클래스
+	 */
+	@Override // 오버라이딩
+	public void draw() {
+		System.out.println("선을 그린다");
+	}
+	// 추상 클래스나 인터페이스 상속이 있는 경우에는 반드시 구현이 안된 메소드를 구현하여 사용
+}
+
+class 사각형 extends 도형
+{
+	@Override
+	public void draw() {
+		System.out.println("사각형을 그린다");
+	}
+}
+
 public class 추상클래스_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Calendar cal=Calendar.getInstance(); // java.util.Calendar : 추상 클래스
+	//	Calendar cal=Calendar.getInstance(); // java.util.Calendar : 추상 클래스
 											// 추상클래스는 new를 사용할 수 없다
+/*		선 a=new 선();
+		a.draw(); // 선을 그린다
+		
+		사각형 b=new 사각형();
+		b.draw(); // 사각형을 그린다
+		*/
+		
+		도형 a=new 선();
+		a.draw(); // 선을 그린다
+		
+		a=new 사각형();
+		a.draw(); // 사각형을 그린다
 	}
 
 }
