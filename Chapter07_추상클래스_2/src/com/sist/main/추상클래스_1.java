@@ -20,30 +20,64 @@ package com.sist.main;
  * 			=> 클래스 내에서 생성자를 호출할 때는 this()를 이용한다 => 생성자 내에서만 호출 가능 => 한번만 호출 / 첫줄에 사용
  * 			=> super()는 상속을 받은 경우에 사용
  * 			=> 자동 처리 => 컴파일러에 처리
- * 			1. 모든 클래스는 Object 상속을 받는다 => Object 상속을 생략할 수 있다
- * 				public class A extends Object
- * 				=> Object에서 제공하는 모든 기능 사용이 가능
- * 					=> 객체 비교 : equals()
- * 					=> 소멸자 : finalize()
- * 					=> 복제 : clone()
- * 					=> 주소 출력 : toString()
- * 			2. import가 생략
- * 				import java.lang.*;
- * 					   ~~~~~~~~~~~ String, Math, System ...
- * 			3. 메소드
- * 				void => return을 생략하면 => 자동으로 추가
- * 			4. 상속
- * 				class A
- * 				{
+ * 
+ * 		1. 모든 클래스는 Object 상속을 받는다 => Object 상속을 생략할 수 있다
+ * 			public class A extends Object
+ * 			=> Object에서 제공하는 모든 기능 사용이 가능
+ * 				=> 객체 비교 : equals()
+ * 				=> 소멸자 : finalize()
+ * 				=> 복제 : clone()
+ * 				=> 주소 출력 : toString()
+ * 
+ * 		2. import가 생략
+ * 			import java.lang.*;
+ * 				   ~~~~~~~~~~~ String, Math, System ...
+ * 
+ * 		3. 메소드
+ * 			void => return을 생략하면 => 자동으로 추가
+ * 
+ * 		4. 상속
+ * 			class A
+ * 			{
+ * 			}
+ * 			class B extends A
+ * 			{
+ * 				public B(){
+ * 					super() // 생략 가능
+ * 							// => 생략할 수 없는 내용 :
+ * 							// 상속을 내리는 클래스의 생성자가 매개 변수를 가지고 있는 경우 => 생략 불가
  * 				}
- * 				class B extends A
- * 				{
- * 					public B(){
- * 						super() // 생략 가능
- * 					}
- * 				}
+ * 			}
+ * 			===> super() (상위 클래스의 메모리 할당) => 자신의 메모리 할당
+ * 				super => 상속 받은 변수/메소드
+ * 				this => 추가된 변수/메소드
+ * 				===> this, super에 있는 변수/메소드 사용이 가능
+ * 
+ * 		5. 예외 처리가 생략 => 자바의 모든 클래스는 예외 처리를 가지고 있다
+ * 			예외 처리 : 컴파일 시 처리 : javac / 실행 시 (생략이 가능) : java
+ * 			javac : 파일 입출력, 네트워크, 쓰레드, 데이터베이스, 웹 ...
+ * 			java : 사용자의 입력=>처리, 정수 입력
+ * 
+ * 			에러 방지
+ * 			=> 에러 : 소스 상에서 수정할 수 없는 에러
+ * 				ex) 메모리를 할당할 공간이 없다, 한글이 깨졌다 ...
+ * 			=> 예외 처리 : 소스 상에서 수정 가능한 에러
+ * 				ex) 정수를 입력해야 되는데 실수를 입력했다, 파일명을 잘못 적었다 ...
  * 		-------------------
+ * 		기능 처리 (사용자 요청 처리) => 메소드
+ * 		=> 요청은 한개만 요청이 가능하게 만든다
+ * 		=> 메소드는 반드시 한개 요청에 대한 처리만 한다
+ * 			예) 에러 빈번하게
+ * 			1. 사용자 입력 (요청값 오류)
+ * 			2. 프로그래머의 실수
+ * 	
+ * 		NullPointerException : 윈도우 / ClassCastException : 객체 형변환 / ArrayIndexOutOfBoundsException : 배열 범위 초과
  * 		-------------------
+ * 		메소드 : 구현을 반드시 해야된다
+ * 			선언부
+ * 			{
+ * 
+ * 			} // 메모리 저장
  * 	}
  * 
  * 	추상 클래스 : 사용자 정의는 거의 없다 => 확장된 개념 (인터페이스)
@@ -53,17 +87,37 @@ package com.sist.main;
 
 class A
 {
-	
+//	public A(){} // 생성자 생략 가능
 }
 class B extends A
 {
 
 	public B() {
-		super();
+//		super(); // super() 생략 가능
 	}
 	
 }
-
+class C
+{
+	public C(int a)
+	{
+		
+	}
+}
+// D : 하위 클래스 => this, super / C : 상위 클래스 => this, super
+// 상속을 받아서 새로운 확장된 클래스를 만들어서 사용
+class D extends C
+{
+	public D()
+	{
+		super(10); // 상위 클래스에 매개 변수가 있는 경우에는 반드시 super를 이용하여 호출해야 사용 가능
+		// 사용자 정의는 거의 없다 => 라이브러리에서 호출 시에 반드시 super() 호출
+		// super(), this() => 생성자 내에서 호출이 가능, 반드시 첫줄에서 호출한다
+		// super()와 this() 둘중에 한개만 호출 가능 (동시에 호출 불가능)
+		// 상위 클래스 제어 => super, 생성자 super()
+		// 자신 클래스 제어 => this, 생성자 this()
+	}
+}
 public class 추상클래스_1 {
 
 	public static void main(String[] args) {
