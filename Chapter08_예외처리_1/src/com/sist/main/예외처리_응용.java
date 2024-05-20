@@ -117,8 +117,10 @@ public class 예외처리_응용 extends JFrame implements ActionListener {
 				// 다시 처음부터 동작을 하게 만든다
 				return; // 메소드에서 return 사용 시 => 메소드가 종료
 			}
+			// 메소드는 return이 있는 곳에서 종료 => 항상 마지막 줄에 있는 것은 아니다 ...
 			// 비교
 			compare();
+		//	return; // 생략되어 있었음
 		}
 	}
 
