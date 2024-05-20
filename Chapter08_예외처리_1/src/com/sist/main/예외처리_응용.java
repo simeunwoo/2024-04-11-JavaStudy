@@ -120,7 +120,7 @@ public class 예외처리_응용 extends JFrame implements ActionListener {
 			// 메소드는 return이 있는 곳에서 종료 => 항상 마지막 줄에 있는 것은 아니다 ...
 			// 비교
 			compare();
-		//	return; // 생략되어 있었음
+		//	return; // 생략되어 있었음 (맨 마지막의 return만 생략 가능)
 		}
 	}
 
