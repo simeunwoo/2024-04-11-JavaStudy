@@ -17,14 +17,15 @@ public class ClientMain extends JFrame implements ActionListener { // ActionList
 		
 		add("Center",cp);
 		// 윈도우 크기
-		setSize(800,600);
-		setVisible(true);
+		setSize(800,600); // setSize : JFrame의 크기 설정
+		setVisible(true); // setVisible : JFrame의 표시 여부 설정
 		// 최대화 버튼 삭제 => 윈도우 크기 고정
-		setResizable(false);
+		setResizable(false); // setResizable : JFrame의 크기를 사용자가 바꿀 수 있느냐 여부 설정
 		// X 버튼 클릭 시 메모리 회수 => 종료
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(EXIT_ON_CLOSE); // setDefaultCloseOperation : JFrame의 닫기 버튼을 클릭했을 때 동작 설정
 		
-		mp.b1.addActionListener(this); // b1 버튼을 클릭하면 => actionPerformed를 호출
+		mp.b1.addActionListener(this); // addActionListener : JButton에 클릭 이벤트
+		// b1 버튼을 클릭하면 => actionPerformed를 호출
 		mp.b2.addActionListener(this);
 		mp.b6.addActionListener(this);
 	}
@@ -50,8 +51,8 @@ public class ClientMain extends JFrame implements ActionListener { // ActionList
 		}
 		else if(mp.b6==e.getSource())
 		{
-			JOptionPane.showMessageDialog(this, "나가");
-			System.exit(0);
+			JOptionPane.showMessageDialog(this, "나가"); // JOptionPane : 표준 대화 상자 생성
+			System.exit(0); // System.exit : 프로그램 실행 중단, JVM 종료
 		}
 	}
 
