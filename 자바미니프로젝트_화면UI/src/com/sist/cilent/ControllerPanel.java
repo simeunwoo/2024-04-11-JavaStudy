@@ -10,7 +10,7 @@ public class ControllerPanel extends JPanel {
 	
 	public ControllerPanel()
 	{
-		setLayout(card);
+		setLayout(card); // setLayout : 컨테이너(ex) JFrame, JPanel ...)에 레이아웃 매니저를 설정하는데 사용되는 메서드
 		add("HOME",hp); // 먼저 설정 시, 배경이 blue로 나옴
 		add("FIND",fp); // 먼저 설정 시. 배경이 magenta로 나옴
 	}

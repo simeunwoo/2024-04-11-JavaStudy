@@ -5,6 +5,6 @@ import javax.swing.*;
 public class FindPanel extends JPanel {
 	public FindPanel()
 	{
-		setBackground(Color.magenta);
+		setBackground(Color.magenta); // setBackground : 배경색 설정
 	}
 }
