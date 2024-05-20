@@ -47,10 +47,10 @@ public class Login extends JFrame {
 	/*
 	 * 	모든 멤버 변수는 private이 아니다 => 라이브러리는 public으로 설정
 	 */
-	public JLabel la1, la2;
-	public JTextField tf;
-	public JPasswordField pf;
-	public JButton b1, b2;
+	public JLabel la1, la2; // JLabel : 텍스트나 이미지 표시
+	public JTextField tf; // JTextField : 사용자에게 한줄의 텍스트 입력을 받을 때 사용
+	public JPasswordField pf; // JPassworldField : 사용자에게 패스워드 입력을 받을 때 사용
+	public JButton b1, b2; // JButton : 사용자가 클릭할 수 있는 버튼을 생성
 	
 	// 초기화 => 화면 배치 => 생성자 => 다른 클래스와 연결 => public
 	public Login()
