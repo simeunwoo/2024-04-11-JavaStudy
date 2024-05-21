@@ -73,6 +73,18 @@ package com.sist.main;
  * 	=> 예외 처리의 상속도
  * 		반드시 예외 처리 : CheckedException : 컴파일 시 예외 처리 확인
  * 		필요 시 예외 처리 : UnCheckedException : 실행 시 처리 (사용자 입력값을 받아서 ...)
+ * 	=> 상속도
+ * 		Object => java.lang.* => 모든 클래스의 최상위 클래스 (모든 클래스는 Object 상속)
+ * 		|
+ * 		Throwable => 예외 처리의 최상위 클래스 => Error / Exception
+ * 		|
+ * 		---------------------------------
+ * 		|								|
+ * 		Error							Exception => 예외 처리의 기본 클래스
+ * 										|
+ * 		---------------------------------
+ * 		|								|
+ * 		CheckedException				UnCheckedException
  */
 public class 예외처리_1 {
 
