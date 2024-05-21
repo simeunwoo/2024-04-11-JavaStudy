@@ -116,8 +116,8 @@ package com.sist.main;
  * 			=> Integer.ParseInt() => 문자열을 정수로 변환
  * 			=> Integer : 기본형 int를 사용하기 쉽게 => 클래스화 (Double, Boolean, Float, Byte : 기본 데이터형을 클래스화 : Wrapper)
  * 		=> ArithmeticException : 0으로 나누기
- * 		=> NullPointerException
- * 		=> ClassCastException
+ * 		=> NullPointerException : 변수가 null일 때 관련
+ * 		=> ClassCastException : 객체를 잘못된 타입으로 캐스팅
  * 	
  * 	라이브러리
  * 	java.lang : 기본 사용 클래스

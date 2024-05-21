@@ -120,7 +120,7 @@ public class 라이브러리_1 {
 [100, 200, 300]
  */
 		int[] arr= {10,20,30};
-		int[] temp=arr.clone(); // clone : 복제 + 새로운 메모리 생성
+		int[] temp=arr.clone(); // clone : 복제 + 새로운 메모리 생성 => 복제하면 => 2개 => 처음엔 똑같은 상태지만 나중엔 별개가 될 수 있다
 		System.out.println("=== arr ===");
 		System.out.println(Arrays.toString(arr));
 		System.out.println(arr);

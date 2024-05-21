@@ -10,6 +10,15 @@ public class ClientMain extends JFrame implements ActionListener { // ActionList
 		// 배치
 	//	add("North",mp); // => North, South, West, East, Center => BorderLayout (JFrame)
 		setLayout(null);
+		/*
+		 * 	setLayout => 레이아웃
+		 * 
+		 *  FlowLayout : 컴포넌트를 좌에서 우로 순서대로 배치
+		 *  BorderLayout : 컴포넌트를 동, 서, 남, 북, 중앙에 배치
+		 *  GridLayout : 컴포넌트를 격자 형태로 배치
+		 *  BoxLayout : 컴포넌트를 수직 또는 수평으로 정렬
+		 *  CardLayout : 카드를 넘기듯 컴포넌트를 전환
+		 */
 		mp.setBounds(150, 15, 600, 50);
 		add(mp);
 		cp.setBounds(0, 50, 800, 530);
