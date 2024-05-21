@@ -61,13 +61,15 @@ package com.sist.lang;
  *  	Object
  *  	1) 모든 클래스의 상속을 내린 클래스 (최상위 클래스) => extends Object가 생략되어 있음
  *  	2) Object가 가지고 있는 기능 (제공된 메소드)
- *  		= toString() => 객체를 문자열로 변환 => String
+ *  		= toString() *** => 객체를 문자열로 변환 => String
  *  			원형) public String toString()
  *  			=> 문자열 변환 => (String), toString(), valueOf()
- *  		= clone() => 메모리를 복제 (새로운 메모리 생성)
+ *  		= clone() *** : 메모리를 복제 (새로운 메모리 생성) =============> (Ctrl+C) + (Ctrl+V) 느낌
  *  					 참조 => 공동으로 사용
  *  					 => 메모리 주소 이용 (배열/클래스)
  *  					 => 아바타
+ *  		= finalize() : 소멸자 => 메모리에서 해제 => 자동으로 호출
+ *  		= 객체 비교 : equals(), hashCode() ***
  *  	class A
  *  	{
  *  		int a;
