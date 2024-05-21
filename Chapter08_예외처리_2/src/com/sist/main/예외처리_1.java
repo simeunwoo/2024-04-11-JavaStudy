@@ -78,8 +78,8 @@ package com.sist.main;
  * 		|
  * 		Throwable => 예외 처리의 최상위 클래스 => Error / Exception
  * 		|
- *      ---------------------------------
- *      |                               |
+ *		---------------------------------
+ *		|								|
  * 		Error							Exception => 예외 처리의 기본 클래스
  * 										|
  * 		---------------------------------
@@ -97,9 +97,204 @@ package com.sist.main;
  * 			=> 입력값 오류
  * 			=> 자바 (입력값 전송) => 오라클에서 결과값 얻기
  * 			=> 오라클 : 전체 프로그램에서 사용되는 데이터를 저장
+ * 		=> MalFormedURLException : IP, URL 주소가 틀린 경우
+ * 		   ---------------------
+ * 			크롤링 (정적 : Jsoup / 동적 : 셀레니움)
+ * 		=> InterruptedException : 쓰레드
+ * 		=> ClassNotFoundException : 클래스 이름으로 메모리 할당 (new 사용 안한다)
+ * 
+ * 		----------------------------------------------------------------
+ * 
+ * 		UnCheckException
+ * 		컴파일 시에 예외 처리 미확인
+ * 		=> 필요 시에만 예외 처리 사용 (생략 가능)
+ * 
+ * 		=> RunTimeException : 최상위 클래스
+ * 		=> ArrayIndexOutOfBoundsException : 배열의 인덱스 초과
+ * 		=> NumberFormatException : 웹, 윈도우
+ * 			=> 정수가 필요한데 웹이나 윈도우는 문자열만 전송 => 정수로 변환 후에 사용
+ * 			=> Integer.ParseInt() => 문자열을 정수로 변환
+ * 			=> Integer : 기본형 int를 사용하기 쉽게 => 클래스화 (Double, Boolean, Float, Byte : 기본 데이터형을 클래스화 : Wrapper)
+ * 		=> ArithmeticException : 0으로 나누기
+ * 		=> NullPointerException
+ * 		=> ClassCastException
+ * 	
+ * 	라이브러리
+ * 	java.lang : 기본 사용 클래스
+ * 		= Object, String, StringBuffer, Math, Wrapper
+ * 	java.util : 유용하게 사용하는 클래스
+ * 		= StringTokenizer, Calendar, Date, Scanner
+ * 		*** List / Set / Map => 컬렉션
+ * 	java.io : 파일
+ * 		= FileReader, FileWriter
+ * 	java.sql
+ * 		= Connection, Statement, ResultSet
+ * 
+ * 	=> 사용법
+ * 
+ * 	1) try ~ catch ~ finally
+ * 
+ * 		try
+ * 		{
+ * 			정상적으로 실행되는 소스
+ * 			=> 예상 못한 에러가 발생할 수 있다 => 프로그래머의 실수 / 사용자 입력의 문제
+ * 			=> 프로그램에서 중요 시, 에러에 대한 대비 : 에러를 예상
+ * 		}catch(예외 처리 클래스) => 멀티 (여러개 사용이 가능)
+ * 		{
+ * 			에러를 잡아서 복구 => 에러 확인 : getMessage() : 에러 메세지만 출력, printStackTrace() : 실행하는 과정 => 에러 위치 확인 (권장)
+ * 		}
+ * 		finally => 생략 가능
+ * 		{
+ * 			try/catch 상관 없이 무조건 수행하는 문장
+ * 			=> 파일 닫기, 오라클 닫기, 서버 닫기 ...
+ * 			=> 연결 => 회수 (메모리 회수가 안된다)
+ * 		}
+ * 
+ * 	2) throws => 선언, 라이브러리
+ * 
+ * 		메소드() throws 예외 처리 등록 => 떠맡기기
+ * 		=> 메소드를 호출하려면 등록 예외 처리를 하고 사용
+ * 
+ * 		# 이미 소스가 만들어진 경우
+ * 
+ * 		void disp()
+ * 		{
+ * 			1
+ * 			2
+ * 			try
+ * 			{
+ * 			3
+ * 			4
+ * 			5
+ * 			}catch(Exception e)
+ * 			{
+ * 			6
+ * 			7
+ * 			8
+ * 			}
+ * 		}
+ * 
+ * 		===> 밑의 방법이 더 간편함
+ * 
+ * 		void disp() throws Exception
+ * 		{
+ * 			1
+ * 			2
+ * 			
+ * 			3
+ * 			4
+ * 			5
+ * 			
+ * 			6
+ * 			7
+ * 			8
+ * 		}
+ * 
+ * 		=> throws 문장
+ * 
+ * 		public void disp() throws ArrayIndexOutOfBoundsException, NumberFormatException, NullPointerException
+ * 		{
+ * 		}
+ * 		=> 호출 시에 등록된 예외 처리를 한 후에 사용한다
+ * 
+ * 		public void print()
+ * 		{
+ * 			disp(); => 정상 수행 (예외 처리가 없어도 된다) => UnCheckedException
+ * 		}
+ * 
+ * 		------------------------------------------------------------------------
+ * 
+ * 		public void disp() throws Exception
+ * 		{
+ * 		}
+ * 
+ * 		public void print()
+ * 		{
+ * 			disp(); => 오류 발생
+ * 		}
+ * 
+ * 		------------------------------------------------------------------------
+ *
+ *		// 1. 떠맡긴다, 2. 직접 처리
+ *		public void print() throws Exception => 시스템에 알려만 준다
+ *		{
+ *		}
+ *
+ *		public void print()
+ *		{
+ *			try
+ *			{
+ *				disp();
+ *			}catch(Exception ex){} => 예외 처리 후에 사용
+ *		}
+ *
+ *		------------------------------------------------------------------------
+ *
+ *		public void disp() throws IOException, SQLException, InterruptedException, ClassNotFoundException
+ *		{
+ *		}
+ *
+ *		public void print()
+ *		{
+ *			try
+ *			{
+ *				disp();
+ *			}catch(Exception ex){}
+ *		}
+ *		
+ * 		=> 예외 처리를 Exception을 사용함으로서 예외 처리 통합이 가능해지면서 간편해짐
+ * 		=> 라이브러리 => 이미 소스 코딩이 되어 있는 상태 => try~catch보다 throws가 편리하다 : 유지 보수
  */
 public class 예외처리_1 {
-
+	// display() 호출 시에 => 이런 에러가 발생할 수 있다 (예상)
+	// 사용 시에는 반드시 예외 처리를 하고 사용한다
+	// throws 뒤에는 예외 등록 => 순서가 없다
+	// throws 뒤에 예외 등록은 보통 => CheckException
+	/*
+	 * 	try ~ catch : 초기화 블록, 생성자, 메소드에서 사용 가능
+	 * 	throws : 생성자, 메소드에서만 사용 가능
+	 * 	*** 권장 => 가급적이면 try ~ catch를 사용한다
+	 * 	*** 라이브러리는 프로그래머에게 처리 요청 => throws 문장으로 메소드 정의
+	 */
+	public void display() throws ArrayIndexOutOfBoundsException, NumberFormatException, NullPointerException,
+								IllegalArgumentException
+								{}
+	public void print() throws ArrayIndexOutOfBoundsException, NumberFormatException, NullPointerException,
+	IllegalArgumentException
+	{display();}
+	public void print2() throws Exception
+	{display();
+	}
+	public void print3()
+	{display();} // UnCheckedException => 생략이 가능
+	public void print4()
+	{
+		try
+		{
+			
+		}
+		catch(ArrayIndexOutOfBoundsException e) {}
+		catch(NumberFormatException e) {}
+		catch(NullPointerException e) {}
+		catch(IllegalArgumentException e) {}
+	}
+	public void print5()
+	{
+		try
+		{
+			display();
+		}catch(Exception e) {}
+	}
+	
+	public void disp() throws Exception
+	{
+		
+	}
+	// 예외 처리는 축소할 수 없다 => 상속도
+/*	public void print6() throws IOException => 오류 
+	{
+		disp();
+	} */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
