@@ -78,7 +78,7 @@ package com.sist.main;
  * 		|
  * 		Throwable => 예외 처리의 최상위 클래스 => Error / Exception
  * 		|
- * 		---------------------------------
+ *      ---------------------------------
  *      |                               |
  * 		Error							Exception => 예외 처리의 기본 클래스
  * 										|
