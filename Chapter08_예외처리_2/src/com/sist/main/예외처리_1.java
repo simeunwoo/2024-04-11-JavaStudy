@@ -210,7 +210,7 @@ package com.sist.main;
  * 
  * 		public void print()
  * 		{
- * 			disp(); => 오류 발생
+ * 			disp(); => 오류 발생 => Exception 내에는 CheckedException 부분도 있으므로 => 예외 처리를 반드시 해야 한다
  * 		}
  * 
  * 		------------------------------------------------------------------------
