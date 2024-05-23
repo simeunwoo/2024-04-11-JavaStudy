@@ -149,11 +149,37 @@ package com.sist.util;
  *
  *	*** 웹의 3대 클래스 : String / ArrayList / Integer
  */
+// 323page
+// Ramdom => 임의로 추출 => 정수
+/*
+ * 	정수 => nextInt() => 정수형 전체 => 0 ~ 21억 4천
+ *        ----------
+ *        nextInt(10) => 0 ~ 9
+ *        nextInt(46) => 0 ~ 45
+ */
+import java.util.*;
 public class 라이브러리_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Random r=new Random();
+	//	int num=r.nextInt(10); // 0 ~ 9 => 사이의 정수를 임의로 추출
+//		System.out.println(num); // 3 (임의의 정수 추출됨)
+		
+		// A ~ Z => 10개 발생 => 알파벳 26자, 번호는 65번부터
+		for(int i=1;i<=10;i++)
+		{
+			char c=(char)(r.nextInt(26)+65);
+			System.out.print(c+" "); // W U S Z A X D G M B 
+		}
+		
+		System.out.println();
+		
+		for(int i=1;i<=6;i++)
+		{
+			int lotto=r.nextInt(45)+1;
+			System.out.print(lotto+" "); // 18 32 45 44 6 24 
+		}
 	}
 
 }
