@@ -47,6 +47,8 @@ INSERT INTO member VALUES('simeunwoo','1234','심은우','남자',25,'010-2392-2
 		sql="INSERT INTO member VALUES(''{0}'',''{1}'',''{2}'',''{3}'',{4},''{5}'',''{6}'')";
 		Object[] obj= {id,pwd,name,sex,age,tel,addr};
 		System.out.println(MessageFormat.format(sql, obj));
+		// sql="INSERT INTO member VALUES(?,?,?,?,?,?,?)";
+		// => 오라클 => 저장
 /*
 ID 입력:simeunwoo
 비밀 번호 입력:1234
@@ -58,6 +60,23 @@ ID 입력:simeunwoo
 INSERT INTO member VALUES('simeunwoo','1234','심은우','남자',25,'010-2392-2240','경기도')
 INSERT INTO member VALUES('simeunwoo','1234','심은우','남자',25,'010-2392-2240','경기도')
  */
+		/*
+		 * 	*** 날짜 => SimpleDateFormat
+		 * 	*** 정수 => DecimalFormat
+		 * 	출력 => MessageFormat
+		 * 
+		 * 	=> util
+		 * 		= Random
+		 * 		= StringTokenizer => 네트워크 (채팅)
+		 *        ---------------
+		 *        개수가 적은 것은 상관 없다
+		 *        많은 경우에 문제 발생
+		 */
+		String s="admin|1234|홍길동";
+		StringTokenizer st=new StringTokenizer(s,"|");
+		System.out.println(st.nextToken()); // admin
+		System.out.println(st.nextToken()); // 1234
+		System.out.println(st.nextToken()); // 홍길동
 	}
 
 }
