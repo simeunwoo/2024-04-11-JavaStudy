@@ -46,9 +46,15 @@ package com.sist.util;
  *	= Vector
  *		네트워크의 접속자 정보 저장 
  *		=> 동기적인 방식 => 접속 속도가 늦다
- *			
+ *		=> 한번 (네트워크 => 서버)
  *	= Stack
+ *		LIFO 구조 (Last In First Out)
+ *		=> 변수 저장
+ *		=> 사용을 권장하지 않는다
  *	= LinkedList
+ *		추가, 삭제가 빠르다
+ *		접근 속도가 늦다
+ *		C언어 호환
  *	= Queue : FIFO 구조 => 네트워크 전송, 운영 체제 스케쥴러
  *
  *	### Set : 인터페이스
@@ -90,6 +96,7 @@ package com.sist.util;
  *  => 필요 시에는 매개 변수 / 리턴형을 프로그램에 맞게 변경이 가능하게 만들어준다 => 제네릭
  *  									=> 데이터형을 한번 통일화 (라이브러리 자체 매개 변수 / 리턴형)
  *  									=> 간결하다, 가독성 (어떤 데이터를 저장해서 관리하는지 알 수 있다)
+ *  									=> 형변환이 필요 없다
  *  ArrayList list=new ArrayList()
  *  
  *  ArrayList<String> list=new ArrayList<String>() => String을 저장
@@ -97,6 +104,15 @@ package com.sist.util;
  *  ArrayList<Movie> list=new ArrayList<Movie>()
  *  
  *  *** 데이터를 모아서 관리 => 한개를 저장 권장
+ *  
+ *  자료 구조 : 메모리에서 데이터 관리
+ *  	=> 추가 : *** add() => 데이터베이스 (오라클) => 데이터 담기
+ *  	=> 삭제 : remove()
+ *  	=> 읽기 : *** get() => 화면 => 데이터 읽기 => HTML을 이용하여 브라우저 출력
+ *  	=> 수정 : set()
+ *  	=> 전체 삭제 : clear()
+ *  	=> 저장 개수 : *** size() => for를 이용하여 출력 횟수 확인
+ *  	--------------> 대부분은 데이터가 오라클에 저장 => 오라클 안에서 제어
  *	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *	오라클
  *	= 데이터 검색 (읽기) : SELECT
@@ -120,11 +136,58 @@ package com.sist.util;
  *	------------------------------------ 통합 => 프레임워크 (스프링) => 라이브러리 (MyBatis, JPA)
  *	=> 기본 조립 => 라이브러리 + 메소드 사용법
  */
+import java.util.*;
 public class 컬렉션_1 {
-
+	// 데이터를 모아서 처리 => 같은 데이터형을 모아서 처리 => 효율적 => 제네릭
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+//		ArrayList<String> list=new ArrayList<String>();
+		// 문자열만 저장해서 관리
+		// add(Object) => add(String) => 사용자 정의 데이터형으로 변경 가능
+		// => 가급적이면 1개의 데이터형을 저장한다 => 데이터형이 통일 => 반복문 수행이 가능하다
+		
+		ArrayList list=new ArrayList();
+		list.add("홍길동"); // 0
+		list.add(10); // 1
+		list.add(10.5); // 2
+		list.add(true); // 3
+		list.add('A'); // 4
+		
+		for(int i=0;i<list.size();i++)
+		{
+			if(i==0)
+			{
+				String name=(String)list.get(i);
+				System.out.println(name);
+			}
+			else if(i==1)
+			{
+				int no=(int)list.get(i);
+				System.out.println(no);
+			}
+			else if(i==2)
+			{
+				double d=(double)list.get(i);
+				System.out.println(d);
+			}
+			else if(i==3)
+			{
+				boolean b=(boolean)list.get(i);
+				System.out.println(b);
+			}
+			else if(i==4)
+			{
+				char c=(char)list.get(i);
+				System.out.println(c);
+			}
+		}
+/*
+홍길동
+10
+10.5
+true
+A
+ */
 	}
 
 }
