@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *	2. 기능 (메소드) => 라이브러리는 메소드
  *		1) *** 추가 => add(데이터)
  *		2) 수정 => set(int index,데이터)
- *		3) *** 삭제 => remove(int index)
+ *		3) 삭제 => remove(int index)
  *		4) *** 저장 개수 => size() => 댓글, 장바구니 ...
  *		5) *** 읽기 => get(int index)
  *		6) *** 전체 삭제 : clear()
