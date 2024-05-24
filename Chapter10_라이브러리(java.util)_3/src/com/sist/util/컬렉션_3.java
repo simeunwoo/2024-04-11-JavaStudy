@@ -2,7 +2,7 @@ package com.sist.util;
 import java.util.*;
 // 사용자 정의
 public class 컬렉션_3 {
-class Student
+static class Student
 {
 	private int hakbun;
 	private String name;
@@ -68,7 +68,135 @@ class A
 }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		ArrayList<Student> list=new ArrayList<Student>();
+		// Object => Student 변경
+		list.add(new Student(1, "홍길동", 90, 80, 70));
+		list.add(new Student(2, "박문수", 70, 87, 73));
+		list.add(new Student(3, "이순신", 74, 90, 70));
+		list.add(new Student(4, "이산", 22, 65, 77));
+		list.add(new Student(5, "심청이", 90, 40, 85));
+		System.out.println("=== 데이터 출력 ===");
+		// 배열/컬렉션 => for-each를 이용하여 출력
+		/*
+		 * 	%d => 정수
+		 * 	%f => 실수
+		 * 	%c => 문자
+		 * 	%s => 문자열
+		 * 
+		 * 	%-3d
+		 * 		000
+		 * 		1--
+		 * 
+		 * 	%3d
+		 * 		000
+		 * 		--1
+		 */
+		for(Student std:list)
+		{
+			// 서식이 있는 출력 => 출력 형식을 만들어서 처리
+			System.out.printf("%-3d%-5s%-5d%-5d%-5d\n",
+					std.getHakbun(),std.getName(),std.getKor(),std.getEng(),std.getMath());
+			// 웹 => String.format("%-3d%-5s%-5d%-5d%-5d\n")
+		}
+/*
+=== 데이터 출력 ===
+1  홍길동  90   80   70   
+2  박문수  70   87   73   
+3  이순신  74   90   70   
+4  이산   22   65   77   
+5  심청이  90   40   85  
+ */
+		
+		System.out.println("=== 데이터 추가 ===");
+		
+		// Student 추가
+		Student s=new Student();
+		
+		s.setHakbun(6);
+		s.setName("강감찬");
+		s.setKor(78);
+		s.setEng(90);
+		s.setMath(100);
+		list.add(s);
+		
+		for(Student std:list)
+		{
+			
+			System.out.printf("%-3d%-5s%-5d%-5d%-5d\n",
+					std.getHakbun(),std.getName(),std.getKor(),std.getEng(),std.getMath());
+			
+		}
+/*
+=== 데이터 추가 ===
+1  홍길동  90   80   70   
+2  박문수  70   87   73   
+3  이순신  74   90   70   
+4  이산   22   65   77   
+5  심청이  90   40   85   
+6  강감찬  78   90   100 
+ */
+		
+		System.out.println("=== 데이터 추가 2 ===");
+		list.add(new Student(7, "춘향이", 89, 80, 91));
+		
+		for(Student std:list)
+		{
+			
+			System.out.printf("%-3d%-5s%-5d%-5d%-5d\n",
+					std.getHakbun(),std.getName(),std.getKor(),std.getEng(),std.getMath());
+			
+		}
+/*
+=== 데이터 추가 2 ===
+1  홍길동  90   80   70   
+2  박문수  70   87   73   
+3  이순신  74   90   70   
+4  이산   22   65   77   
+5  심청이  90   40   85   
+6  강감찬  78   90   100  
+7  춘향이  89   80   91  
+ */
+		
+		System.out.println("=== 데이터 출력 ===");
+		
+		for(int i=0;i<list.size();i++)
+		{
+			Student std=list.get(i); // 형변환 없이 사용 가능
+			System.out.printf("%-3d%-5s%-5d%-5d%-5d\n",
+					std.getHakbun(),std.getName(),std.getKor(),std.getEng(),std.getMath());
+			
+		}
+/*
+=== 데이터 출력 ===
+1  홍길동  90   80   70   
+2  박문수  70   87   73   
+3  이순신  74   90   70   
+4  이산   22   65   77   
+5  심청이  90   40   85   
+6  강감찬  78   90   100  
+7  춘향이  89   80   91  
+ */
+		
+		System.out.println("=== 학생 수정 ===");
+		list.set(1, new Student(2,"수정",90,96,97));
+		
+		for(int i=0;i<list.size();i++)
+		{
+			Student std=list.get(i); // 형변환 없이 사용 가능
+			System.out.printf("%-3d%-5s%-5d%-5d%-5d\n",
+					std.getHakbun(),std.getName(),std.getKor(),std.getEng(),std.getMath());
+			
+		}
+/*
+=== 학생 수정 ===
+1  홍길동  90   80   70   
+2  수정   90   96   97   
+3  이순신  74   90   70   
+4  이산   22   65   77   
+5  심청이  90   40   85   
+6  강감찬  78   90   100  
+7  춘향이  89   80   91 
+ */
 	}
 
 }
