@@ -90,6 +90,10 @@ static class Student
 		 * 
 		 * 	상속 : 상속을 내리는 클래스 > 상속을 받는 클래스
 		 * 	포함 : 포함하고 있는 클래스 > 포함되어 있는 클래스
+		 * 
+		 * 	instanceof
+		 * 	=> 예)
+		 *	animal instanceof Animal: animal 객체가 Animal 클래스의 인스턴스인지 확인
 		 */
 	}
 

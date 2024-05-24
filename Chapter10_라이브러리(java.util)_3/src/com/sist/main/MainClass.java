@@ -38,7 +38,7 @@ public class MainClass {
 		
 		Set<String> mTemp=new HashSet<String>();
 		mTemp.addAll(melon);
-		mTemp.remove(genie);
+		mTemp.removeAll(genie);
 		
 		for(String title:mTemp)
 		{
