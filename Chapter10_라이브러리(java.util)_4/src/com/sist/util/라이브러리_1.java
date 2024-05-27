@@ -119,18 +119,99 @@ package com.sist.util;
  *  		중복 없는 데이터를 저장
  *  		웹에서 채팅을 할 때 => 접속자 관리
  *  		add(), remove(), clear(), isEmpty()
- *  	=> TreeSet : 검색 속도가 빠르다 => 애플리케이션
+ *  	=> TreeSet
+ *  		검색 속도가 빠르다 => 애플리케이션
  *  
- *  # Map
+ *  # Map (349page)
+ *  	key, value => 동시에 저장
+ *  	---------- 우편 변호 (우편 번호, 실제 주소)
+ *  	key : 중복이 불가능
+ *  	value : 중복이 가능
+ *  	Map<K,V>
+ *  	= K => key
+ *  	= V => value
+ *  	= T => type
+ *  	= E => element
+ *  	ArrayList<E>
+ *  	Vector<E>
+ *  	Set<E>
+ *  
+ *  	1) 사용처
+ *  		= Spring : 클래스 관리 (생성~소멸) => 클래스 저장 (사용자)
+ *  		= 웹 : 전송 / 응답 / 저장(클라이언트:Cookie,서버:Session)
+ *  		= MyBatis : 키->id, 값->sql
+ *  	2) 주요 기능
+ *  		= put() : 저장 => put(키,값)
+ *  		= get() : 읽기 => get(키)
+ *  		= clear() : 전체 삭제
+ *  	3) 순서가 없다
+ *  		= 키 => 구분자로 사용
+ *  		= 값 => 모든 값을 설정할 수 있다
+ *  -----------------------------------------
+ *  ArrayList가 여러개 있는 경우
+ *  = 차집합 => removeAll() => MINUS
+ *  = 교집합 => retainAll() => INTERSECT
+ *  = 합집합 => addAll() => UNION
+ *  -------------------------------------> 오라클 : JOIN
+ *  오라클
+ *  => 로직이 없다 (제어문이 없다) : 명령문 => SQL / PL~SQL
  *  
  *  # Properties
+ *  	파일 => .properties => 파일 읽기
+ *  	데이터베이스 정보
+ *  	map 형식
+ *  	=> 변수(key)=값 : 보안 유지
+ *  	=> MyBatis
  *  		
  */
+import java.util.*;
 public class 라이브러리_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		Map<String,String> map=new HashMap<String, String>();
+		// key:String, value:String => key는 보통 String(구분)을 많이 쓴다
+		map.put("id", "admin");
+		map.put("pwd", "1234");
+		map.put("name", "홍길동");
+		map.put("sex", "남자");
+		map.put("age", String.valueOf(20));
+		map.put("pwd", "4567");	// key가 중복되면 => 덮어 쓴다 => 중복을 허용하지 않는다 => Cookie
+		// 값을 읽어 온다
+	/*	System.out.println("아이디:"+map.get("id")); // 아이디:admin
+		System.out.println("비밀 번호:"+map.get("pwd")); // 비밀 번호:4567
+		System.out.println("이름:"+map.get("name")); // 이름:홍길동
+		System.out.println("성별:"+map.get("sex")); // 성별:남자
+		System.out.println("나이:"+map.get("age")); // 나이:20
+		*/
+	/*	Set<String> s=map.keySet(); // key만 저장 => Set 이용 이유는 중복을 허용하면 안되기 때문
+		for(String ss:s)
+		{
+			System.out.println(ss+":"+map.get(ss));
+		} */
+/*
+sex:남자
+name:홍길동
+id:admin
+pwd:4567
+age:20
+*/
+		Set s=map.keySet();
+		for(Object ss:s)
+		{
+			String key=(String)ss;
+			System.out.println(key+":"+map.get(key));
+		}
+		
+/*
+sex:남자
+name:홍길동
+id:admin
+pwd:4567
+age:20
+ */
+		// Set : 순서가 없다 => 가급적이면 출력 시에 List를 이용 (순차적이다)
+		// => Map은 클래스 관리
 	}
 
 }
