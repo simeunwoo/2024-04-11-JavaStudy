@@ -32,7 +32,7 @@ package com.sist.io;
  *	=> moive.txt
  *	=> FileReader
  *
- *	1) 메모리에 저장 => 프로그램이 종료되면 모든 데이터가 사라진다
+ *	1. 메모리에 저장 => 프로그램이 종료되면 모든 데이터가 사라진다
  *     --------- 속도가 빠르다
  *     | 영구적으로 저장하는 장치
  *       -----------------
@@ -45,15 +45,54 @@ package com.sist.io;
  *            => 추천 => 카페/블로그 => 읽은 데이터를 파일에 저장 후에 분석 => 분석된 데이터를 오라클로 전송
  *            	=> 임시 저장
  * 
- * 2) 파일에 정보
+ *	2. 파일에 정보 (376page => 파일 입출력 / 377page에 나오는 메소드)
  * 		File : 파일, 폴더 정보를 가지고 있다
- *	
+ * 		-----------------------------
+ * 		File 정보와 관련된 메소드
+ * 			*** 1) 파일명 읽기 : getName() : 리턴형은 String
+ * 			2) 경로명 읽기 : getParent() : String
+ * 			*** 3) 파일명+경로명 : getPath() : String
+ * 			*** 4) 파일 크기 : length() : long
+ * 			5) 숨긴 파일 여부 : isHidden() : boolean
+ * 			6) 읽기 가능 여부 : canRead() : boolean
+ * 			7) 쓰기 가능 여부 : canWrite() : boolean
+ * 			8) 수정일 : lastModified() : long
+ * 			*** 9) 파일 정보를 한번에 읽기 (폴더) : listFiles() : File[]
+ * 			*** 10) 파일 여부 확인 : isFile() : boolean
+ * 			11) 폴더 여부 확인 : isDirectory() : boolean
+ * 
+ * 		File 생성자 : File file=new File("경로명/파일명"); => 파일에 대한 정보를 가지고 온다
+ * 					File dir=new File("경로명"); => 폴더에 대한 정보를 가지고 온다
+ * 
+ * 		File을 제어하는 메소드
+ * 			*** 1) 폴더 생성 : mkdir()
+ * 			*** 2) 파일 생성 : createNewFile()
+ * 			*** 3) 파일 삭제 : delete()
+ *			*** 4) 파일 존재 여부 : exists()
+ *		---------------------------------- 파일 입출력 / 파일 복사 / 속도의 최적화
  */
+import java.io.*;
+import java.text.*;
+import java.util.*;
+
 public class 라이브러리_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
+		File file=new File("c:\\javaDev\\geniegenie.txt");
+		
+		System.out.println("파일명:"+file.getName()); // 파일명:geniegenie.txt
+		System.out.println("경로명:"+file.getParent()); // 경로명:c:\javaDev
+		System.out.println("파일명+경로명:"+file.getPath()); // 파일명+경로명:c:\javaDev\geniegenie.txt
+		System.out.println("숨긴 파일 여부:"+file.isHidden()); // 숨긴 파일 여부:false
+		System.out.println("읽기 가능 여부:"+file.canRead()); // 읽기 가능 여부:true
+		System.out.println("쓰기 가능 여부:"+file.canWrite()); // 쓰기 가능 여부:true
+		System.out.println("파일 여부 확인:"+file.isFile()); // 파일 여부 확인:true
+		System.out.println("폴더 여부 확인:"+file.isDirectory()); // 폴더 여부 확인:false
+		System.out.println("수정일:"+file.lastModified()); // 수정일:1715321881498
+		System.out.println("수정일:"+new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(file.lastModified())));
+		// 수정일:2024-05-10 03:18:01
+		System.out.println("파일 크기:"+file.length()); // 파일 크기:42923
 	}
 
 }
