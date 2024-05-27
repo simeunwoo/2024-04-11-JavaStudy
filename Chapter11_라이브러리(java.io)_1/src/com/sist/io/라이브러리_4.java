@@ -17,6 +17,10 @@ import java.text.*;
  *     파일 삭제 : delete() => 삭제
  *     
  *  4. 폴더 안에 있는 파일/폴더의 정보 읽기 : listFiles() : File[]
+ *  
+ *  5. 파일명 : getName(), 경로명 : getPath()
+ *  
+ *  6. 파일 크기 : length()
  */
 public class 라이브러리_4 {
 	// 코딩이 된 상태 => throws
