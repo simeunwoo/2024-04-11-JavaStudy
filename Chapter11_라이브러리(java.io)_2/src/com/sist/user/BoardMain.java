@@ -35,11 +35,19 @@ public class BoardMain extends JFrame implements ActionListener, MouseListener {
 		setVisible(true);
 		
 		// 등록 => actionPerformed를 호출해라
-		bList.inBtn.addActionListener(this); // 새 글 버튼
-		bList.prevBtn.addActionListener(this); // 이전 버튼
-		bList.nextBtn.addActionListener(this); // 다음 버튼
-		bInsert.b2.addActionListener(this); // 취소 버튼
-		bInsert.b1.addActionListener(this); // 글 쓰기 버튼
+		bList.inBtn.addActionListener(this); // 새 글
+		bList.prevBtn.addActionListener(this); // 이전
+		bList.nextBtn.addActionListener(this); // 다음
+		bList.table.addMouseListener(this);
+		
+		bInsert.b2.addActionListener(this); // 취소
+		bInsert.b1.addActionListener(this); // 글 쓰기
+		
+		bDetail.b3.addActionListener(this); // 목록
+		bDetail.b2.addActionListener(this); // 삭제
+		bDetail.b1.addActionListener(this); // 수정
+		setDefaultCloseOperation(EXIT_ON_CLOSE); // 메모리 해제
+		
 	}
 	public void listPrint()
 	{
@@ -81,6 +89,29 @@ public class BoardMain extends JFrame implements ActionListener, MouseListener {
 			card.show(getContentPane(), "INSERT");
 			bInsert.nameTf.requestFocus();
 		}
+		else if(bDetail.b3==e.getSource())
+		{
+			card.show(getContentPane(), "LIST");
+			listPrint();
+		}
+		else if(bDetail.b2==e.getSource())
+		{
+			// 게시물 번호 읽기
+			String no=bDetail.no.getText();
+			int a=JOptionPane.showConfirmDialog(this,"삭제할까요?","삭제",JOptionPane.YES_NO_OPTION);
+			if(a==JOptionPane.YES_OPTION)
+			{
+				bs.boardDelete(Integer.parseInt(no));
+				// 이동
+				card.show(getContentPane(), "LIST");
+				listPrint();
+			}
+		}
+	/*	else if(bDetail.b1==e.getSource())
+		{			
+			card.show(getContentPane(), "INSERT");
+			listPrint();
+		}*/
 		else if(bList.prevBtn==e.getSource())
 		{
 			if(curpage>1)
@@ -150,7 +181,25 @@ public class BoardMain extends JFrame implements ActionListener, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) { // 클릭, 더블 클릭
 		// TODO Auto-generated method stub
-		
+		if(e.getSource()==bList.table)
+		{
+			if(e.getClickCount()==2)
+			{
+				// 선택된 위치
+				int row=bList.table.getSelectedRow();
+				String no=bList.model.getValueAt(row, 0).toString();
+				Board b=bs.boardDetail(Integer.parseInt(no));
+				bDetail.no.setText(String.valueOf(b.getNo()));
+				bDetail.name.setText(b.getName());
+				bDetail.sub.setText(b.getSubject());
+				bDetail.day.setText(new SimpleDateFormat("yyyy-MM-dd").format(b.getRegdate()));
+				bDetail.ta.setText(b.getContent());
+				bDetail.hit.setText(String.valueOf(b.getHit()));
+				
+				// 화면 이동
+				card.show(getContentPane(), "DETAIL");
+			}
+		}
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {

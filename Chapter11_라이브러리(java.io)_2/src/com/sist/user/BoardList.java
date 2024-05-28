@@ -22,10 +22,17 @@ public class BoardList extends JPanel {
 		String[] col={"번호","제목","이름","작성일","조회수"}; // <tr><th></th>...</tr>
 		String[][] row=new String[0][5];
 		// 한줄에 5개 데이터를 첨부
-		model=new DefaultTableModel(row,col);
+		model=new DefaultTableModel(row,col)
 		{
+
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				// TODO Auto-generated method stub
+				return false;
+			}
 			// 익명의 클래스 => 포함 클래스 => 상속 없이 오버라이딩 => 클릭 => 편집기 => 편집 방지
 			// public boolean isCellEditable(int row,int column) return false; 오버라이딩
+			
 		};
 		table=new JTable(model); // 테이블 모양 관리
 		JScrollPane js=new JScrollPane(table);
