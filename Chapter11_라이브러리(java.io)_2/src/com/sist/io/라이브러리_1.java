@@ -89,9 +89,12 @@ public class 라이브러리_1 {
 			{
 				file.createNewFile();
 			}
-			// ObjectOutputStream 생성 => FileOutputStream
+			// ObjectOutputStream 생성 => FileOutputStream 객체를 매개 변수로 전송
 			FileOutputStream fos=new FileOutputStream(file);
 			oos=new ObjectOutputStream(fos);
+			// 객체 단위 파일 저장
+			oos.writeObject(list); // 병렬 => 직렬
+			System.out.println("객체 단위 저장 완료");
 		}
 		catch(Exception ex)
 		{
