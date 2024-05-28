@@ -31,6 +31,7 @@ public class BoardSystem {
 		b.setHit(0);
 		b.setPwd("1234");
 		list.add(b);
+		boardSave();
 		boardGetData();
 	}
 	
@@ -39,9 +40,9 @@ public class BoardSystem {
 		ObjectInputStream ois=null;
 		try
 		{
-			FileOutputStream fis=new FileOutputStream("c:\\java_data\\board.txt");
-	//		ois=new ObjectOutputStream(fis);
-	//		list=(ArrayList<Board>)
+			FileInputStream fis=new FileInputStream("c:\\java_data\\board.txt");
+			ois=new ObjectInputStream(fis);
+			list=(ArrayList<Board>)ois.readObject();
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
