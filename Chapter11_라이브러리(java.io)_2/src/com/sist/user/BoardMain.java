@@ -29,6 +29,8 @@ public class BoardMain extends JFrame implements ActionListener {
 		
 		// 등록 => actionPerformed를 호출해라
 		bList.inBtn.addActionListener(this); // 새 글 버튼
+		bList.prevBtn.addActionListener(this); // 이전 버튼
+		bList.nextBtn.addActionListener(this); // 다음 버튼
 		bInsert.b2.addActionListener(this); // 취소 버튼
 		bInsert.b1.addActionListener(this); // 글 쓰기 버튼
 	}
@@ -66,6 +68,22 @@ public class BoardMain extends JFrame implements ActionListener {
 		if(bList.inBtn==e.getSource()) // 새 글 버튼을 클릭했다면
 		{
 			card.show(getContentPane(), "INSERT");
+		}
+		else if(bList.prevBtn==e.getSource())
+		{
+			if(curpage>1)
+			{
+				curpage--;
+				listPrint();
+			}
+		}
+		else if(bList.nextBtn==e.getSource())
+		{
+			if(curpage<totalpage)
+			{
+				curpage++;
+				listPrint();
+			}
 		}
 		else if(bInsert.b2==e.getSource()) // 취소 버튼을 클릭했다면
 		{

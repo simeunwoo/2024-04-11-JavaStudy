@@ -20,7 +20,7 @@ public class BoardSystem {
 	
 	public BoardSystem()
 	{
-		Board b=new Board();
+/*		Board b=new Board();
 		b.setNo(1);
 		b.setName("홍길동");
 		b.setSubject("파일을 이용한 CRUD를 배우기");
@@ -31,7 +31,7 @@ public class BoardSystem {
 		b.setHit(0);
 		b.setPwd("1234");
 		list.add(b);
-		boardSave();
+		boardSave(); */ // => /**/ 부분의 주석이 없을 경우 => 창을 끄고 다시 켜면 초기화, 주석이 있을 경우 => 초기화 되지 않고 저장되어 있다 
 		boardGetData();
 	}
 	
