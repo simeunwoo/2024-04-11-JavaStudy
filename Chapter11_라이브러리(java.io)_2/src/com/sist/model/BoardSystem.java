@@ -18,15 +18,30 @@ public class BoardSystem {
 
 	private static ArrayList<Board> list=new ArrayList<Board>();
 	
-	// 초기화
-	static
+	public BoardSystem()
+	{
+		Board b=new Board();
+		b.setNo(1);
+		b.setName("홍길동");
+		b.setSubject("파일을 이용한 CRUD를 배우기");
+		// 프로그램 => 데이터 관리 (JSP, Spring, VueJS, ReactJS)
+		// => 데이터 분석 => 머신러닝 / 딥러닝 => 응용(AI)
+		b.setContent("파일을 이용한 CRUD => 데이터베이스(오라클):읽기,검색,추가,수정,삭제:메모리(컬렉션),파일,데이터베이스");
+		b.setRegdate(new Date());
+		b.setHit(0);
+		b.setPwd("1234");
+		list.add(b);
+		boardGetData();
+	}
+	
+	public void boardGetData()
 	{
 		ObjectInputStream ois=null;
 		try
 		{
-			FileInputStream fis=new FileInputStream("c:\\java_data\\board.txt");
-			ois=new ObjectInputStream(fis);
-			list=(ArrayList<Board>)ois.readObject();
+			FileOutputStream fis=new FileOutputStream("c:\\java_data\\board.txt");
+	//		ois=new ObjectOutputStream(fis);
+	//		list=(ArrayList<Board>)
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
@@ -40,9 +55,9 @@ public class BoardSystem {
 		}
 	}
 	// 저장
-	public void boardSave(Board board)
+	public void boardSave()
 	{
-		list.add(board);
+	
 		ObjectOutputStream oos=null;
 		try
 		{
