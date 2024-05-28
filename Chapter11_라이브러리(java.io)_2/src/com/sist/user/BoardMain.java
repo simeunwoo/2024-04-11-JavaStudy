@@ -7,7 +7,12 @@ import javax.swing.*;
 import com.sist.model.*;
 import java.util.*;
 
-public class BoardMain extends JFrame implements ActionListener {
+public class BoardMain extends JFrame implements ActionListener, MouseListener {
+	// 인터페이스 => 다중 상속이 가능
+	/*
+	 * 	1. button => ActionListener
+	 *  2. table => MouseListener
+	 */
 	private CardLayout card=new CardLayout();
 	BoardList bList=new BoardList();
 	BoardInsert bInsert=new BoardInsert();
@@ -21,9 +26,9 @@ public class BoardMain extends JFrame implements ActionListener {
 	public BoardMain()
 	{
 		setLayout(card);
-		add("DETAIL",bDetail);
 		add("LIST",bList);
 		add("INSERT",bInsert);
+		add("DETAIL",bDetail);
 		setTitle("게시판 ver 1.0");
 		listPrint();
 		setSize(640, 550);
@@ -92,6 +97,7 @@ public class BoardMain extends JFrame implements ActionListener {
 				listPrint();
 			}
 		}
+		
 		else if(bInsert.b2==e.getSource()) // 취소 버튼을 클릭했다면
 		{
 			card.show(getContentPane(), "LIST");
@@ -140,6 +146,31 @@ public class BoardMain extends JFrame implements ActionListener {
 			card.show(getContentPane(),"List");
 			listPrint();
 		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) { // 클릭, 더블 클릭
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
