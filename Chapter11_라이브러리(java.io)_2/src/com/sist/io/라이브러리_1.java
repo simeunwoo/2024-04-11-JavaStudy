@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /*
- * 	ObjectInputStream / ObjectOutputStream
+ * 	ObjectInputStream : 역직렬화 / ObjectOutputStream : 직렬화
  *  => 객체 단위 저장
  *     ----------
  *      
