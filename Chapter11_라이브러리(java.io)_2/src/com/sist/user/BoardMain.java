@@ -11,6 +11,7 @@ public class BoardMain extends JFrame implements ActionListener {
 	private CardLayout card=new CardLayout();
 	BoardList bList=new BoardList();
 	BoardInsert bInsert=new BoardInsert();
+	BoardDetail bDetail=new BoardDetail();
 	// 클래스 => 관련 있는 클래스별로 선언
 	// 프로그램에 필요한 변수 설정
 	int curpage=1;
@@ -20,6 +21,7 @@ public class BoardMain extends JFrame implements ActionListener {
 	public BoardMain()
 	{
 		setLayout(card);
+		add("DETAIL",bDetail);
 		add("LIST",bList);
 		add("INSERT",bInsert);
 		setTitle("게시판 ver 1.0");
@@ -44,7 +46,7 @@ public class BoardMain extends JFrame implements ActionListener {
 		ArrayList<Board> list=bs.boardList(curpage);
 		totalpage=bs.boardTotalPage();
 		bList.pageLa.setText(curpage+" page / "+totalpage+" pages");
-		for(int i=list.size()-1;i>=0;i--)
+		for(int i=0;i<list.size();i++)
 		{
 			Board b=list.get(i);
 			String[] data= {
@@ -67,7 +69,12 @@ public class BoardMain extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		if(bList.inBtn==e.getSource()) // 새 글 버튼을 클릭했다면
 		{
+			bInsert.nameTf.setText("");
+			bInsert.subTf.setText("");
+			bInsert.ta.setText("");
+			bInsert.pwdPf.setText("");
 			card.show(getContentPane(), "INSERT");
+			bInsert.nameTf.requestFocus();
 		}
 		else if(bList.prevBtn==e.getSource())
 		{

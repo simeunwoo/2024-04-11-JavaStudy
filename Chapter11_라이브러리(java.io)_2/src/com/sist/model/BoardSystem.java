@@ -98,11 +98,16 @@ public class BoardSystem {
 		 * 
 		 * 	WHERE rownum BETWEEN 1 AND 10
 		 */
-		for(int i=0;i<list.size();i++)
+		ArrayList<Board> temp=new ArrayList<Board>();
+		for(int i=list.size()-1;i>=0;i--)
 		{
-			Board b=list.get(i);
+			temp.add(list.get(i));
+		}
+		for(int i=0;i<temp.size();i++)
+		{
 			if(j<10 && i>=pagecnt)
 			{
+				Board b=temp.get(i);
 				bList.add(b);
 				j++;
 			}
@@ -127,7 +132,9 @@ public class BoardSystem {
 		{
 			if(b.getNo()==no)
 			{
+				b.setHit(b.getHit()+1); // 조회수 증가
 				board=b;
+				boardSave();
 				break;
 			}
 		}
