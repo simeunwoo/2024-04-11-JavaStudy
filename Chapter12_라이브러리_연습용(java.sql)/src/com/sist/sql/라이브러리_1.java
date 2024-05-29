@@ -12,6 +12,7 @@ public class 라이브러리_1 {
 			Class.forName("oracle.jdbc.driver.OracleDriver"); // 메모리 할당 => 리플렉션 => new
 			// 2. 오라클 연결
 			String url="jdbc:oracle:thin:@localhost:1521:XE"; // localhost => IP
+			// XE => 폴더 (데이터베이스 : TABLE) => 파일 저장
 			// 3. SQL 문장 전송
 			Connection conn=DriverManager.getConnection(url,"hr","happy");
 			// conn hr/happy, conn system/happy
