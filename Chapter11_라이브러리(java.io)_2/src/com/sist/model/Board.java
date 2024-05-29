@@ -1,17 +1,16 @@
 package com.sist.model;
 import java.io.Serializable;
-// ObjectInputStream / ObjectOutputStream
+// ObjectInputStream / ObjectOutputStream 
 // 저장되는 데이터
 import java.util.*;
-public class Board implements Serializable {
-	private int no; // 구분자 => 상세, 수정, 삭제
-	private String name;
-	private String subject;
-	private String content;
-	private String pwd;
-	private Date regdate=new Date();
-	private int hit; // 조회수
-	
+public class Board implements Serializable{
+    private int no; // 구분자 => 상세,수정,삭제 
+    private String name;
+    private String subject;
+    private String content;
+    private String pwd;
+    private Date regdate=new Date();
+    private int hit;// 조회수 
 	public int getNo() {
 		return no;
 	}
@@ -54,5 +53,5 @@ public class Board implements Serializable {
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	
+	   
 }
