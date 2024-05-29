@@ -1,6 +1,7 @@
 package com.sist.main;
 
-import java.util.Arrays;
+import java.lang.reflect.Method;
+import java.util.Scanner;
 
 /*
  * 	프로그램의 구성
@@ -411,6 +412,117 @@ import java.util.Arrays;
  *  	개수가 틀린 경우에 처리하기 어렵다
  *  	검색, 데이터베이스 프로그램은 배열 사용이 어렵다 => 가변형 (컬렉션)
  *  => 컬렉션 : ArrayList
+ *  
+ *  # 메소드 : 명령문을 모아서 관리
+ *  
+ *  > 리턴형 : 요청에 대한 처리값
+ *  	1) 기본형 => int, String => 총 페이지 / 로그인 여부
+ *  	2) 데이터가 여러개 => ArrayList => SELECT
+ *  	   ----------- 목록 / 검색
+ *  	3) 관련된 데이터 => 사용자 정의 데이터형 => SELECt에서 조건이 있는 경우
+ *         --------- 상세 보기
+ *  
+ *  > 매개 변수 : 사용자가 요청한 값 => 입력/클릭 => 브라우저
+ *  
+ *  > 메소드명 : 약속 => 소문자로 시작 / 운영체제의 호환 => 알파벳을 이용
+ *  	=> cp949, euc-kr, utf-8
+ *  	=> Git에서 한글 깨짐이 많다
+ *  
+ *  	1) 형식
+ *  	[접근지정어] [제어어] 리턴형 메소드명(매개 변수 목록) => 선언부
+ *  	{
+ *  		구현부
+ *  		return 값; => void일 때만 생략 가능
+ *  	}
+ *  
+ *  	= 접근지정어
+ *  		특별한 경우가 아니면 => public => 다른 클래스 통신을 할 수 있게 한다
+ *  	= 제어어
+ *  		static => 공통 사용 기반 => 데이터베이스 (MyBatis)
+ *  		abstract => 선언하는 메소드 => 프로그램에 맞게 구현해서 사용 
+ *  
+ *  	2) 종류
+ *  	리턴형	매개변수
+ *  	--------------
+ *  	 O		  O => 가장 많이 사용
+ *  	 O		  X => 자체에서 처리 결과
+ *  	-------------------------------------- SELECT
+ *  	 X		  O => 데이터베이스
+ *  	 X		  X => 빈도수가 거의 없다
+ *  	-------------------------------------- INSERT / UPDATE / DELETE
+ *  	사용자 요청 => 검색 결과를 브라우저에 출력 요청
+ *  		=> 리턴형 : ArrayList
+ *  		=> 매개 변수 : String => 검색어
+ *  	맛집의 상세 보기
+ *  		=> 리턴형 : Food
+ *  		=> 매개 변수 : 맛집 번호 => int
+ *  	로그인 요청
+ *  		=> 리턴형 : String, int => 가독성
+ *  			경우의 수 3가지
+ *  			1. ID가 없는 경우
+ *  			2. 비밀 번호가 틀린 경우
+ *  			3. ID, 비밀 번호가 맞는 경우
+ *  			=> "ID나 비밀 번호가 틀립니다" => 사용자 중심의 프로그램
+ *  		=> 매개 변수 : id, pwd
+ *  	Board에 등록
+ *  		=> 리턴형 : 없는 상태 => void
+ *  		=> 매개 변수 : 이름, 제목, 내용, 비밀 번호
+ *  
+ *  	3) 클래스
+ *  	=> 구성 요소 => 역할
+ *  		class className
+ *  		{
+ *  			=> 반드시 설정 (접근 범위) => 접근지정어
+ *  			--------------------------
+ *  			변수
+ *  			= 인스턴스 변수 : new 사용 시마다 새로운 메모리 생성
+ *  				[접근지정어] 데이터형 변수명; => 라이브러리를 제외하고 사용자 정의 => 은닉화 (기본)
+ *  				접근지정어 : private
+ *  				변수명 : 기본형(int,long...), 배열, 클래스(String)
+ *  			= 공유 변수 (정적 변수->static) => 한개만 생성 : 데이터 묶음 (모든 클라이언트가 동일)
+ *  			--------------------------
+ *  			생성자, 초기화 블록 => 없는 경우도 존재 => 생성자는 없는 경우에 자동으로 디폴트 생성자 추가
+ *  			= 생성자 : 멤버 변수의 초기화 담당
+ *  				변수가 명시적인 초기화 가능 : 생성자 (X)
+ *  				명시적인 초기화가 아니라 구현 후에 초기화 시에는 사용
+ *  				private int a=10;
+ *  				=> 파일 읽기 => 데이터 초기화
+ *  				=> 데이터베이스에서 데이터 읽기
+ *  	*** 클래스
+ *  	class ClassName
+ *  	{
+ *  		선언만 가능
+ *  		=> 예외 처리, 메소드 호출, 연산자, 제어문 => 구현 => 사용할 수 없다
+ *  	}
+ *  
+ *  	class ClassName
+ *  	{
+ *  		{
+ *  			try
+ *  			{
+ *  			}catch(Exception e)
+ *  		}
+ *  	}
+ *  
+ *  	=> 가급적이면 인스턴스 초기화 => 생성자
+ *  		static 초기화 => static {}
+ *  	=> 데이터베이스 드라이버 등록
+ *  		화면 UI
+ *  		시작과 동시에 처리하는 명령문이 있는 경우
+ *  	=> 생성자 => public을 사용한다 => 다른 클래스에서 연결
+ *  			= 초기화 블록
+ *  			--------------------------
+ *  			메소드
+ *  			--------------------------
+ *  		}
+ *  	=> 클래스 종류
+ *  		= 추상 클래스
+ *  		= 인터페이스
+ *  	=> 객체 지향의 3대 특성 : 권장 사항
+ *  		=> 데이터 보호 : 캡슐화 ******* 시큐어 코딩의 기본
+ *  			=> 데이터 은닉화 : private => 메소드로 접근 : getter / setter
+ *  		=> 재사용 : 상속, 포함
+ *  		=> 추가/수정 : 오버로딩 / 오버라이딩
  */
 /*
 	int[] arr=new int[10];
@@ -419,10 +531,32 @@ import java.util.Arrays;
 	
 	int o=0;
 	int i=0;
- */
+*/
+class Human
+{
+	public void display()
+	{
+		System.out.println("Human:display() Call...");
+	}
+}
+class Sawon
+{
+	public void aaa()
+	{
+		System.out.println("Sawon:aaa() Call...");
+	}
+	public void bbb()
+	{
+		System.out.println("Sawon:bbb() Call...");
+	}
+	public void ccc()
+	{
+		System.out.println("Sawon:ccc() Call...");
+	}
+}
 public class 최종정리 {
-	public static void main(String[] args) {
-		int[] arr=new int[10];
+	public static void main(String[] args) throws Exception {
+	/*	int[] arr=new int[10];
 		
 		for(int i=0;i<arr.length;i++)
 		{
@@ -439,6 +573,44 @@ public class 최종정리 {
 		for(int i=0;i<arr.length;i++)
 		{
 			System.out.print(arr[i]+" "); // 1 2 3 4 5 6 7 8 9 10 
+		} */
+		
+		Human h1=new Human(); // => 결합성이 높다 => 다른 클래스에 영향이 많다
+		h1.display();
+		
+		Human h2=new Human().getClass().getDeclaredConstructor().newInstance();
+		h2.display();
+		
+		Human h3=Human.class.getDeclaredConstructor().newInstance();
+		h3.display();
+		
+		// 가장 많이 사용되는 메모리 할당 : 스프링에서 주로 사용
+		Class className=Class.forName("com.sist.main.Human");
+		Method[] methods=className.getDeclaredMethods();
+		
+		Human h4=(Human)className.getDeclaredConstructor().newInstance();
+		System.out.println("메소드명 없이 호출");
+		methods[0].invoke(h4, null);
+		// 매개 변수
+		System.out.println("메소드명 사용");
+		h4.display();
+		
+		Class cls=Class.forName("com.sist.main.Sawon");
+		Object obj=cls.getDeclaredConstructor().newInstance();
+		Method[] ms=cls.getDeclaredMethods();
+		
+		Scanner scan=new Scanner(System.in);
+		System.out.print("호출할 메소드명 입력:");
+		String mName=scan.next();
+		// Annotation => 구분자 => 스프링
+		for(int i=0;i<ms.length;i++)
+		{
+			String s=ms[i].getName();
+			if(mName.equals(s))
+			{
+		//		System.out.println(i+":"+ms[i].getName());
+				ms[i].invoke(obj, null);
+			}
 		}
 	}
 }
