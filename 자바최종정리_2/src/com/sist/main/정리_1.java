@@ -133,6 +133,69 @@ package com.sist.main;
  *  메소드 : 어떤 기능 => 메뉴
  *  생성자 : 오버로딩
  *  	=> 초기화 / 시작과 동시에 처리 => 자동 로그인 / 보안 / 데이터베이스 드라이버 등록 ...
+ *  
+ *  # 예외 처리
+ *  목적 : 사전에 에러를 방지하는 프로그램
+ *  정의 : 비정상 종료를 방지하고 정상 종료를 수행하게 만든다
+ *  
+ *  => 직접 처리 : 프로그래머가 직접 에러를 처리 => 에러 복구
+ *      try ~ catch ~ finally => 거의 대부분 사용
+ *                               ------------
+ *                                웹 => DB 연동 (java.sql => CheckedException)
+ *  => 간접 처리 : 에러 발생에 대해 선언만 => 사용 시에 반드시 예외 처리 후 사용
+ *  			에러 떠넘기기
+ *  	throws
+ *  -------------------------------------------------------------------------
+ *  try ~ catch는 여러개 사용 가능 => 순서가 존재
+ *	=> 상속 => 위로 올라갈수록 크다 => 위로 올라갈수록 예외 처리하는 범위가 커진다
+ *
+ * 	               상속
+ *
+ *                Object
+ *                  |
+ *               Throwable : Exception / Error
+ *                  |
+ *  --------------------------
+ *  |                        |
+ *  Error                 Exception
+ *  => 처리가 불가능          => 처리가 가능 => 소스 상에서 변경 가능
+ *                        => 서버 IP / 파일명이 틀리다 / 배열 범위 초과 / 0으로 나눈다 ...
+ *                           |
+ *              -----------------------------------------
+ *              |                                       |
+ *         CheckedException                     UnCheckedException
+ *              |                                       |
+ *           java.io                             RuntimeException
+ *               => IOException                      => NumberFormatException => Integer.parseInt()
+ *               => FileNotFoundException            => NullPointerException
+ *           java.sql                                => ArrayIndexOutOfBoundsException => StringTokenizer
+ *               => SQLException
+ *           java.lang
+ *               => ClassNotFoundException
+ *               => Class.forName()
+ *               => InterruptedException
+ *
+ *	throws => 순서가 없다
+ *  ====================> 통합 시 => Exception / Throwable
+ *                        
+ * 	오라클 연동 : 예외 처리를 가지고 있다
+ * 	--------
+ * 	JDBC : 자바에서 제공하는 라이브러리
+ * 	 |
+ * 	DBCP : 웹에서 주로 사용하는 기술
+ * 	 |
+ * 	ORM : 실무에서 사용하는 기술
+ *  --- MyBatis (실무 85%) / (참고로 15%는 JPA)
+ *  
+ *  # 라이브러리
+ *  
+ *  java.lang
+ *  java.util
+ *  java.text
+ *  java.io
+ *  java.sql
+ *  ----------------- javax.servlet.http... JSP
+ *  ----------------- org.springframework... Spring
  */
 class Sawon
 {
