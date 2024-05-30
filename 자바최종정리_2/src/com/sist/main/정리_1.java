@@ -190,10 +190,126 @@ package com.sist.main;
  *  # 라이브러리
  *  
  *  java.lang
- *  java.util
+ *		Object : 최상위 클래스
+ *			= toString() : 객체를 문자열로 변경
+ *			= finalize() : 소멸자
+ *			= clone() : 복제
+ *		String : 문자열 저장
+ *			= equals() : 문자열이 같은 경우 (==는 주소값 비교)
+ *			= contains() : 검색 (포함된 단어)
+ *			= startsWith() : 서제스트 (자동완성기)
+ *			= indexOf() / lastIndexOf() : 지정된 문자 위치를 찾는 경우 => 인덱스 번호
+ *			= valueOf() : 모든 데이터형을 문자열형으로 변경
+ *			= substring() : 문자열을 자르는 경우
+ *			= length() : 문자 개수 확인
+ *			= trim() : 좌우의 공백 제거
+ *		---------------------------------------- 웹 => 문자열
+ *		StringBuffer : 문자열 결합
+ *			= append() : 최적화
+ *			= toString() : 저장된 모든 데이터를 문자열
+ *		Math : 수학
+ *			= random() : 임의로 값 추출
+ *			= ceil() : 올림
+ *		Wrapper : 기본형을 클래스화 => 제네릭에서 사용 (제네릭 : 클래스만 지정 가능)
+ *			Integer <= int => parseInt()
+ *			Double <= double => parseDouble()
+ *			Boolean <= boolean => parseBoolean()
+ *			Byte <= byte
+ *
+ *			Integer i=10; // 오토박싱
+ *			int ii=i; // 언박싱
+ *			------------------------- 호환이 된다
+ *			=> 웹, 윈도우는 모든 데이터를 문자열로 인식 (기본형은 없다)
+ *
+ *  java.util : 프로그램에서 많이 사용하는 클래스의 집합
+ *  	Random : Math.Random() => 보완
+ *  		=> nextInt(int bounds) : 마지막은 제외
+ *  			nextInt(100) => 0 ~ 99
+ *  	StringTokenizer : 문자열을 구분자별로 자르는 경우
+ *  		=> split()을 보완
+ *  		= nextToken() : 자른 단어를 읽어 올 때
+ *  		= hasMoreTokens() : 자른 개수만큼 루프
+ *  		= countTokens() : 자른 개수
+ *  	Date : 오라클의 데이터형과 호환 => 기능이 없다
+ *  	Calendar : Date에 없는 기능을 보완 => 요일, 마지막날 => 달력
+ *  	Collection : 배열의 단점을 보완 => 고정적~>가변형
+ *  
+ *  List / Set / Map
+ *  ----         ---
+ *  ArrayList    HashMap
+ *               => 중복 제거 => HashSet => 웹소켓
+ *               
+ *  	List : 데이터 중복 허용, 순서가 있다
+ *  		=> 인덱스 (0번부터 시작) (삭제, 추가 => 자동 변경) => 순차적으로 유지
+ *  		= ArrayList : 데이터베이스 => 추출한 데이터를 브라우저로 전송, 윈도우
+ *  			= add() : 추가
+ *  			= size() : 저장 개수
+ *  			= get() : 데이터 읽기
+ *  			= clear() : 전체 삭제
+ *  			= isEmpty() : 존재 여부
+ *  	Set : 데이터 중복을 허용하지 않는다, 순서가 없다
+ *  		= HashSet : 웹소켓 => 브라우저에서 채팅, 접속자마다 쪽지 전송 => 접속자가 중복이 되면 안된다
+ *  			= add(값) : 추가
+ *  			= size() : 저장 개수
+ *  			= get() : 데이터 읽기
+ *  			= clear() : 전체 삭제
+ *  			= isEmpty() : 존재 여부
+ *  	Map : 키, 값을 동시에 저장, 키는 중복할 수 없다, 값을 중복이 가능
+ *  		= HashMap : 클래스를 모아서 관리, 웹에 전송, 웹에서 응답, 쿠키 저장, 세션에 저장 
+ *  			= put(키,값) : 추가
+ *  			= size() : 저장 개수
+ *  			= get() : 데이터 읽기
+ *  			= clear()
+ *  			= isEmpty()
+ *  
+ *  *** 저장된 데이터형 => 프로그래머가 어떤 데이터를 저장할 지 모른다
+ *                    -------------------------------
+ *                    => 어떤 데이터든 상관 없이 받을 수 있게 제작 => Object
+ *                    => 리턴형 / 매개 변수 => Object로 되어 있다
+ *                                        -------
+ *                                        | 가장 큰 데이터형이다 => 형변환을 해서 사용
+ *                                        
+ *  *** Object를 전체 변경이 가능하게 만든다 (프로그램에 맞는 데이터형으로 변경)
+ *      => 데이터형을 통일화
+ *      => 가독성이 좋다 => 데이터 확인이 가능
+ *      => 형변환이 없기 때문에 간결하다
+ *      => 제네릭
+ *         <클래스>
+ *         => <int> (X)
+ *         => <Integer>
+ *      컬렉션은 =>제네릭을 이용해서 제어한다
+ *  	
  *  java.text
+ *  	= DecimalFormat : 숫자 변환 => new DecimalFormat("###,###,###,###")
+ *  	= SimpleDateFormat : 날짜 변환 => new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+ *  	  ----------------- format() : 변경
+ *  	= String.format("%d%d",1,2) => printf()와 동일
+ *  
  *  java.io
+ *  	= FileInputStream / FileOutputStream : 다운로드 / 업로드
+ *  	= FileReader / FileWriter : 파일에 한글이 있는 경우에 제어
+ *  	= BufferedReader / BufferedWriter : 메모리에 파일의 내용을 읽어 놓고 제어, 제어 속도가 빠르다
+ *  
+ *  	FileInputStream, FileReader, BufferedReader => read(), close()
+ *  	FileOutputStream, FileWriter, BufferedWriter => write()
+ *  
+ *  	-1 : EOF (파일의 끝)
+ *  
  *  java.sql
+ *  	1. 드라이버 등록
+ *  	= Class.forName(드라이버명)
+ *  	2. 오라클 연결
+ *  	= Connection
+ *  	3. 오라클로 명령어 전송 => 오라클을 배우는 것이 아니라 => 자바에서 오라클을 제어하는 언어를 배운다
+ *  		SQL : 명령어 => 구조화된 질의 언어
+ *  			= DML : 데이터 조작 언어 => 프로그래머가 주로 사용 (DBA => 담당)
+ *  			= DDL : 정의 언어
+ *  			= DCL : 제어 언어
+ *  			= TCL : 트랜잭션 언어 (일괄 처리)
+ *  	= PreparedStatement
+ *  	4. 결과값 얻기
+ *  	= ResultSet
+ *  
  *  ----------------- javax.servlet.http... JSP
  *  ----------------- org.springframework... Spring
  */
