@@ -1,4 +1,5 @@
 package com.sist.temp;
+import java.util.*;
 
 public class MainClass {
 
@@ -28,11 +29,11 @@ dao=com.sist.temp.EmpDAO@3745e5c6
 
 ===> 혼자서 커넥션 10개 연결
  */
-		for(int i=0;i<10;i++)
+	/*	for(int i=0;i<10;i++)
 		{
 			EmpDAO dao=EmpDAO.newInstance(); // 싱글턴 방식
 			System.out.println("dao="+dao);
-		}
+		} */
 /*
 dao=com.sist.temp.EmpDAO@2b6856dd
 dao=com.sist.temp.EmpDAO@2b6856dd
@@ -47,6 +48,39 @@ dao=com.sist.temp.EmpDAO@2b6856dd
 
 ===> 싱글턴
  */
+		EmpDAO dao=EmpDAO.newInstance();
+		ArrayList<EmpVO> list=dao.empListData();
+		for(EmpVO vo:list)
+		{
+			System.out.println(vo.getEmpno()+" "
+					+vo.getEname()+" "
+					+vo.getJob()+" "
+					+vo.getSal()+" "
+					+vo.getDeptno());
+		}
+		System.out.println("==============================");
+		
+		Scanner scan=new Scanner(System.in);
+/*		System.out.print("사번 입력:");
+		int empno=scan.nextInt();
+		EmpVO vo=dao.empDetailData(empno);
+		System.out.println(vo.getEmpno()+" "
+				+vo.getEname()+" "
+				+vo.getJob()+" "
+				+vo.getSal()+" "
+				+vo.getDeptno()); */
+		
+		System.out.print("검색어 입력:");
+		String ename=scan.next();
+		list=dao.empFind(ename);
+		for(EmpVO vo:list)
+		{
+			System.out.println(vo.getEmpno()+" "
+					+vo.getEname()+" "
+					+vo.getJob()+" "
+					+vo.getSal()+" "
+					+vo.getDeptno());
+		}
 	}
 
 }

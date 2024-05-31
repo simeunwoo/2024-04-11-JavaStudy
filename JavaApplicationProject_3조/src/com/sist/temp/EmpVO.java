@@ -14,7 +14,7 @@ import java.util.*;
 import lombok.Data;
 @Data
 
-public class EmpVo {
+public class EmpVO {
 	private int empno;
 	private String ename;
 	private String job;
