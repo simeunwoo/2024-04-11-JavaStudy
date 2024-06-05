@@ -6,6 +6,7 @@ public class ClientMain extends JFrame {
 	CardLayout card=new CardLayout();
 	LoginPanel lp=new LoginPanel();
 	MainPanel mp=new MainPanel();
+	SFindPanel sfp=new SFindPanel();
 	
 	public ClientMain()
 	{
