@@ -5,7 +5,7 @@ import javax.swing.table.*;
 
 public class SFindPanel extends JPanel {
 
-	JButton inBtn,prevBtn,nextBtn;
+	JButton prevBtn,nextBtn;
 	JLabel pageLa,titleLa;
 	JTable table;
 	DefaultTableModel model;
@@ -13,17 +13,16 @@ public class SFindPanel extends JPanel {
 	    
     public SFindPanel()
     {
-    	inBtn=new JButton("새 글");//<input type=button value="새글">
     	prevBtn=new JButton("이전");
     	nextBtn=new JButton("다음");
-    	pageLa=new JLabel("0 page / 0 pages"); //<label>0 page / 0 pages</label>
-    	titleLa=new JLabel("사원목록",JLabel.CENTER);// <table>
-    	titleLa.setFont(new Font("맑은 고딕",Font.BOLD,35));
+    	pageLa=new JLabel("0 page / 0 pages");
+    	titleLa=new JLabel("사원목록",JLabel.CENTER);
+    	titleLa.setFont(new Font("맑은 고딕",Font.BOLD,43));
     	
-    	String[] col={"번호","제목","이름","작성일","조회수"};//<tr><th></th>....</tr>
+    	String[] col={"번호","제목","이름","작성일","조회수"};
     	String[][] row=new String[0][5];
     	
-       	model=new DefaultTableModel(row,col) // 데이터 관리
+       	model=new DefaultTableModel(row,col)
        	{
 
        		@Override
@@ -31,8 +30,7 @@ public class SFindPanel extends JPanel {
        		// TODO Auto-generated method stub
        		return false;
        		}
-       	    		 // 익명의 클래스 => 포함 클래스 => 상속없이 오버라이딩 => 클릭 => 편집기 => 편집방지 
-       	    		 
+       
        	};
        	    	
        	   	table=new JTable(model); // 테이블 모양 관리 
@@ -67,11 +65,9 @@ public class SFindPanel extends JPanel {
        	   	table.getTableHeader().setBackground(Color.MAGENTA);
        	   	
         	setLayout(null);
-        	titleLa.setBounds(10, 15, 620, 50);
+        	titleLa.setBounds(170, 80, 620, 50);
         	add(titleLa);
-        	inBtn.setBounds(10, 70, 100, 30);
-        	add(inBtn);
-        	js.setBounds(10, 110, 600, 330);
+        	js.setBounds(170, 190, 600, 330);
         	add(js);
         	
         	JPanel p=new JPanel();
@@ -79,7 +75,7 @@ public class SFindPanel extends JPanel {
         	p.add(pageLa);
         	p.add(nextBtn);
         	
-        	p.setBounds(10, 450, 600, 35);
+        	p.setBounds(180, 550, 600, 35);
         	add(p);
     }
 }

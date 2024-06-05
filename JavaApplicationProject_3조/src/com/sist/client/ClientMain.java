@@ -11,6 +11,7 @@ public class ClientMain extends JFrame {
 	public ClientMain()
 	{
 		setLayout(card);
+		add("SFP",sfp);
 		add("MP",mp);
 		add("LOGIN",lp);
 		
