@@ -33,6 +33,15 @@ public class LoginPanel extends JPanel {
 		pwdLa.setBounds(650, 590, 80, 30);
 		pf.setBounds(735, 590, 180, 30);
 		add(pwdLa); add(pf);
+
+		JPanel p=new JPanel();
+		p.add(loginBtn);
+		p.add(joinBtn);
+		p.add(cancelBtn);
+		
+		p.setOpaque(false); // 불투명 => false : 투명 모드로 교체
+		p.setBounds(650, 620, 265, 35);
+		add(p);
 	}
 
 	// 오버라이딩 : paintComponent => 스킨 => 이미지 배경
