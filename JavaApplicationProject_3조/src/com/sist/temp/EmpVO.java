@@ -15,12 +15,9 @@ import lombok.Data;
 @Data
 
 public class EmpVO {
-	private int empno;
-	private String ename;
-	private String job;
-	private int mgr;
-	private Date hiredate;
-	private int sal;
-	private int comm;
-	private int deptno;
+	private String zipcode;
+	private String sido;
+	private String gugun;
+	private String dong;
+	private String bunji;
 }
