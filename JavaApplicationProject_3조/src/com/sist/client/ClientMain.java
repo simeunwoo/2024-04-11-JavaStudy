@@ -9,7 +9,6 @@ import com.sist.dao.*; // DAO로부터 오라클 연결을 위해 사용
 public class ClientMain extends JFrame implements ActionListener {
 	CardLayout card=new CardLayout();
 	LoginPanel lp=new LoginPanel();
-	ControlPanel cp=new ControlPanel();
 	MainPanel mp=new MainPanel();
 	SFindPanel sfp=new SFindPanel();
 	
@@ -20,7 +19,7 @@ public class ClientMain extends JFrame implements ActionListener {
 		add("MP",mp);
 		add("SFP",sfp);
 		
-		setSize(960,750);
+		setSize(1280,720);
 		setResizable(false);
 		setVisible(true);
 		
@@ -70,7 +69,7 @@ public class ClientMain extends JFrame implements ActionListener {
 				}
 				// 오라클 연결
 				MemberDAO dao=MemberDAO.newInstance();
-				String result=dao.memberLogin(Integer.parseInt(empno), name);
+				String result=dao.memberLogin(Integer.parseInt(empno), name.toUpperCase());
 				// 웹 => 자바스크립트로 처리
 				if(result.equals("NOSABUN")) // 사번이 없는 경우
 				{
