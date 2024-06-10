@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import com.sist.dao.*; // DAO로부터 오라클 연결을 위해 사용
 
-public class ClientMain extends JFrame implements ActionListener {
+public class ClientMainPanel extends JFrame implements ActionListener {
 	CardLayout card=new CardLayout();
 	LoginPanel lp=new LoginPanel();
 	MainPanel mp=new MainPanel();
 	SFindPanel sfp=new SFindPanel();
 	
-	public ClientMain()
+	public ClientMainPanel()
 	{
 		setLayout(card);
 		add("LOGIN",lp);

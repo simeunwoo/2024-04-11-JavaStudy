@@ -57,7 +57,7 @@ public class MemberDAO {
 	 * 	= 사번도 있고 이름도 같은 경우 => int에선 2 / String에선 OK
 	 * 	-------------------------- String / int
 	 */
-	public String memberLogin(int empno,String ename)
+	public String memberLogin(String id,String pwd)
 	{
 		String result="";
 		try
@@ -66,37 +66,40 @@ public class MemberDAO {
 			getConnection();
 			// 2) SQL 문장
 			String sql="SELECT COUNT(*) "
-						+"FROM emp "
-						+"WHERE empno="+empno; // 사번이 존재하는지 확인 => 0 or 1
+						+"FROM member "
+						+"WHERE id=?"; // 사번이 존재하는지 확인 => 0 or 1
 			// 3) 오라클로 SQL 문장 전송
 			ps=conn.prepareStatement(sql);
+			// ?에 값을 채운다
+			ps.setString(1, id);
 			// 4) 결과값을 받는다
 			ResultSet rs=ps.executeQuery();
 			rs.next();
 			int count=rs.getInt(1); // 0, 1
-			if(count==0) // 사번이 없는 경우
+			if(count==0) // 아이디가 틀린 경우
 			{
-				result="NOSABUN";
+				result="NOID";
 			}
-			else // 사번이 있는 경우
+			else // 아이디가 맞는 경우
 			{
-				sql="SELECT ename "
-					+"FROM emp "
-					+"WHERE empno="+empno;
+				sql="SELECT pwd "
+					+"FROM member "
+					+"WHERE id=?";
 				// 오라클로 전송
 				ps=conn.prepareStatement(sql);
-				// 결과값
+				ps.setString(1, id);
+				// 결과값 받기
 				rs=ps.executeQuery();
 				rs.next();
-				String db_ename=rs.getString(1);
+				String db_pwd=rs.getString(1);
 				rs.close();
-				if(db_ename.equals(ename)) // 이름이 있는 경우 => 로그인
+				if(db_pwd.equals(pwd)) // 비밀 번호가 맞는 경우 => 로그인
 				{
 					result="OK";
 				}
-				else // 이름이 없는 경우
+				else // 비밀 번호가 틀린 경우
 				{
-					result="NONAME";
+					result="NOPWD";
 				}
 			}
 		}catch(Exception ex)
