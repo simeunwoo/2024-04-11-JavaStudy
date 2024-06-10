@@ -53,6 +53,7 @@ public class EmpDeptDAO {
 	// 기능 설정
 	// 1. emp, dept 데이터 출력 (웹, 윈도우) => DAO 변경이 없다
 	// 2. DAO / VO는 변경 사항이 없다
+	// SQL은 검색 언어 => SELECT가 핵심
 	public ArrayList<EmpVO> empListData()
 	{
 		ArrayList<EmpVO> list=new ArrayList<EmpVO>();
