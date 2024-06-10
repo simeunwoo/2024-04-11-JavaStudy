@@ -53,7 +53,7 @@ public class MemberDAO {
 	/*
 	 * 	리턴형 => 경우의 수
 	 * 	= 사번이 없는 경우 => int에선 0 / String에선 NOSABUN
-	 * 	= 사번은 있지만 이름이 다른 경우 => int에선 1 / String에선 NONAME
+	 * 	= 사번은 있지만 이름이 틀린 경우 => int에선 1 / String에선 NONAME
 	 * 	= 사번도 있고 이름도 같은 경우 => int에선 2 / String에선 OK
 	 * 	-------------------------- String / int
 	 */
@@ -69,7 +69,36 @@ public class MemberDAO {
 						+"FROM emp "
 						+"WHERE empno="+empno; // 사번이 존재하는지 확인 => 0 or 1
 			// 3) 오라클로 SQL 문장 전송
+			ps=conn.prepareStatement(sql);
 			// 4) 결과값을 받는다
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			int count=rs.getInt(1); // 0, 1
+			if(count==0) // 사번이 없는 경우
+			{
+				result="NOSABUN";
+			}
+			else // 사번이 있는 경우
+			{
+				sql="SELECT ename "
+					+"FROM emp "
+					+"WHERE empno="+empno;
+				// 오라클로 전송
+				ps=conn.prepareStatement(sql);
+				// 결과값
+				rs=ps.executeQuery();
+				rs.next();
+				String db_ename=rs.getString(1);
+				rs.close();
+				if(db_ename.equals(ename)) // 이름이 있는 경우 => 로그인
+				{
+					result="OK";
+				}
+				else // 이름이 없는 경우
+				{
+					result="NONAME";
+				}
+			}
 		}catch(Exception ex)
 		{
 			ex.printStackTrace(); // 오류 확인 => null, SQL 문장
