@@ -2,12 +2,16 @@ package com.sist.client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.*;
 import com.sist.dao.*; // DAO로부터 오라클 연결을 위해 사용
+import com.sist.model.Board;
 
-public class ClientMain extends JFrame implements ActionListener {
+public class ClientMain extends JFrame implements ActionListener, MouseListener {
 	CardLayout card=new CardLayout();
 	LoginPanel lp=new LoginPanel();
 	MainPanel mp=new MainPanel();
@@ -15,6 +19,7 @@ public class ClientMain extends JFrame implements ActionListener {
 	PostFindFrame post=new PostFindFrame(); // 우편 번호 검색
 	IdCheckFrame idfrm=new IdCheckFrame();
 	SFindPanel sfp=new SFindPanel();
+	UpdatePanel up=new UpdatePanel();
 	
 	public ClientMain()
 	{
@@ -23,6 +28,7 @@ public class ClientMain extends JFrame implements ActionListener {
 		add("MP",mp);
 		add("JP",jp);
 		add("SFP",sfp);
+		add("UP",up);
 		
 		setSize(1280,720);
 		setResizable(false);
@@ -37,15 +43,23 @@ public class ClientMain extends JFrame implements ActionListener {
 		jp.b1.addActionListener(this); // 아이디 중복 체크 버튼
 		jp.b4.addActionListener(this); // 취소
 		jp.b2.addActionListener(this); // 우편 번호 검색
+		jp.b3.addActionListener(this); // 회원 가입
 		
 		post.b1.addActionListener(this); // 우편 번호 검색
 		post.b2.addActionListener(this); // 취소
 		post.tf.addActionListener(this); // 우편 번호 입력 창 (우편 번호 검색 버튼 (post.b1)와 동시에 처리)
 		
-//		post.table.addMouseListener(this);
+		post.table.addMouseListener(this);
 		
 		idfrm.b1.addActionListener(this); // 아이디 체크
 		idfrm.b2.addActionListener(this); // 확인
+		
+		sfp.prevBtn.addActionListener(this); // 이전
+		sfp.nextBtn.addActionListener(this); // 다음
+		sfp.updateBtn.addActionListener(this); // 수정하기
+		
+		up.b1.addActionListener(this); // 수정
+		up.b2.addActionListener(this); // 취소
 	}
 	
 	public static void main(String[] args) {
@@ -71,6 +85,102 @@ public class ClientMain extends JFrame implements ActionListener {
 			idfrm.b2.setVisible(false);
 			idfrm.la3.setText("");
 			idfrm.setVisible(true);
+		}
+		else if(e.getSource()==jp.b3)
+		{
+			String id=jp.idtf.getText();
+			if(id.length()<1)
+			{
+				jp.idtf.requestFocus();
+				return;
+			}
+			String pwd=String.valueOf(jp.pf.getPassword());
+			if(pwd.length()<1)
+			{
+				jp.pf.requestFocus();
+				return;
+			}
+			String name=jp.nametf.getText();
+			if(name.length()<1)
+			{
+				jp.nametf.requestFocus();
+				return;
+			}
+			String sex="";
+			if(jp.rb1.isSelected())
+			{
+				sex="남자";
+			}
+			else
+			{
+				sex="여자";
+			}
+			String birthday=jp.birthtf.getText();
+			if(birthday.length()<1)
+			{
+				jp.birthtf.requestFocus();
+				return;
+			}
+			String post=jp.posttf.getText();
+			if(post.length()<1)
+			{
+				jp.posttf.requestFocus();
+				return;
+			}
+			String addr1=jp.addrtf1.getText();
+			if(addr1.length()<1)
+			{
+				jp.addrtf1.requestFocus();
+				return;
+			}
+			String addr2=jp.addrtf2.getText();
+			if(addr2.length()<1)
+			{
+				jp.addrtf2.requestFocus();
+				return;
+			}
+			String phone1=jp.box.getSelectedItem().toString(); // 국번 => ex) 010
+			String phone2=jp.teltf.getText(); // 중간, 뒷 번호
+			if(phone2.length()<1)
+			{
+				jp.teltf.requestFocus();
+				return;
+			}
+			String phone=phone1+")"+phone2;
+			String email=jp.emailtf.getText();
+			if(email.length()<1)
+			{
+				jp.emailtf.requestFocus();
+				return;
+			}
+			String content=jp.cta.getText();
+			// phone => NOT NULL => 반드시 입력 ...
+			MemberVO vo=new MemberVO();
+			vo.setId(id);
+			vo.setPwd(pwd);
+			vo.setName(name);
+			vo.setSex(sex);
+			vo.setBirthday(birthday);
+			vo.setPost(post);
+			vo.setAddr1(addr1);
+			vo.setAddr2(addr2);
+			vo.setEmail(email);
+			vo.setPhone(phone);
+			vo.setContent(content);
+			
+			MemberDAO dao=MemberDAO.newInstance();
+			String res=dao.memberInsert(vo);
+			
+			if(res.equals("yes"))
+			{
+				JOptionPane.showMessageDialog(this, "회원 가입을 축하드립니다.\n로그인하세요.");
+				card.show(getContentPane(), "LOGIN");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "회원 가입에 실패하였습니다.\n"+res);
+			}
+			
 		}
 		else if(e.getSource()==idfrm.b1)
 		{
@@ -206,6 +316,111 @@ public class ClientMain extends JFrame implements ActionListener {
 				return; // 메소드 종료
 			}
 		}
+		else if(e.getSource()==sfp.prevBtn)
+		{
+			
+		}
+		else if(e.getSource()==sfp.nextBtn)
+		{
+			
+		}
+		else if(e.getSource()==sfp.updateBtn)
+		{
+			card.show(getContentPane(), "UP");
+		}
+		else if(e.getSource()==up.b1)
+		{
+			String name=bUpdate.nameTf.getText();
+			if(name.length()<1) // 입력이 안된 경우
+			{
+				bUpdate.nameTf.requestFocus();
+				return;
+			}
+			
+			String subject=bUpdate.subTf.getText();
+			if(subject.length()<1) // 입력이 안된 경우
+			{
+				bUpdate.subTf.requestFocus();
+				return;
+			}
+			
+			String content=bUpdate.ta.getText();
+			if(content.length()<1) // 입력이 안된 경우
+			{
+				bUpdate.ta.requestFocus();
+				return;
+			}
+			
+			String pwd=String.valueOf(bUpdate.pwdPf.getPassword());
+			if(pwd.length()<1) // 입력이 안된 경우
+			{
+				bUpdate.pwdPf.requestFocus();
+				return;
+			}
+			
+			String no=bUpdate.noLa.getText();
+			Board b=new Board();
+			b.setName(name);
+			b.setContent(content);
+			b.setPwd(pwd);
+			b.setSubject(subject);
+			b.setRegdate(new Date());
+			b.setHit(0);
+			b.setNo(Integer.parseInt(no));
+			bs.boardUpdate(b.getNo(), b);//추가 
+			
+			// 이동 
+			card.show(getContentPane(), "LIST");
+			listPrint();
+			card.show(getContentPane(), "SFP");
+		}
+		else if(e.getSource()==up.b2)
+		{
+			card.show(getContentPane(), "SFP");
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==post.table)
+		{
+			if(e.getClickCount()==2)
+			{
+				int row=post.table.getSelectedRow();
+				String zip=post.model.getValueAt(row, 0).toString();
+				String addr=post.model.getValueAt(row, 1).toString();
+				
+				jp.posttf.setText(zip);
+				jp.addrtf1.setText(addr);
+				
+				post.setVisible(false);
+			}
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -114,6 +114,66 @@ public class MemberDAO {
 	}
 	
 	// 2. 회원 가입 => 아이디 중복 체크 / 우편 번호 검색
+/*
+ ID
+ PWD
+ NAME
+ SEX
+ BIRTHDAY
+ POST
+ ADDR1
+ ADDR2
+ PHONE
+ EMAIL
+ CONTENT
+ REGDATE
+ ADMIN
+ */
+	public String memberInsert(MemberVO vo)
+	{
+		/*
+		 * 	Statement
+		 * 	String sql="INSERT INTO member VALUES('"+vo.getId()+"','" ...
+		 * 
+		 * 	prepareStatement : 미리 ?로 채워 놓고, 나중에 ?의 값을 채운다
+		 */
+		String result="";
+		try
+		{
+			getConnection();
+			String sql="INSERT INTO member VALUES(?,?,?,?,?,?,?,?,?,?,?,SYSDATE,'n')";
+			ps=conn.prepareStatement(sql);
+			
+			// ?에 값을 채운다
+			ps.setString(1, vo.getId());
+			ps.setString(2, vo.getPwd());
+			ps.setString(3, vo.getName());
+			ps.setString(4, vo.getSex());
+			ps.setString(5, vo.getBirthday());
+			ps.setString(6, vo.getPost());
+			ps.setString(7, vo.getAddr1());
+			ps.setString(8, vo.getAddr2());
+			ps.setString(9, vo.getPhone());
+			ps.setString(10, vo.getEmail());
+			ps.setString(11, vo.getContent());
+			
+			// 추가 요청
+			ps.executeUpdate(); // commit() 포함 => INSERT / UPDATE / DELETE
+			// executeQuery() => 데이터를 가지고 온다 => SELECT
+	//		conn.commit();
+			
+			result="yes";
+		}catch(Exception ex)
+		{
+			result=ex.getMessage();
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return result;
+	}
 	// 2-1. 아이디 중복 체크
 	public int memberIdCheck(String id)
 	{
