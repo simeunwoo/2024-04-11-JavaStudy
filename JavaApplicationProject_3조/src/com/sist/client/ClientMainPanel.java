@@ -10,14 +10,16 @@ public class ClientMainPanel extends JFrame implements ActionListener {
 	CardLayout card=new CardLayout();
 	LoginPanel lp=new LoginPanel();
 	MainPanel mp=new MainPanel();
+	JoinPanel jp=new JoinPanel();
 	SFindPanel sfp=new SFindPanel();
 	
 	public ClientMainPanel()
 	{
 		setLayout(card);
 		add("LOGIN",lp);
-		add("MP",mp);
+		add("JP",jp);
 		add("SFP",sfp);
+		add("MP",mp);
 		
 		setSize(1280,720);
 		setResizable(false);
@@ -49,7 +51,7 @@ public class ClientMainPanel extends JFrame implements ActionListener {
 		}
 		else if(e.getSource()==lp.loginBtn)
 		{
-			// 1) 입력한 사번과 이름을 가지고 온다
+			// 입력한 사번과 이름을 가지고 온다
 			try
 			{
 				String id=lp.tf.getText();
@@ -87,7 +89,7 @@ public class ClientMainPanel extends JFrame implements ActionListener {
 				else // 로그인
 				{
 					System.out.println("로그인 완료");
-					card.show(getContentPane(), "MP"); // 화면 변경
+					card.show(getContentPane(), "JP"); // 화면 변경
 				}
 			}catch(Exception ex)
 			{
