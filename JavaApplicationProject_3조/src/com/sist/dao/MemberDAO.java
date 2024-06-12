@@ -114,6 +114,33 @@ public class MemberDAO {
 	}
 	
 	// 2. 회원 가입 => 아이디 중복 체크 / 우편 번호 검색
+	// 2-1. 아이디 중복 체크
+	public int memberIdCheck(String id)
+	{
+		int count=0;
+		try
+		{
+			getConnection();
+			String sql="SELECT COUNT(*) "
+						+"FROM member "
+						+"WHERE id=?";
+			ps=conn.prepareStatement(sql);
+			// ?에 값을 채운다
+			ps.setString(1, id);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			count=rs.getInt(1); // 아이디를 중복 체크 해보았을 때 => 1개가 count 되었다 => 중복
+			rs.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return count;
+	}
 	
 	// 3. 회원 수정
 	

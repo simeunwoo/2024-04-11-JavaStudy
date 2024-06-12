@@ -13,6 +13,7 @@ public class ClientMain extends JFrame implements ActionListener {
 	MainPanel mp=new MainPanel();
 	JoinPanel jp=new JoinPanel();
 	PostFindFrame post=new PostFindFrame(); // 우편 번호 검색
+	IdCheckFrame idfrm=new IdCheckFrame();
 	SFindPanel sfp=new SFindPanel();
 	
 	public ClientMain()
@@ -33,12 +34,18 @@ public class ClientMain extends JFrame implements ActionListener {
 		lp.joinBtn.addActionListener(this); // 회원 가입
 		lp.cancelBtn.addActionListener(this); // 종료
 		
+		jp.b1.addActionListener(this); // 아이디 중복 체크 버튼
 		jp.b4.addActionListener(this); // 취소
 		jp.b2.addActionListener(this); // 우편 번호 검색
 		
 		post.b1.addActionListener(this); // 우편 번호 검색
 		post.b2.addActionListener(this); // 취소
 		post.tf.addActionListener(this); // 우편 번호 입력 창 (우편 번호 검색 버튼 (post.b1)와 동시에 처리)
+		
+//		post.table.addMouseListener(this);
+		
+		idfrm.b1.addActionListener(this); // 아이디 체크
+		idfrm.b2.addActionListener(this); // 확인
 	}
 	
 	public static void main(String[] args) {
@@ -57,6 +64,46 @@ public class ClientMain extends JFrame implements ActionListener {
 		{
 			dispose(); // 윈도우 메모리 해제
 			System.exit(0); // 프로그램 종료
+		}
+		else if(e.getSource()==jp.b1) // 아이디 중복 체크
+		{
+			idfrm.tf.setText("");
+			idfrm.b2.setVisible(false);
+			idfrm.la3.setText("");
+			idfrm.setVisible(true);
+		}
+		else if(e.getSource()==idfrm.b1)
+		{
+			String id=idfrm.tf.getText();
+			if(id.length()<1)
+			{
+				JOptionPane.showMessageDialog(this, "아이디를 입력하세요."); // alert()
+				idfrm.tf.requestFocus(); // tf.focus()
+				return;
+			}
+			// 입력된 상태
+			// 오라클 연결
+			MemberDAO dao=MemberDAO.newInstance();
+			int count=dao.memberIdCheck(id);
+			
+			if(count==0) // 아이디 중복이 없다
+			{
+				idfrm.la3.setText(id+" 는(은) 사용 가능한 아이디입니다.");
+				idfrm.b2.setVisible(true);
+			}
+			else // 아이디 중복이 있다
+			{
+				idfrm.la3.setText(id+" 는(은) 이미 사용 중인 아이디입니다.");
+				idfrm.b2.setVisible(false);
+				idfrm.tf.setText("");
+				idfrm.tf.requestFocus();
+			}
+		}
+		else if(e.getSource()==idfrm.b2)
+		{
+			String id=idfrm.tf.getText();
+			jp.idtf.setText(id);
+			idfrm.setVisible(false);
 		}
 		else if(e.getSource()==post.b2)
 		{
