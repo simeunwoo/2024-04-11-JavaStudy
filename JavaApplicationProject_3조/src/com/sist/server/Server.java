@@ -126,6 +126,7 @@ public class Server implements Runnable {
 				{
 					// 1. 클라이언트 요청을 받는다
 					String msg=in.readLine();
+					System.out.println("Client=>"+msg);
 					// 2. 서버에서 응답
 					for(Client client:waitVc)
 					{
