@@ -9,7 +9,7 @@ import java.util.Date;
 
 import javax.swing.*;
 import com.sist.dao.*; // DAO로부터 오라클 연결을 위해 사용
-import com.sist.model.Board;
+//import com.sist.model.Board;
 
 public class ClientMain extends JFrame implements ActionListener, MouseListener {
 	CardLayout card=new CardLayout();
@@ -328,39 +328,39 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener 
 		{
 			card.show(getContentPane(), "UP");
 		}
-		else if(e.getSource()==up.b1)
+/*		else if(e.getSource()==up.b1)
 		{
-			String name=bUpdate.nameTf.getText();
+			String name=up.nameTf.getText();
 			if(name.length()<1) // 입력이 안된 경우
 			{
-				bUpdate.nameTf.requestFocus();
+				up.nameTf.requestFocus();
 				return;
 			}
 			
-			String subject=bUpdate.subTf.getText();
+			String subject=up.subTf.getText();
 			if(subject.length()<1) // 입력이 안된 경우
 			{
-				bUpdate.subTf.requestFocus();
+				up.subTf.requestFocus();
 				return;
 			}
 			
-			String content=bUpdate.ta.getText();
+			String content=up.ta.getText();
 			if(content.length()<1) // 입력이 안된 경우
 			{
-				bUpdate.ta.requestFocus();
+				up.ta.requestFocus();
 				return;
 			}
 			
-			String pwd=String.valueOf(bUpdate.pwdPf.getPassword());
+			String pwd=String.valueOf(up.pwdPf.getPassword());
 			if(pwd.length()<1) // 입력이 안된 경우
 			{
-				bUpdate.pwdPf.requestFocus();
+				up.pwdPf.requestFocus();
 				return;
 			}
 			
-			String no=bUpdate.noLa.getText();
-			Board b=new Board();
-			b.setName(name);
+			String no=up.noLa.getText();
+		//	Board b=new Board();
+			setName(name);
 			b.setContent(content);
 			b.setPwd(pwd);
 			b.setSubject(subject);
@@ -377,7 +377,7 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener 
 		else if(e.getSource()==up.b2)
 		{
 			card.show(getContentPane(), "SFP");
-		}
+		} */
 	}
 
 	@Override
