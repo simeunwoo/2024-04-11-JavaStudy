@@ -2,13 +2,13 @@ package com.sist.client;
 import java.awt.Font;
 
 import javax.swing.*;
-public class UpdatePanel extends JPanel {
+public class SignUpPanel extends JPanel {
     JLabel titleLa,nameLa,subLa,contLa,pwdLa,noLa;
     JTextField nameTf,subTf;
     JPasswordField pwdPf;
     JTextArea ta;
     JButton b1,b2;
-    public UpdatePanel()
+    public SignUpPanel()
     {
     	titleLa=new JLabel("수정하기",JLabel.CENTER);// <table>
     	titleLa.setFont(new Font("맑은 고딕",Font.BOLD,30)); //<h3></h3>

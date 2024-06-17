@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import com.sist.dao.*;
 import com.sist.commons.*;
-public class ClientMain extends JFrame implements ActionListener,Runnable{
+public class ClientMain extends JFrame implements ActionListener, Runnable, MouseListener {
     CardLayout card=new CardLayout();
     Login login=new Login();
     WaitRoom wr=new WaitRoom();
@@ -17,7 +17,11 @@ public class ClientMain extends JFrame implements ActionListener,Runnable{
     // 서버로 전송 
     OutputStream out; // 이벤트 발생시 처리 => 버튼 , 마우스 클릭 ... 
     // 서버에서 값 읽기
-    BufferedReader in; // 자동화 처리 => 쓰레드 
+    BufferedReader in; // 자동화 처리 => 쓰레드
+    
+    String myId;
+    int selRow=-1;
+    
     public ClientMain()
     {
     	dao=MemberDAO.newInstance();
@@ -29,6 +33,12 @@ public class ClientMain extends JFrame implements ActionListener,Runnable{
     	
     	login.b1.addActionListener(this);
     	login.b2.addActionListener(this);
+    	
+    	wr.tf.addActionListener(this); // enter 쳤을 때 처리
+    	wr.b6.addActionListener(this); // 나가기
+    	
+    	wr.table2.addMouseListener(this);
+    	wr.b4.addActionListener(this); // 정보 보기
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -44,7 +54,7 @@ public class ClientMain extends JFrame implements ActionListener,Runnable{
 		}
 		else if(e.getSource()==login.b1)
 		{
-			/*String id=login.tf.getText();
+			String id=login.tf.getText();
 			if(id.length()<1)
 			{
 				login.tf.requestFocus();
@@ -72,7 +82,7 @@ public class ClientMain extends JFrame implements ActionListener,Runnable{
 				login.pf.requestFocus();
 			}
 			else
-			{*/
+			{
 				// 서버와 연결 
 				try
 				{
@@ -81,14 +91,54 @@ public class ClientMain extends JFrame implements ActionListener,Runnable{
 					out=s.getOutputStream();
 					//  서버와 연결 완료 
 					// 서버로 로그인 요청 
-					//out.write((Function.LOGIN+"|"+id+"\n").getBytes());
-					out.write((Function.LOGIN+"|hong\n").getBytes());
+					out.write((Function.LOGIN+"|"+id+"\n").getBytes());
+				//	out.write((Function.LOGIN+"|hong\n").getBytes());
 				}catch(Exception ex) {}
 				// 서버로부터 응답값을 받아서 처리 
 				new Thread(this).start();
-			//}
+			}
+		}
+		else if(e.getSource()==wr.tf) // 대기실 채팅
+		{
+			// 1. 입력값 가지고 오기
+			String msg=wr.tf.getText();
+			if(msg.length()<1)
+				return;
+			
+			// 2. 서버로 입력값 전송
+			try
+			{
+				out.write((Function.CHAT+"|"+msg+"\n").getBytes()); // out 서버와 연결된 상태
+			}catch(Exception ex) {}
+			wr.tf.setText("");
+			wr.tf.requestFocus();
+		}
+		else if(e.getSource()==wr.b6)
+		{
+			try
+			{
+				out.write((Function.EXIT+"|\n").getBytes());
+			}catch(Exception ex) {}
+		}
+		// 정보 보기
+		else if(e.getSource()==wr.b4)
+		{
+			if(selRow==-1)
+			{
+				JOptionPane.showMessageDialog(this, "정보를 볼 대상을 선택하세요");
+				return;
+			}
+			String yid=wr.model2.getValueAt(selRow, 0).toString(); // 선택한 줄의 1번째 값 (0번째 컬럼) => id => 서버로 보내주기 위하여
+			
+			try
+			{
+				out.write((Function.INFO+"|"+yid+"\n").getBytes());
+			}catch(Exception ex) {}
+			selRow=-1;
 		}
 	}
+	// client (요청) => server (응답) => client (출력 = 처리)
+	// 이벤트 발생 => 클릭 / enter ...
 	// 서버의 응답값을 처리 
 	@Override
 	public void run() {
@@ -117,7 +167,7 @@ public class ClientMain extends JFrame implements ActionListener,Runnable{
 				   break;
 				   case Function.MYLOG:
 				   {
-					   String id=st.nextToken();
+					   myId=st.nextToken();
 					   String name=st.nextToken();
 					   setTitle(name+"님의 채팅창");
 					   card.show(getContentPane(), "WR");// 대기실창 이동 
@@ -126,11 +176,92 @@ public class ClientMain extends JFrame implements ActionListener,Runnable{
 				   case Function.CHAT:
 				   {
 					   wr.ta.append(st.nextToken()+"\n");
+					   wr.bar.setValue(wr.bar.getMaximum());
 					   
+				   }
+				   case Function.EXIT:
+				   {
+					   String mid=st.nextToken();
+					   for(int i=0;i<wr.model2.getRowCount();i++)
+					   {
+						   String ids=wr.model2.getValueAt(i, 0).toString();
+						   if(mid.equals(ids))
+						   {
+							   wr.model2.removeRow(i);
+						   }
+					   }
+				   }
+				   case Function.MYEXIT:
+				   {
+					   dispose();
+					   System.exit(0);
+				   }
+				   case Function.INFO:
+				   {
+					   /*
+					   +vo.getName()+"|"
+					  +vo.getSex()+"|"
+					  +vo.getAddr1()+"|"
+					  +vo.getEmail()+"|"
+					  +vo.getPhone()+"|"
+					  +vo.getContent()
+					    */
+					   String info="이름:"+st.nextToken()+"\n"
+							   +"성별:"+st.nextToken()+"\n"
+							   +"주소:"+st.nextToken()+"\n"
+							   +"이메일:"+st.nextToken()+"\n"
+							   +"전화:"+st.nextToken()+"\n"
+							   +"소개:"+st.nextToken();
+					   JOptionPane.showMessageDialog(this, info);
 				   }
 				}
 			}catch(Exception ex) {}
 		}
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==wr.table2)
+		{
+			if(e.getClickCount()==2)
+			{
+				int row=wr.table2.getSelectedRow();
+				selRow=row;
+				String id=wr.model2.getValueAt(row, 0).toString();
+				if(id.equals(myId)) // 본인 거라면 => 비활성화되는 버튼
+				{
+					wr.b3.setEnabled(false);
+					wr.b4.setEnabled(false);
+					wr.b5.setEnabled(false);
+				}
+				else // 아니면 => 활성화되는 버튼
+				{
+					wr.b3.setEnabled(true);
+					wr.b4.setEnabled(true);
+					wr.b5.setEnabled(true);
+				}
+			}
+		}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

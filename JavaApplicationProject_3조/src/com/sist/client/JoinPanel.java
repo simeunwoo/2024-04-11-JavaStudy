@@ -60,7 +60,7 @@ public class JoinPanel extends JPanel{
     	rb2.setBounds(340, 185, 70, 30);
     	add(rb2);
     	
-    	ButtonGroup bg=new ButtonGroup(); // 그룹 설정 => 남자/여자 버튼 중 한개만 선택할 수 있게 설정한다
+    	ButtonGroup bg=new ButtonGroup();
     	bg.add(rb1); bg.add(rb2);
     	
     	rb1.setSelected(true);

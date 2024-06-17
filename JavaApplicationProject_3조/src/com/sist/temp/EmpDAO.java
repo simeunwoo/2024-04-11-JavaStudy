@@ -12,7 +12,7 @@ public class EmpDAO {
 	 * 												|
 	 * 								 			SQL 문장 실행 =====> 결과값 저장 =====> 데이터 출력 (윈도우, 브라우저 : VO, DAO 변경이 없다)
 	 */
-	private final String URL="jdbc:oracle:thin:@localhost:1521:XE";
+	private final String URL="jdbc:oracle:thin:@l192.168.10.124:1521:XE";
 	// 싱글턴 (DB에선 필수 => 커넥션 남발 때문 => 한개만 객체 생성) => 한개의 객체만 사용 가능 => 오라클 연동
 	private static EmpDAO dao;
 	/*
@@ -39,7 +39,7 @@ public class EmpDAO {
 	{
 		try
 		{
-			conn=DriverManager.getConnection(URL,"hr","happy");
+			conn=DriverManager.getConnection(URL,"hr3","happy");
 			// conn hr/happy => 오라클 명령
 		}catch(Exception ex) {}
 	}

@@ -1,11 +1,14 @@
 package com.sist.dao;
 import java.util.*;
+
+import javax.naming.spi.DirStateFactory.Result;
+
 import java.sql.*;
 
 public class MemberDAO {
 	private Connection conn;
 	private PreparedStatement ps;
-	private final String URL="jdbc:oracle:thin:@localhost:1521:XE";
+	private final String URL="jdbc:oracle:thin:@192.168.10.124:1521:XE";
 	private static MemberDAO dao; // 싱글턴 (데이터베이스가 있으면 무조건 싱글턴이 있다)
 	
 	// 1. 드라이버 등록
@@ -22,7 +25,7 @@ public class MemberDAO {
 	{
 		try
 		{
-			conn=DriverManager.getConnection(URL,"hr","happy");
+			conn=DriverManager.getConnection(URL,"hr3","happy");
 		}catch(Exception ex) {}
 	}
 	
@@ -141,6 +144,39 @@ public class MemberDAO {
 		}
 		return vo;
 	}
+	
+	public MemberVO memberInfo2(String id)
+	{
+		MemberVO vo=new MemberVO();
+		try
+		{
+			getConnection();
+			String sql="SELECT name,sex,addr1,phone,content,email "
+						+"FROM member "
+						+"WHERE id=?";
+			ps=conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			vo.setName(rs.getString(1));
+			vo.setSex(rs.getString(2));
+			vo.setAddr1(rs.getString(3));
+			vo.setPhone(rs.getString(4));
+			vo.setContent(rs.getString(5));
+			vo.setEmail(rs.getString(6));
+			rs.close();
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return vo;
+	}
+	
 	// 2. 회원 가입 => 아이디 중복 체크 / 우편 번호 검색
 /*
  ID
