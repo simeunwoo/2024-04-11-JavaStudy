@@ -95,6 +95,9 @@ public class ChatPanel extends JPanel{
         
  	   Style red=pane.addStyle("red", null);
  	   StyleConstants.setForeground(red, Color.red);
+
+ 	   Style gray=pane.addStyle("gray", null);
+ 	   StyleConstants.setForeground(gray, Color.gray);
  	   
     }
     
