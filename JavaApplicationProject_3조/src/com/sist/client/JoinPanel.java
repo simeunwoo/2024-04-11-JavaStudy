@@ -1,8 +1,9 @@
+
 package com.sist.client;
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
-public class JoinPanel extends JPanel{
+public class JoinPanel extends JFrame{
     JLabel tLa,iLa,pLa1,nLa,sLa,bLa,pLa,aLa1,aLa2,telLa,cLa,eLa;
     JTextField idtf,nametf,birthtf,posttf,addrtf1,addrtf2,teltf,emailtf;
     JTextArea cta;
@@ -142,5 +143,7 @@ public class JoinPanel extends JPanel{
     	
     	p.setBounds(150, 610, 565, 35);
     	add(p);
+    	
+    	setSize(960, 700);
     }
 }
