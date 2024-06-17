@@ -13,7 +13,7 @@ public class ChatServer implements Runnable{
      */
 	// 서버 가동 
 	private ServerSocket ss;
-	private final int PORT=3355;
+	private final int PORT=2226;
 	// 접속한 클라이언트 정보 
 	private Vector<Client> waitVc=new Vector<Client>();
 	// 데이터베이스 연동 
@@ -111,7 +111,7 @@ public class ChatServer implements Runnable{
 						   messageAll(Function.LOGIN+"|"+id+"|"+name+"|"
 								    +sex+"|"+admin);
 						   // 2. 입장 메세지 전송 
-						   messageAll(Function.CHAT+"|[알림 ▶]"+name+"님 입장하셨습니다!!");
+						   messageAll(Function.CHAT+"|[알림 ▶]"+name+"님 입장하셨습니다!!|red");
 						   // 3. 현재 접속자에게 => 이전에 접속한 회원의 정보를 전송 
 						   
 						   // 저장 
@@ -130,7 +130,9 @@ public class ChatServer implements Runnable{
 					   break;
 					   case Function.CHAT:
 					   {
-						   
+						   String message=st.nextToken();
+						   String color=st.nextToken();
+						   messageAll(Function.CHAT+"|["+name+"]"+message+"|"+color);
 					   }
 					   break;
 					   case Function.INFO:

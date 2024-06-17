@@ -1,4 +1,3 @@
-
 package com.sist.client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -73,7 +72,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	post.table.addMouseListener(this);
     	
     	idfrm.b1.addActionListener(this);// 아이디 체크
-    	idfrm.b2.addActionListener(this);// 확인
+    	idfrm.b2.addActionListener(this);// 확인 
     	
     	mp.exitBtn.addActionListener(this);
     	mp.chatBtn.addActionListener(this);
@@ -97,6 +96,22 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		{
 			dispose();// window메모리 해제 
 			System.exit(0);// 프로그램 종료
+		}
+		else if(e.getSource()==cp.chatP.tf)
+		{
+			String msg=cp.chatP.tf.getText();
+			if(msg.length()<1)
+				return;
+			
+			String color=cp.chatP.box1.getSelectedItem().toString();
+			
+			try
+			{
+				out.write((Function.CHAT+"|"+msg+"|"+color+"\n").getBytes());
+			}catch(Exception ex){}
+			
+			cp.chatP.tf.setText("");
+			cp.chatP.tf.requestFocus();
 		}
 		else if(e.getSource()==mp.exitBtn)
 		{
@@ -348,7 +363,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 					try
 					{
 						//1. 소켓 => 전화 걸기 
-						s=new Socket("localhost",3355); // 조별 
+						s=new Socket("192.168.10.116",2226); // 조별 
 						out=s.getOutputStream();
 						System.out.println("id="+id);
 						in=new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -419,18 +434,19 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 				{
 				  case Function.LOGIN:
 				  {
-					String[] data= {
-						st.nextToken(),
-						st.nextToken(),
-						st.nextToken()
-					};
-					cp.chatP.model.addRow(data);
-					String admin=st.nextToken();
-					
-					if(!myId.equals(data[0]) && admin.equals("y"))
-					{
-						cp.chatP.box2.addItem(data[0]);
-					}
+					  String[] data= {
+						 st.nextToken(),
+						 st.nextToken(),
+						 st.nextToken()
+					  };
+					  cp.chatP.model.addRow(data);
+					  String admin=st.nextToken();
+					  
+					  if(!myId.equals(data[0]) && admin.equals("y"))
+					  {
+						  cp.chatP.box2.addItem(data[0]);
+					  }
+					  
 				  }
 				  break;
 				  case Function.MYLOG:
@@ -441,6 +457,16 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 					  lp.setVisible(false);
 					  setVisible(true);
 				  }
+				  break;
+				  case Function.CHAT:
+				  {
+					  String message=st.nextToken();
+					  String color=st.nextToken();
+					  cp.chatP.initStyle();
+					  
+					  cp.chatP.append(message, color);
+				  }
+				  break;
 				}
 			}
 		}catch(Exception ex) {ex.printStackTrace();}

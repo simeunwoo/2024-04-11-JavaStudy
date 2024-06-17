@@ -21,6 +21,7 @@ public class ChatPanel extends JPanel{
     	JScrollPane js1=new JScrollPane(pane);
     	js1.setBounds(10, 15, 480, 480);
     	add(js1);
+    	pane.setEditable(false); // 편집 방지
     	
     	tf=new JTextField();
     	tf.setBounds(10, 500, 380, 30);
@@ -39,7 +40,7 @@ public class ChatPanel extends JPanel{
     	box1.setBounds(395, 500, 100, 30);
     	add(box1);
     	
-    	String[] col= {"ID","이름","성별"};
+    	String[] col={"ID","이름","성별"};
     	String[][] row=new String[0][3];
     	
     	model=new DefaultTableModel(row,col)
@@ -52,25 +53,23 @@ public class ChatPanel extends JPanel{
 			}
     		
     	};
-    	
     	table=new JTable(model);
     	JScrollPane js2=new JScrollPane(table);
     	js2.setBounds(495, 15, 400, 400);
     	add(js2);
     	
     	box2=new JComboBox<String>();
-    	box2.setBounds(495, 420, 100, 30);
+    	box2.setBounds(495,420, 100, 30);
     	add(box2);
     	
-    	b1=new JButton("1:1 상담");
+    	b1=new JButton("1:1상담");
     	b1.setBounds(600, 420, 120, 30);
     	
-    	b2=new JButton("정보 보기");
+    	b2=new JButton("정보보기");
     	b2.setBounds(725, 420, 100, 30);
     	
-    	add(b1); add(b2);
+    	add(b1);add(b2);
     }
-    
     public void initStyle()
     {
  	   Style green=pane.addStyle("green", null);
@@ -99,14 +98,15 @@ public class ChatPanel extends JPanel{
  	   
     }
     
-    // Textpane의 단점 : 문자열 결합이 안된다 => setText()
+    // TextPane의 단점 => 문자열 결합 => setText()
     public void append(String msg,String color)
     {
     	try
     	{
-        	Document doc=pane.getDocument();
-        	doc.insertString(doc.getLength(), msg+"\n", pane.getStyle(color));
-    	}catch(Exception ex) {}
-
+    	  Document doc=pane.getDocument();
+    	  doc.insertString(doc.getLength(), msg+"\n", pane.getStyle(color));
+    	}catch(Exception ex){}
+    	
     }
+    
 }
