@@ -1,4 +1,3 @@
-
 package com.sist.server;
 class MyThread extends Thread
 {

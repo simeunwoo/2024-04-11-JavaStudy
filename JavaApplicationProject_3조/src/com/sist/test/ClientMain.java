@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 import com.sist.dao.*;
 import com.sist.commons.*;
-public class ClientMain extends JFrame implements ActionListener, Runnable, MouseListener {
+public class ClientMain extends JFrame implements ActionListener,Runnable,MouseListener{
     CardLayout card=new CardLayout();
     Login login=new Login();
     WaitRoom wr=new WaitRoom();
@@ -17,11 +17,10 @@ public class ClientMain extends JFrame implements ActionListener, Runnable, Mous
     // 서버로 전송 
     OutputStream out; // 이벤트 발생시 처리 => 버튼 , 마우스 클릭 ... 
     // 서버에서 값 읽기
-    BufferedReader in; // 자동화 처리 => 쓰레드
+    BufferedReader in; // 자동화 처리 => 쓰레드 
     
     String myId;
     int selRow=-1;
-    
     public ClientMain()
     {
     	dao=MemberDAO.newInstance();
@@ -34,11 +33,12 @@ public class ClientMain extends JFrame implements ActionListener, Runnable, Mous
     	login.b1.addActionListener(this);
     	login.b2.addActionListener(this);
     	
-    	wr.tf.addActionListener(this); // enter 쳤을 때 처리
-    	wr.b6.addActionListener(this); // 나가기
+    	wr.tf.addActionListener(this);//enter
+    	wr.b6.addActionListener(this);//나가기 
     	
     	wr.table2.addMouseListener(this);
-    	wr.b4.addActionListener(this); // 정보 보기
+    	wr.b4.addActionListener(this);// 정보 보기 
+    	
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -86,30 +86,30 @@ public class ClientMain extends JFrame implements ActionListener, Runnable, Mous
 				// 서버와 연결 
 				try
 				{
-					s=new Socket("192.168.10.116",2226);
+					s=new Socket("192.168.10.124",2226);
 					in=new BufferedReader(new InputStreamReader(s.getInputStream()));
 					out=s.getOutputStream();
 					//  서버와 연결 완료 
 					// 서버로 로그인 요청 
 					out.write((Function.LOGIN+"|"+id+"\n").getBytes());
-				//	out.write((Function.LOGIN+"|hong\n").getBytes());
+					//out.write((Function.LOGIN+"|hong\n").getBytes());
 				}catch(Exception ex) {}
 				// 서버로부터 응답값을 받아서 처리 
 				new Thread(this).start();
 			}
 		}
-		else if(e.getSource()==wr.tf) // 대기실 채팅
+		else if(e.getSource()==wr.tf)// 대기실 채팅 
 		{
-			// 1. 입력값 가지고 오기
+			//1. 입력값 가지고 오기 
 			String msg=wr.tf.getText();
 			if(msg.length()<1)
 				return;
 			
-			// 2. 서버로 입력값 전송
+			// 2. 입력값 전송 
 			try
 			{
-				out.write((Function.CHAT+"|"+msg+"\n").getBytes()); // out 서버와 연결된 상태
-			}catch(Exception ex) {}
+				out.write((Function.CHAT+"|"+msg+"\n").getBytes()); // out 서버와 연결 
+			}catch(Exception ex){}
 			wr.tf.setText("");
 			wr.tf.requestFocus();
 		}
@@ -118,17 +118,17 @@ public class ClientMain extends JFrame implements ActionListener, Runnable, Mous
 			try
 			{
 				out.write((Function.EXIT+"|\n").getBytes());
-			}catch(Exception ex) {}
+			}catch(Exception ex){}
 		}
-		// 정보 보기
+		// 정보 보기 
 		else if(e.getSource()==wr.b4)
 		{
 			if(selRow==-1)
 			{
-				JOptionPane.showMessageDialog(this, "정보를 볼 대상을 선택하세요");
+				JOptionPane.showMessageDialog(this, "정보 볼 대상을 선택하세요");
 				return;
 			}
-			String yid=wr.model2.getValueAt(selRow, 0).toString(); // 선택한 줄의 1번째 값 (0번째 컬럼) => id => 서버로 보내주기 위하여
+			String yid=wr.model2.getValueAt(selRow, 0).toString();
 			
 			try
 			{
@@ -137,8 +137,8 @@ public class ClientMain extends JFrame implements ActionListener, Runnable, Mous
 			selRow=-1;
 		}
 	}
-	// client (요청) => server (응답) => client (출력 = 처리)
-	// 이벤트 발생 => 클릭 / enter ...
+	// client(요청) => server(응답) => client(응답 출력)
+	// 이벤트 발생 => 클릭 / 엔터 ... 
 	// 서버의 응답값을 처리 
 	@Override
 	public void run() {
@@ -177,7 +177,6 @@ public class ClientMain extends JFrame implements ActionListener, Runnable, Mous
 				   {
 					   wr.ta.append(st.nextToken()+"\n");
 					   wr.bar.setValue(wr.bar.getMaximum());
-					   
 				   }
 				   case Function.EXIT:
 				   {
@@ -188,32 +187,38 @@ public class ClientMain extends JFrame implements ActionListener, Runnable, Mous
 						   if(mid.equals(ids))
 						   {
 							   wr.model2.removeRow(i);
+							   break;
 						   }
 					   }
+					   
 				   }
+				   break;
 				   case Function.MYEXIT:
 				   {
 					   dispose();
 					   System.exit(0);
 				   }
+				   break;
 				   case Function.INFO:
 				   {
 					   /*
-					   +vo.getName()+"|"
-					  +vo.getSex()+"|"
-					  +vo.getAddr1()+"|"
-					  +vo.getEmail()+"|"
-					  +vo.getPhone()+"|"
-					  +vo.getContent()
+					    *          +vo.getName()+"|"
+								   +vo.getSex()+"|"
+								   +vo.getAddr1()+"|"
+								   +vo.getEmail()+"|"
+								   +vo.getPhone()+"|"
+								   +vo.getContent()
 					    */
 					   String info="이름:"+st.nextToken()+"\n"
-							   +"성별:"+st.nextToken()+"\n"
-							   +"주소:"+st.nextToken()+"\n"
-							   +"이메일:"+st.nextToken()+"\n"
-							   +"전화:"+st.nextToken()+"\n"
-							   +"소개:"+st.nextToken();
+							      +"성별:"+st.nextToken()+"\n"
+							      +"주소:"+st.nextToken()+"\n"
+							      +"이메일:"+st.nextToken()+"\n"
+							      +"전화:"+st.nextToken()+"\n"
+							      +"소개:"+st.nextToken();
 					   JOptionPane.showMessageDialog(this, info);
+							      
 				   }
+				   break;
 				}
 			}catch(Exception ex) {}
 		}
@@ -228,13 +233,13 @@ public class ClientMain extends JFrame implements ActionListener, Runnable, Mous
 				int row=wr.table2.getSelectedRow();
 				selRow=row;
 				String id=wr.model2.getValueAt(row, 0).toString();
-				if(id.equals(myId)) // 본인 거라면 => 비활성화되는 버튼
+				if(id.equals(myId))
 				{
 					wr.b3.setEnabled(false);
 					wr.b4.setEnabled(false);
 					wr.b5.setEnabled(false);
 				}
-				else // 아니면 => 활성화되는 버튼
+				else
 				{
 					wr.b3.setEnabled(true);
 					wr.b4.setEnabled(true);

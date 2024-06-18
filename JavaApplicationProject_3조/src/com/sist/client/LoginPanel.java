@@ -1,3 +1,4 @@
+
 package com.sist.client;
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +11,7 @@ public class LoginPanel extends JFrame{
     
     public LoginPanel()
     {
-    	back=Toolkit.getDefaultToolkit().getImage("c:\\project_image\\back.jpg");
+    	back=Toolkit.getDefaultToolkit().getImage("c:\\javaDev\\back.jpg");
     	
     	idLa=new JLabel("아이디",JLabel.RIGHT);
     	pwdLa=new JLabel("비밀번호",JLabel.RIGHT);

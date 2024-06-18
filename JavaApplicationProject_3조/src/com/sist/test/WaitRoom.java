@@ -1,3 +1,4 @@
+
 package com.sist.test;
 import java.awt.*;
 import javax.swing.*;
@@ -10,7 +11,6 @@ public class WaitRoom extends JPanel{
     JTable table1,table2;
     DefaultTableModel model1,model2;
     JScrollBar bar;
-    
     public WaitRoom()
     {
     	String[] col1={"방이름","상담사","상태","인원"};
