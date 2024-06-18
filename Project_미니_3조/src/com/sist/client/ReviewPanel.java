@@ -17,12 +17,12 @@ public class ReviewPanel extends JPanel {
     {
     	prevBtn=new JButton("이전");
     	nextBtn=new JButton("다음");
-    	updateBtn=new JButton("수정하기");
+    	updateBtn=new JButton("작성하기");
     	pageLa=new JLabel("0 page / 0 pages");
-    	titleLa=new JLabel("사원목록",JLabel.CENTER);
-    	titleLa.setFont(new Font("맑은 고딕",Font.BOLD,43));
+    	titleLa=new JLabel("제품 후기 게시판 목록",JLabel.CENTER);
+    	titleLa.setFont(new Font("휴먼모음T",Font.BOLD,45));
     	
-    	String[] col={"번호","제목","이름","작성일","조회수"};
+    	String[] col={"번호","제목","아이디","작성일","조회수"};
     	String[][] row=new String[0][5];
     	
        	model=new DefaultTableModel(row,col)
