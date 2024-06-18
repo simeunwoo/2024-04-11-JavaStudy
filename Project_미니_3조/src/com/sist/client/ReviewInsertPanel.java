@@ -49,6 +49,6 @@ public class ReviewInsertPanel extends JFrame{
     	b.setBounds(470, 290, 150, 30);
     	add(b);
     	
-    	setSize(960, 700);
+    	setSize(1280, 720);
     }
 }

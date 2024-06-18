@@ -26,7 +26,8 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     ReviewInsertPanel rip=new ReviewInsertPanel();
     ReviewDetailPanel rdp=new ReviewDetailPanel();
     
-    ReviewBoardSystem bs=new ReviewBoardSystem();
+    ReviewBoard rb=new ReviewBoard();
+    ReviewBoardSystem rbs=new ReviewBoardSystem();
     
     // 네트워크에 필요한 객체
     Socket s; // 통신기기 => 핸드폰 
@@ -41,9 +42,15 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     public ClientMain()
     {
     	setLayout(null);
+    	add("RP",rp);
+
+    	
     	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     	
-    	listPrint();
+    	setSize(1280,720);
+    	setVisible(true);
+    	
+    	//listPrint();
     	
     	rdp.b.addActionListener(this);
     	rip.b.addActionListener(this);
@@ -53,7 +60,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	
     	rip.subtf.addActionListener(this);
     }
-    
+    /*
     public void listPrint()
     {
     	// 테이블 전체를 한번 지운다
@@ -62,8 +69,8 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     		rp.model.removeRow(i);
     	}
     	
-    	ArrayList<ReviewBoard> list=bs.boardList(curpage);
-    	totalpage=bs.boardTotalPage();
+    	ArrayList<ReviewBoard> list=rbs.boardList(curpage);
+    	totalpage=rbs.boardTotalPage();
     	rp.pageLa.setText(curpage+" page / "+totalpage+" pages");
     	for(int i=0;i<list.size();i++) // 최신 => 가장 위로 올린다.
     	{
@@ -78,7 +85,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     		rp.model.addRow(data);
     	}
     }
-	
+	*/
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -105,7 +112,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 				// 선택된 위치 
 				int row=rp.table.getSelectedRow();
 				String no=rp.model.getValueAt(row, 0).toString();
-				ReviewBoard b=bs.boardDetail(Integer.parseInt(no));
+				ReviewBoard b=rbs.boardDetail(Integer.parseInt(no));
 				rdp.id.setText(b.getId());
 				rdp.day.setText(new SimpleDateFormat("yyyy-MM-dd").format(b.getDay()));
 				rdp.hit.setText(String.valueOf(b.getHit()));
@@ -166,7 +173,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 			if(curpage>1)
 			{
 				curpage--;
-				listPrint();
+		//		listPrint();
 			}
 		}
 		else if(e.getSource()==rp.nextBtn)
@@ -174,14 +181,14 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		    if(curpage<totalpage)
 		    {
 		    	curpage++;
-		    	listPrint();
+		    //	listPrint();
 		    }
 		}
 		else if(e.getSource()==rp.updateBtn)
 		{
+			cp.card.show(cp, "RIP");
 			rip.subtf.setText("");
 			rip.ta.setText("");
-			cp.card.show(cp, "RIP");
 			rip.subtf.requestFocus();
 		}
 	}

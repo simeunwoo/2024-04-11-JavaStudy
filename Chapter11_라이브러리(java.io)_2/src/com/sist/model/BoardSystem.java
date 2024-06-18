@@ -18,10 +18,10 @@ public class BoardSystem {
    public BoardSystem()
    {
 	  
-	   boardGetData();
+	//   boardGetData();
    }
    
-   public void boardGetData()
+ /*  public void boardGetData()
    {
 	   ObjectInputStream ois=null;
 	   try
@@ -40,7 +40,7 @@ public class BoardSystem {
 			  ois.close();
 		  }catch(Exception ex) {}
 	   }
-   }
+   } */
    // 저장 
    public void boardSave()
    {

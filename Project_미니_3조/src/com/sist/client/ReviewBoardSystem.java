@@ -13,7 +13,7 @@ import java.util.*;
 import java.io.*;
 public class ReviewBoardSystem {
    // 데이터 저장 => 모든 사용자 공통으로 사용 
-   private static ArrayList<ReviewBoard> list=new ArrayList<ReviewBoard>();
+   private static ArrayList<ReviewBoard> list;
    
    public ReviewBoardSystem()
    {
@@ -28,7 +28,7 @@ public class ReviewBoardSystem {
 	   {
 		   FileInputStream fis=new FileInputStream("c:\\java_data\\board.txt");
 		   ois=new ObjectInputStream(fis);
-		   list=(ArrayList<ReviewBoard>)ois.readObject();
+		 //  list=(ArrayList<ReviewBoard>)ois.readObject();
 	   }catch(Exception ex)
 	   {
 		   ex.printStackTrace();// 에러 확인 

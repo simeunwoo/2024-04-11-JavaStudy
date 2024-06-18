@@ -43,36 +43,36 @@ public class ReviewPanel extends JPanel {
        	   		column=table.getColumnModel().getColumn(i);
        	   		if(i==0)
        	   		{
-       	   			column.setPreferredWidth(50);
+       	   			column.setPreferredWidth(125);
        	   		}
        	   		else if(i==1)
        	   		{
-       	   			column.setPreferredWidth(350);
+       	   			column.setPreferredWidth(875);
        	   		}
        	   		else if(i==2)
        	   		{
-       	   			column.setPreferredWidth(100);
+       	   			column.setPreferredWidth(250);
        	   		}
        	   		else if(i==3)
        	   		{
-       	   			column.setPreferredWidth(150);
+       	   			column.setPreferredWidth(305);
        	   		}
        	   		else if(i==4)
        	   		{
-       	   			column.setPreferredWidth(50);
+       	   			column.setPreferredWidth(125);
        	   		}
        	   	}
        	   	table.getTableHeader().setReorderingAllowed(false);
        	   	table.setShowVerticalLines(false);
-       	   	table.setRowHeight(30);
-       	   	table.getTableHeader().setBackground(Color.GREEN);
+       	   	table.setRowHeight(50);
+       	   	table.getTableHeader().setBackground(new Color(207,255,229));
        	   	
         	setLayout(null);
-        	titleLa.setBounds(370, 80, 620, 50);
+        	titleLa.setBounds(340, 80, 620, 50);
         	add(titleLa);
-        	js.setBounds(370, 190, 600, 330);
+        	js.setBounds(170, 210, 900, 390);
         	add(js);
-        	updateBtn.setBounds(370, 140, 100, 35);
+        	updateBtn.setBounds(170, 160, 100, 35);
         	add(updateBtn);
         	
         	JPanel p=new JPanel();
@@ -80,10 +80,10 @@ public class ReviewPanel extends JPanel {
         	p.add(pageLa);
         	p.add(nextBtn);
         	
-        	p.setBounds(370, 550, 600, 35);
+        	p.setBounds(370, 610, 600, 35);
         	add(p);
         	
-        	setSize(960, 700);
+        	setSize(1280, 720);
         	
         	
     }
