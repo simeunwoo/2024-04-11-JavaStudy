@@ -23,8 +23,6 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     CardLayout card=new CardLayout();
     ControlPanel cp=new ControlPanel();
     ReviewPanel rp=new ReviewPanel();
-    ReviewInsertPanel rip=new ReviewInsertPanel();
-    ReviewDetailPanel rdp=new ReviewDetailPanel();
     
     ReviewBoard rb=new ReviewBoard();
     ReviewBoardSystem rbs=new ReviewBoardSystem();
@@ -42,7 +40,8 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     public ClientMain()
     {
     	setLayout(null);
-    	add("RP",rp);
+    	add("RP",cp);
+    	cp.setBounds(0, 0, 1280, 720);
 
     	
     	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -52,13 +51,13 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	
     	//listPrint();
     	
-    	rdp.b.addActionListener(this);
-    	rip.b.addActionListener(this);
-    	rp.prevBtn.addActionListener(this);
-    	rp.nextBtn.addActionListener(this);
-    	rp.updateBtn.addActionListener(this);
+    	cp.rdp.b.addActionListener(this);
+    	cp.rip.b.addActionListener(this);
+    	cp.rp.prevBtn.addActionListener(this);
+    	cp.rp.nextBtn.addActionListener(this);
+    	cp.rp.updateBtn.addActionListener(this);
     	
-    	rip.subtf.addActionListener(this);
+    	cp.rip.subtf.addActionListener(this);
     }
     /*
     public void listPrint()
@@ -105,19 +104,19 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==rp.table)
+		if(e.getSource()==cp.rp.table)
 		{
 			if(e.getClickCount()==2)
 			{
 				// 선택된 위치 
-				int row=rp.table.getSelectedRow();
-				String no=rp.model.getValueAt(row, 0).toString();
+				int row=cp.rp.table.getSelectedRow();
+				String no=cp.rp.model.getValueAt(row, 0).toString();
 				ReviewBoard b=rbs.boardDetail(Integer.parseInt(no));
-				rdp.id.setText(b.getId());
-				rdp.day.setText(new SimpleDateFormat("yyyy-MM-dd").format(b.getDay()));
-				rdp.hit.setText(String.valueOf(b.getHit()));
-				rdp.sub.setText(b.getSub());
-				rdp.ta.setText(b.getTa());
+				cp.rdp.id.setText(b.getId());
+				cp.rdp.day.setText(new SimpleDateFormat("yyyy-MM-dd").format(b.getDay()));
+				cp.rdp.hit.setText(String.valueOf(b.getHit()));
+				cp.rdp.sub.setText(b.getSub());
+				cp.rdp.ta.setText(b.getTa());
 				// 화면 이동 
 				cp.card.show(cp, "RDP");
 /*
@@ -160,15 +159,15 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==rdp.b)
+		if(e.getSource()==cp.rdp.b)
 		{
 			cp.card.show(cp, "RP");
 		}
-		else if(e.getSource()==rip.b)
+		else if(e.getSource()==cp.rip.b)
 		{
 			cp.card.show(cp, "RP");
 		}
-		else if(e.getSource()==rp.prevBtn)
+		else if(e.getSource()==cp.rp.prevBtn)
 		{
 			if(curpage>1)
 			{
@@ -176,7 +175,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		//		listPrint();
 			}
 		}
-		else if(e.getSource()==rp.nextBtn)
+		else if(e.getSource()==cp.rp.nextBtn)
 		{
 		    if(curpage<totalpage)
 		    {
@@ -184,12 +183,12 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		    //	listPrint();
 		    }
 		}
-		else if(e.getSource()==rp.updateBtn)
+		else if(e.getSource()==cp.rp.updateBtn)
 		{
+//			rip.subtf.setText("");
+//			rip.ta.setText("");
 			cp.card.show(cp, "RIP");
-			rip.subtf.setText("");
-			rip.ta.setText("");
-			rip.subtf.requestFocus();
+//			rip.subtf.requestFocus();
 		}
 	}
 

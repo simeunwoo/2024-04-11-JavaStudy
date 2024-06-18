@@ -2,7 +2,7 @@ package com.sist.client;
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
-public class ReviewInsertPanel extends JFrame{
+public class ReviewInsertPanel extends JPanel {
 
     JLabel titleLa,subLa,recomLa;
     JTextField subtf;
