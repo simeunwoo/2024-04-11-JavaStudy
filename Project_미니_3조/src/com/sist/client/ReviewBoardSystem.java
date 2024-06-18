@@ -190,7 +190,7 @@ public class ReviewBoardSystem {
 	   ArrayList<ReviewBoard> bList=new ArrayList<ReviewBoard>();
 	   for(ReviewBoard b:list)
 	   {
-		   if(b.getSubject().contains(subject))
+		   if(b.getSub().contains(subject))
 		   {
 			   bList.add(b);
 		   }

@@ -111,6 +111,8 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 				rdp.hit.setText(String.valueOf(b.getHit()));
 				rdp.sub.setText(b.getSub());
 				rdp.ta.setText(b.getTa());
+				// 화면 이동 
+				cp.card.show(cp, "RDP");
 /*
      JLabel id,day,hit,sub;
      JTextArea ta;				
@@ -120,8 +122,6 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		조회수
 		제목 / 내용
 		 */
-				// 화면 이동 
-				cp.card.show(cp, "RDP");
 			}
 		}
 	}
