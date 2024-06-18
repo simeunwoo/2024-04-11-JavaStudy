@@ -4,19 +4,27 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 public class ReviewInsertPanel extends JFrame{
-    JLabel tLa,iLa,pLa1,nLa,sLa,bLa,pLa,aLa1,aLa2,telLa,cLa,eLa;
+ /*   JLabel tLa,iLa,pLa1,nLa,sLa,bLa,pLa,aLa1,aLa2,telLa,cLa,eLa;
     JTextField idtf,nametf,birthtf,posttf,addrtf1,addrtf2,teltf,emailtf;
     JTextArea cta;
     JButton b1,b2,b3,b4;
     JRadioButton rb1,rb2;
     JComboBox box;
-    JPasswordField pf;
-    
+    JPasswordField pf;*/
+    JLabel titleLa,idLa,dayLa,viewLa,hitLa,subLa;
+    JLabel id,day,view,hit,sub;
+    JTextArea ta;
+    JButton b1;
+    /*
+    아이디 / 작성일
+    조회수 / 평점
+    제목 / 내용
+     */
     public ReviewInsertPanel()
     {
     	setLayout(null);
-    	tLa=new JLabel("회원 가입",JLabel.CENTER);
-    	tLa.setFont(new Font("맑은 고딕",Font.BOLD,35));
+    	titleLa=new JLabel("제품 후기",JLabel.CENTER);
+    	titleLa.setFont(new Font("맑은 고딕",Font.BOLD,35));
     	tLa.setBounds(10, 15, 930, 40);
     	add(tLa);
     	

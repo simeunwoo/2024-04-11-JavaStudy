@@ -48,10 +48,10 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	
     	mp.setBounds(300, 15, 600, 35);
     	add(mp);
-    	cp.setBounds(10, 60, 930, 600);
+    	cp.setBounds(10, 60, 930, 580);
     	add(cp);
     	
-    	setSize(960, 700);
+    	setSize(960, 680);
     	setResizable(false);
     	//setVisible(true);
     	

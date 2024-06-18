@@ -14,9 +14,8 @@ public class ControllPanel extends JPanel{
    public ControllPanel()
    {
 	   setLayout(card);
-	   //add("EP",ep);
-	   add("CHAT",chatP);
+	  // add("EP",ep);
 	   add("HP",hp);
-	  
+	   add("CHAT",chatP);
    }
 }

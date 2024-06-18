@@ -10,7 +10,11 @@ public class ReviewPanel extends JPanel {
 	JTable table;
 	DefaultTableModel model;
 	TableColumn column;
-	    
+/*
+사진 / 제품번호
+제품명 / 가격
+조회수 / 추천수
+ */
     public ReviewPanel()
     {
     	prevBtn=new JButton("이전");
