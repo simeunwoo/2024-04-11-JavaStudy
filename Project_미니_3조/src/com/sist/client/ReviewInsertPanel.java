@@ -8,7 +8,7 @@ public class ReviewInsertPanel extends JFrame{
     JTextField subtf;
     JTextArea ta;
     JComboBox<String> box;
-    JButton b1; // 작성 완료
+    JButton b; // 작성 완료
     /*
     타이틀
     제목
@@ -45,9 +45,9 @@ public class ReviewInsertPanel extends JFrame{
     	js.setBounds(265, 430, 450,170);
     	add(js);
     	
-    	b1=new JButton("입력 완료");
-    	b1.setBounds(470, 290, 150, 30);
-    	add(b1);
+    	b=new JButton("입력 완료");
+    	b.setBounds(470, 290, 150, 30);
+    	add(b);
     	
     	setSize(960, 700);
     }

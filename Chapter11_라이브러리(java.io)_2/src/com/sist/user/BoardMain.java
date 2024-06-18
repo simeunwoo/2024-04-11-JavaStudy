@@ -74,6 +74,7 @@ public class BoardMain extends JFrame implements ActionListener,MouseListener{
     			String.valueOf(b.getHit())
     		};
     		bList.model.addRow(data);
+
     	}
     }
 	public static void main(String[] args) {

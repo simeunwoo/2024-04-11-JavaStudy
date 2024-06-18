@@ -7,7 +7,7 @@ public class ReviewDetailPanel extends JPanel{
      JLabel titleLa,idLa,dayLa,hitLa,subLa;
      JLabel id,day,hit,sub;
      JTextArea ta;
-     JButton b1;
+     JButton b;
 /*
 아이디 / 작성일
 조회수
@@ -51,8 +51,8 @@ public class ReviewDetailPanel extends JPanel{
     	 add(ta);
     	 
     	 JPanel p=new JPanel();
-    	 b1=new JButton("목록으로");
-    	 p.add(b1);
+    	 b=new JButton("목록으로");
+    	 p.add(b);
     	 p.setBounds(160, 440, 485, 35);
     	 add(p);
     	 
