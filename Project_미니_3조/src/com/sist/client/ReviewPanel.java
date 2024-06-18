@@ -11,9 +11,7 @@ public class ReviewPanel extends JPanel {
 	DefaultTableModel model;
 	TableColumn column;
 /*
-사진 / 제품번호
-제품명 / 가격
-조회수 / 추천수
+번호, 제목, 아이디, 작성일, 조회수
  */
     public ReviewPanel()
     {
