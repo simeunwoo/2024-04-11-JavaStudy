@@ -4,13 +4,13 @@ import java.awt.Font;
 // detail.jsp
 import javax.swing.*;
 public class ReviewDetailPanel extends JPanel{
-     JLabel titleLa,idLa,dayLa,viewLa,hitLa,subLa;
-     JLabel id,day,view,hit,sub;
+     JLabel titleLa,idLa,dayLa,hitLa,subLa;
+     JLabel id,day,hit,sub;
      JTextArea ta;
      JButton b1;
 /*
 아이디 / 작성일
-조회수 / 평점
+조회수
 제목 / 내용
  */
      public ReviewDetailPanel()
@@ -33,18 +33,12 @@ public class ReviewDetailPanel extends JPanel{
     	 day.setBounds(305, 75, 200, 30);
     	 add(dayLa);add(day);
     	 
-    	 viewLa=new JLabel("조회수",JLabel.CENTER);
-    	 viewLa.setBounds(160, 125 , 80, 30);
-    	 view=new JLabel("",JLabel.CENTER);
-    	 view.setBounds(95, 110, 120, 30);
-    	 add(viewLa);add(view);
-    	 
-    	 hitLa=new JLabel("평점",JLabel.CENTER);
-    	 hitLa.setBounds(480, 125 , 80, 30);
+    	 hitLa=new JLabel("조회수",JLabel.CENTER);
+    	 hitLa.setBounds(160, 125 , 80, 30);
     	 hit=new JLabel("",JLabel.CENTER);
-    	 hit.setBounds(305, 110, 200, 30);
+    	 hit.setBounds(95, 110, 120, 30);
     	 add(hitLa);add(hit);
-    	 
+   
     	 subLa=new JLabel("제목",JLabel.CENTER);
     	 subLa.setBounds(160, 140 , 80, 30);
     	 sub=new JLabel("");
