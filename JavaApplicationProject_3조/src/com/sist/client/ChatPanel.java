@@ -21,7 +21,7 @@ public class ChatPanel extends JPanel{
     	JScrollPane js1=new JScrollPane(pane);
     	js1.setBounds(10, 15, 480, 480);
     	add(js1);
-    	pane.setEditable(false); // 편집 방지
+    	pane.setEditable(false);
     	
     	tf=new JTextField();
     	tf.setBounds(10, 500, 380, 30);
@@ -60,6 +60,7 @@ public class ChatPanel extends JPanel{
     	
     	box2=new JComboBox<String>();
     	box2.setBounds(495,420, 100, 30);
+    	box2.addItem("all");
     	add(box2);
     	
     	b1=new JButton("1:1상담");
@@ -95,9 +96,9 @@ public class ChatPanel extends JPanel{
         
  	   Style red=pane.addStyle("red", null);
  	   StyleConstants.setForeground(red, Color.red);
-
+ 	   
  	   Style gray=pane.addStyle("gray", null);
- 	   StyleConstants.setForeground(gray, Color.gray);
+	   StyleConstants.setForeground(gray, Color.gray);
  	   
     }
     

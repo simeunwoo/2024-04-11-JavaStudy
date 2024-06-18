@@ -218,42 +218,43 @@ public class GoodsDAO {
      }
      // 상세보기 => 한개에 대한 정보 
      /*
- NO                                                 NUMBER(38)
- GOODS_NAME                                         VARCHAR2(4000)
- GOODS_SUB                                          VARCHAR2(4000)
- GOODS_PRICE                                        VARCHAR2(26)
- GOODS_DISCOUNT                                     NUMBER(38)
- GOODS_FIRST_PRICE                                  VARCHAR2(26)
- GOODS_DELIVERY                                     VARCHAR2(26)
- GOODS_POSTER                                       VARCHAR2(4000)
- HIT                                                NUMBER(38)
+      * NO                                                 NUMBER(38)
+		 GOODS_NAME                                         VARCHAR2(4000)
+		 GOODS_SUB                                          VARCHAR2(4000)
+		 GOODS_PRICE                                        VARCHAR2(26)
+		 GOODS_DISCOUNT                                     NUMBER(38)
+		 GOODS_FIRST_PRICE                                  VARCHAR2(26)
+		 GOODS_DELIVERY                                     VARCHAR2(26)
+		 GOODS_POSTER 
       */
-     public GoodsVO GoodsDetailData(int no)
+     public GoodsVO goodsDetailData(int no)
      {
     	 GoodsVO vo=new GoodsVO();
     	 try
     	 {
     		 getConnection();
-    		 // 조회수 증가
+    		 // 조회수 증가 
     		 String sql="UPDATE goods_all SET "
-    				 +"hit=hit+1 "
-    				 +"WHERE no=?";
+    				   +"hit=hit+1 "
+    				   +"WHERE no=?";
     		 ps=conn.prepareStatement(sql);
     		 ps.setInt(1, no);
     		 ps.executeUpdate(); // commit()
     		 
     		 // 데이터 읽기
     		 sql="SELECT no,goods_name,goods_sub,goods_price,goods_discount,"
-    		 		+"goods_first_price,goods_delivery,goods_poster "
-    				+"FROM goods_all "
-    		 		+"WHERE no=?";
+    		    +"goods_first_price,goods_delivery,goods_poster "
+    			+"FROM goods_all "
+    		    +"WHERE no=?";
+    		 
     		 ps=conn.prepareStatement(sql);
-    		 // ?에 값을 채운다
+    		 // ?에 값을 채운다 
     		 ps.setInt(1, no);
-    		 // 결과값
+    		 
+    		 // 결과값 
     		 ResultSet rs=ps.executeQuery();
     		 rs.next();
-    		 // 값을 VO에 저장
+    		 // 값을 VO에 저장 
     		 vo.setNo(rs.getInt(1));
     		 vo.setGoods_name(rs.getString(2));
     		 vo.setGoods_sub(rs.getString(3));
@@ -262,8 +263,8 @@ public class GoodsDAO {
     		 vo.setGoods_first_price(rs.getString(6));
     		 vo.setGoods_delivery(rs.getString(7));
     		 vo.setGoods_poster(rs.getString(8));
-    		 
     		 rs.close();
+    		 
     		 
     	 }catch(Exception ex)
     	 {

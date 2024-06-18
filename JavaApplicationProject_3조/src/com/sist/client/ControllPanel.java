@@ -15,11 +15,13 @@ public class ControllPanel extends JPanel{
    public ControllPanel()
    {
 	   setLayout(card);
-	  // add("EP",ep);
-	//   hp=new HomePanel(this);
+	   //add("EP",ep);
+	   hp=new HomePanel(this);
 	   dp=new GoodsDetailPanel(this);
 	   add("HP",hp);
 	   add("CHAT",chatP);
 	   add("DP",dp);
+	   
+	  
    }
 }

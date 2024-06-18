@@ -1,3 +1,4 @@
+
 package com.sist.client;
 
 import javax.swing.*;
@@ -11,7 +12,7 @@ import java.awt.event.MouseListener;
 import com.sist.commons.*;
 import java.util.*;
 import java.net.*;
-public class HomePanel extends JPanel implements ActionListener, MouseListener {
+public class HomePanel extends JPanel implements ActionListener,MouseListener{
     JPanel pan=new JPanel(); // 12개 이미지 출력 
     JButton b1,b2; // 이전 , 다음 
     JLabel la=new JLabel("0 page / 0 pages");
@@ -23,8 +24,9 @@ public class HomePanel extends JPanel implements ActionListener, MouseListener {
     GoodsDAO dao;
     // 초기화 
     ControllPanel cp;
-    public HomePanel()
+    public HomePanel(ControllPanel cp)
     {
+    	this.cp=cp;
     	dao=GoodsDAO.newInstance();
     	pan.setLayout(new GridLayout(3,4,5,5));
     	
@@ -130,6 +132,7 @@ public class HomePanel extends JPanel implements ActionListener, MouseListener {
 	}
     
 }
+
 
 
 
