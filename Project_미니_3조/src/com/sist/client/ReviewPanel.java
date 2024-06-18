@@ -85,6 +85,8 @@ public class ReviewPanel extends JPanel {
         	p.setBounds(370, 550, 600, 35);
         	add(p);
         	
+        	setSize(960, 700);
+        	
         	
     }
 }

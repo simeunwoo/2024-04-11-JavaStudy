@@ -1,156 +1,53 @@
-
 package com.sist.client;
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 public class ReviewInsertPanel extends JFrame{
- /*   JLabel tLa,iLa,pLa1,nLa,sLa,bLa,pLa,aLa1,aLa2,telLa,cLa,eLa;
-    JTextField idtf,nametf,birthtf,posttf,addrtf1,addrtf2,teltf,emailtf;
-    JTextArea cta;
-    JButton b1,b2,b3,b4;
-    JRadioButton rb1,rb2;
-    JComboBox box;
-    JPasswordField pf;*/
-    JLabel titleLa,idLa,dayLa,viewLa,hitLa,subLa;
-    JLabel id,day,view,hit,sub;
+
+    JLabel titleLa,subLa,recomLa;
+    JTextField subtf;
     JTextArea ta;
-    JButton b1;
+    JComboBox<String> box;
+    JButton b1; // 작성 완료
     /*
-    아이디 / 작성일
-    조회수 / 평점
-    제목 / 내용
+    타이틀
+    제목
+    내용
+    사원 추천하기
      */
     public ReviewInsertPanel()
     {
     	setLayout(null);
     	titleLa=new JLabel("제품 후기",JLabel.CENTER);
     	titleLa.setFont(new Font("맑은 고딕",Font.BOLD,35));
-    	tLa.setBounds(10, 15, 930, 40);
-    	add(tLa);
+    	titleLa.setBounds(10, 15, 930, 40);
+    	add(titleLa);
     	
-    	iLa=new JLabel("아이디",JLabel.RIGHT);
-    	iLa.setBounds(150, 80, 90, 30);
-    	add(iLa);
+    	subLa=new JLabel("제목",JLabel.RIGHT);
+    	subLa.setBounds(150, 80, 90, 30);
+    	add(subLa);
     	
-    	idtf=new JTextField();
-    	idtf.setBounds(265, 80, 200, 30);
-    	add(idtf);
-    	idtf.setEnabled(false);
+    	subtf=new JTextField();
+    	subtf.setBounds(265, 80, 200, 30);
+    	add(subtf);
     	
-    	b1=new JButton("아이디 중복체크");
-    	b1.setBounds(470, 80, 150, 30);
-    	add(b1);
-    	/////////////////////////////////////////////////////////////// id
-    	pLa1=new JLabel("비밀번호",JLabel.RIGHT);
-    	pLa1.setBounds(150, 115, 90, 30);
-    	add(pLa1);
-    	
-    	pf=new JPasswordField();
-    	pf.setBounds(265, 115, 200, 30);
-    	add(pf);
-    	///////////////////////////////////////////////////////////////
-    	nLa=new JLabel("이름",JLabel.RIGHT);
-    	nLa.setBounds(150, 150, 90, 30);
-    	add(nLa);
-    	
-    	nametf=new JTextField();
-    	nametf.setBounds(265, 150, 200, 30);
-    	add(nametf);
-    	////////////////////////////////////////////////////////////////
-    	sLa=new JLabel("성별",JLabel.RIGHT);
-    	sLa.setBounds(150, 185, 90, 30);
-    	add(sLa);
-    	
-    	rb1=new JRadioButton("남자");
-    	rb1.setBounds(265, 185, 70, 30);
-    	add(rb1);
-    	
-    	rb2=new JRadioButton("여자");
-    	rb2.setBounds(340, 185, 70, 30);
-    	add(rb2);
-    	
-    	ButtonGroup bg=new ButtonGroup();
-    	bg.add(rb1); bg.add(rb2);
-    	
-    	rb1.setSelected(true);
-    	/////////////////////////////////////////////////////////////
-    	bLa=new JLabel("생년월일",JLabel.RIGHT);
-    	bLa.setBounds(150, 220, 90, 30);
-    	add(bLa);
-    	
-    	birthtf=new JTextField();
-    	birthtf.setBounds(265, 220, 200, 30);
-    	add(birthtf);
-    	////////////////////////////////////////////////////////////
-    	eLa=new JLabel("이메일",JLabel.RIGHT);
-    	eLa.setBounds(150, 255, 90, 30);
-    	add(eLa);
-    	
-    	emailtf=new JTextField();
-    	emailtf.setBounds(265, 255, 450, 30);
-    	add(emailtf);
-    	////////////////////////////////////////////////////////////
-    	pLa=new JLabel("우편번호",JLabel.RIGHT);
-    	pLa.setBounds(150, 290, 90, 30);
-    	add(pLa);
-    	
-    	posttf=new JTextField();
-    	posttf.setBounds(265, 290, 200, 30);
-    	add(posttf);
-    	
-    	posttf.setEnabled(false);
-    	posttf.setHorizontalAlignment(JLabel.CENTER);
-    	
-    	b2=new JButton("우편번호 검색");
-    	b2.setBounds(470, 290, 150, 30);
-    	add(b2);
-    	////////////////////////////////////////////////////////////
-    	aLa1=new JLabel("주소",JLabel.RIGHT);
-    	aLa1.setBounds(150, 325, 90, 30);
-    	add(aLa1);
-    	
-    	addrtf1=new JTextField();
-    	addrtf1.setBounds(265, 325, 450, 30);
-    	add(addrtf1);
-    	
-    	aLa2=new JLabel("상세주소",JLabel.RIGHT);
-    	aLa2.setBounds(150, 360, 90, 30);
-    	add(aLa2);
-    	
-    	addrtf2=new JTextField();
-    	addrtf2.setBounds(265, 360, 450, 30);
-    	add(addrtf2);
-    	///////////////////////////////////////////////////////////
-    	telLa=new JLabel("전화",JLabel.RIGHT);
-    	telLa.setBounds(150, 395, 90, 30);
-    	add(telLa);
+    	recomLa=new JLabel("사원 추천하기",JLabel.RIGHT);
+    	recomLa.setBounds(470, 80, 150, 30);
+    	add(recomLa);
     	
     	box=new JComboBox();
     	box.addItem("010");
     	box.setBounds(265, 395, 90, 30);
     	add(box);
     	
-    	teltf=new JTextField();
-    	teltf.setBounds(370, 395, 200, 30);
-    	add(teltf);
-    	///////////////////////////////////////////////////////////
-    	cLa=new JLabel("소개",JLabel.RIGHT);
-    	cLa.setBounds(150, 430, 90, 30);
-    	add(cLa);
-    	
-    	cta=new JTextArea();
-    	JScrollPane js=new JScrollPane(cta);
+    	ta=new JTextArea();
+    	JScrollPane js=new JScrollPane(ta);
     	js.setBounds(265, 430, 450,170);
     	add(js);
     	
-    	b3=new JButton("회원가입");
-    	b4=new JButton("취소");
-    	
-    	JPanel p=new JPanel();
-    	p.add(b3);p.add(b4);
-    	
-    	p.setBounds(150, 610, 565, 35);
-    	add(p);
+    	b1=new JButton("입력 완료");
+    	b1.setBounds(470, 290, 150, 30);
+    	add(b1);
     	
     	setSize(960, 700);
     }

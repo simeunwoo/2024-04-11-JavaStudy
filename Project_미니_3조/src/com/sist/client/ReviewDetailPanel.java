@@ -61,6 +61,8 @@ public class ReviewDetailPanel extends JPanel{
     	 p.add(b1);
     	 p.setBounds(160, 440, 485, 35);
     	 add(p);
+    	 
+    	 setSize(960, 700);
      }
  /*	public static void main(String[] args) {
 		// TODO Auto-generated method stub

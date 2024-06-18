@@ -1,4 +1,3 @@
-
 package com.sist.client;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -227,7 +226,8 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 			if(res.equals("yes"))
 			{
 				JOptionPane.showMessageDialog(this, "회원 가입에 축하합니다");
-				card.show(getContentPane(), "LOGIN");
+				lp.setVisible(true);
+				jp.setVisible(false);
 			}
 			else
 			{
@@ -363,11 +363,12 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 				}
 				else
 				{
+					
 					// 로그인 ==> 서버로 전송 
 					try
 					{
 						//1. 소켓 => 전화 걸기 
-						s=new Socket("192.168.10.116",2226); // 조별 
+						s=new Socket("192.168.10.124",2226); // 조별 
 						out=s.getOutputStream();
 						System.out.println("id="+id);
 						in=new BufferedReader(new InputStreamReader(s.getInputStream()));
