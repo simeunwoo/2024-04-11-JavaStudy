@@ -79,7 +79,7 @@ public class GoodsDAO {
      // SQL문장 송수신 
      private PreparedStatement ps;
      // 오라클 주소 저장 => 변경 (X) => 상수 
-     private final String URL="jdbc:oracle:thin:@192.168.10.124:2226:XE";
+     private final String URL="jdbc:oracle:thin:@192.168.10.124:1521:XE";
      
      // 싱글턴 => 메모리 누수 현상 방지 => 객체를 한번만 생성 => DAO 
      private static GoodsDAO dao;
@@ -96,7 +96,7 @@ public class GoodsDAO {
      {
     	 try
     	 {
-    		 conn=DriverManager.getConnection(URL,"hr","happy"); 
+    		 conn=DriverManager.getConnection(URL,"hr3","happy"); 
     	 }catch(Exception ex) {}
      }
      // 3. 오라클 해제
@@ -276,7 +276,7 @@ public class GoodsDAO {
     	 }
     	 return vo;
      }
-     // 검색 => LIKE
+     // 검색 => LIKE 
      public ArrayList<GoodsVO> goodsFindData(String name)
      {
     	 ArrayList<GoodsVO> list=new ArrayList<GoodsVO>();
@@ -284,9 +284,9 @@ public class GoodsDAO {
     	 {
     		 getConnection();
     		 String sql="SELECT no,goods_name,goods_poster,goods_price "
-    				 	+"FROM goods_all "
-    				 	+"WHERE goods_name LIKE '%'||?||'%' "
-    				 	+"ORDER BY no ASC";
+    				   +"FROM goods_all "
+    				   +"WHERE goods_name LIKE '%'||?||'%' "
+    				   +"ORDER BY no ASC";
     		 ps=conn.prepareStatement(sql);
     		 ps.setString(1, name);
     		 
@@ -301,6 +301,7 @@ public class GoodsDAO {
     			 
     			 list.add(vo);
     		 }
+    		 rs.close();
     	 }catch(Exception ex)
     	 {
     		 ex.printStackTrace();
@@ -311,7 +312,7 @@ public class GoodsDAO {
     	 }
     	 return list;
      }
-     // 구매 => INSERT , UPDATE , DELETE
+     // 구매 => INSERT , UPDATE , DELETE 
      
 }
 

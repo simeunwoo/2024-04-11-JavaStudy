@@ -19,10 +19,12 @@ public class ControllPanel extends JPanel{
 	   //add("EP",ep);
 	   hp=new HomePanel(this);
 	   dp=new GoodsDetailPanel(this);
+	   fp=new FindPanel(this);
 	   add("HP",hp);
 	   add("CHAT",chatP);
 	   add("DP",dp);
 	   add("FP",fp);
+	   
 	  
    }
 }

@@ -46,7 +46,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     {
     	setLayout(null);
     	
-    	mp.setBounds(300, 15, 600, 35);
+    	mp.setBounds(200, 15, 700, 35);
     	add(mp);
     	cp.setBounds(10, 60, 930, 580);
     	add(cp);
