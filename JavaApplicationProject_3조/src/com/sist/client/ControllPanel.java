@@ -11,6 +11,7 @@ public class ControllPanel extends JPanel{
    //EmpListPanel ep=new EmpListPanel();
    HomePanel hp;
    GoodsDetailPanel dp;
+   FindPanel fp;
    ChatPanel chatP=new ChatPanel();
    public ControllPanel()
    {
@@ -21,7 +22,7 @@ public class ControllPanel extends JPanel{
 	   add("HP",hp);
 	   add("CHAT",chatP);
 	   add("DP",dp);
-	   
+	   add("FP",fp);
 	  
    }
 }

@@ -78,6 +78,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	mp.exitBtn.addActionListener(this);
     	mp.chatBtn.addActionListener(this);
     	mp.homeBtn.addActionListener(this);
+    	mp.findBtn.addActionListener(this);
     	
     	cp.chatP.tf.addActionListener(this);
     	
@@ -97,6 +98,10 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		{
 			dispose();// window메모리 해제 
 			System.exit(0);// 프로그램 종료
+		}
+		else if(e.getSource()==mp.findBtn)
+		{
+			cp.card.show(cp, "FP");
 		}
 		else if(e.getSource()==cp.chatP.tf)
 		{
