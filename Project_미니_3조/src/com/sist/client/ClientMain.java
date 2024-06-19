@@ -58,6 +58,8 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	cp.rp.updateBtn.addActionListener(this);
     	
     	cp.rip.subtf.addActionListener(this);
+    	
+    	cp.rp.table.addMouseListener(this);
     }
     /*
     public void listPrint()
@@ -165,7 +167,32 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		}
 		else if(e.getSource()==cp.rip.b)
 		{
+			String subject=cp.rip.subtf.getText();
+			if(subject.length()<1)
+			{
+				cp.rip.subtf.requestFocus();
+				return;
+			}
+			String content=cp.rip.ta.getText();
+			if(content.length()<1)
+			{
+				cp.rip.ta.requestFocus();
+				return;
+			}
+			
+			ReviewBoard rb=new ReviewBoard();
+			
+		//	rb.setId(id);
+			rb.setSub(subject);
+			rb.setTa(content);
+			rb.setDay(new Date());
+			rb.setHit(0);
+		//	rb.setNo(no);
+			
+			rbs.boardInsert(rb);
+			
 			cp.card.show(cp, "RP");
+		//	listPrint();	
 		}
 		else if(e.getSource()==cp.rp.prevBtn)
 		{

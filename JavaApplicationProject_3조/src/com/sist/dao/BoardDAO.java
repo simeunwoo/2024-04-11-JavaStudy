@@ -72,7 +72,7 @@ package com.sist.dao;
  *	---> '' => NULL / ' ' => NULL이 아니다 (띄어쓰기를 할 경우)
  *	---> String sql="SELECT "+"FROM "+"WHERE ~"; => 욕 쳐 먹음 (가독성 최악) => 줄을 나누던지, +를 없애고 합치던지
  */
-// 1. 목록 : 번호 / 제목 / 이름 / 작성일 / 조회수
+// 목록 : 번호 / 제목 / 이름 / 작성일 / 조회수
 /*
  * 	게시판 => 흐름 (웹 : 로직(X), 데이터베이스 연동 => 이동)
  * 
@@ -86,8 +86,171 @@ package com.sist.dao;
  *         
  *  => VO / DAO / Service / Config
  *     ---------  ------- Open API
- *     장점 : 윈도우 / 모바일 => 웹 => 상관 없이 소스가 동일 (필요하면 언제든지 사용 가능)
+ *     장점 : 윈도우 / 모바일 => 웹 => 상관 없이 소스가 동일 (필요하면 언제든지 사용 가능) => 운영 체제와 관계 없다
  */
+import java.util.*;
+import java.sql.*;
 public class BoardDAO {
-
+	// 오라클 연결 객체
+	private Connection conn; // Socket
+	// 오라클 송수신 => Socket / OutputStream, BufferedReader => Network 이용
+	private PreparedStatement ps;
+	// 오라클 주소 : 상수형
+	private final String URL="jdbc:oracle:thin:@localhost:1521:XE"; // XE : 테이블이 저장된 데이터베이스 (폴더)
+	// 객체는 한번만 생성 => 싱글턴
+	private static BoardDAO dao;
+	// 드라이버 등록 = 오라클 연결 = SQL 문장 전송 = 결과값 읽기 = 데이터 모아서 = 윈도우로 전송
+	public BoardDAO()
+	{
+		// 시작과 동시에 수행 문장, 멤버 변수 초기화
+		try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		}catch(Exception ex) {}
+	}
+	// 오라클 연결
+	public void getConnection()
+	{
+		try
+		{
+			conn=DriverManager.getConnection(URL,"hr","happy");
+			// 대문자 구분
+			// 오라클로 명령 => conn hr/happy
+		}catch(Exception ex) {}
+	}
+	// 오라클 닫기
+	public void disConnection()
+	{
+		try
+		{
+			if(ps!=null)
+				ps.close(); // ps를 먼저 끊고, 그 다음에 conn을 끊어야 한다
+			if(conn!=null)
+				conn.close();
+		}catch(Exception ex) {}
+	}
+	/*
+	 * 	> 여는 순서
+	 * 	Connection => PreparedStatement => ResultSet
+	 * 
+	 * 	> 닫는 순서 (여는 순서를 반대로)
+	 * 	ResultSet.close() => PreparedStatement.close() => Connection.close()
+	 */
+	// 싱글턴
+	public static BoardDAO newInstance()
+	{
+		if(dao==null)
+			dao=new BoardDAO(); // dao가 없으면 새로 생성
+		return dao; // dao가 있으면 원래 있던 것을 써라
+	}
+	///////////////////////////////////////////// 공통 기반 => 웹 (클래스 => jar) => 라이브러리화
+	// 기능 => 리턴형 (어떤 데이터를 보내줄 지), 매개 변수 (사용자로부터 어떤 값을 받을 지)
+	
+	// 1. 목록 출력 => 페이지 나누기 (인라인뷰)
+	// VO => 한개의 게시물 정보 => 컬렉션/배열을 이용해서 여러개를 묶어서 전송
+	public List<BoardVO> boardListData(int page)
+	{
+		// 리턴형 => return
+		List<BoardVO> list=new ArrayList<BoardVO>(); // VO (게시물 1개) => VO 여러개를 보내준다 (ArrayList의 역할)
+		try
+		{
+			// 연결
+			getConnection();
+			// 오라클로 보낼 SQL 문장
+			String sql="SELECT no,subject,name,regdate,hit,num "
+						+"FROM (SELECT no,subject,name,regdate,hit,rownum as num "
+						+"FROM (SELECT no,subject,name,regdate,hit "
+						+"FROM board ORDER BY no DESC)) "
+						+"WHERE num BETWEEN ? AND ?"; // 페이지 나누기 (인라인뷰)
+			ps=conn.prepareStatement(sql); // 먼저 전송
+			// 1page => 1 ~ 10
+			// 2page => 11 ~ 20 ...
+			// 실행 요청 전에 => ?에 값을 채운다
+			int rowSize=10;
+			int start=(rowSize*page)-(rowSize-1);
+			int end=rowSize*page;
+			// 이전 - 다음 => < [1][2][3]... >
+			ps.setInt(1, start);
+			ps.setInt(2, end);
+			// 실행
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				BoardVO vo=new BoardVO();
+				vo.setNo(rs.getInt(1));
+				vo.setSubject(rs.getString(2));				
+				vo.setName(rs.getString(3));				
+				vo.setRedgate(rs.getDate(4));				
+				vo.setHit(rs.getInt(5));
+				list.add(vo);
+			}
+			rs.close();
+		}catch(Exception ex)
+		{
+			// 에러 확인 => output
+			ex.printStackTrace();
+		}
+		finally
+		{
+			// 닫기
+			disConnection();
+		}
+		return list;
+	}
+	/*
+	 *	Collection
+	 *	
+	 *	=> List (interface)
+	 *		=> ArrayList
+	 *			데이터베이스에서 데이터를 모아서 저장
+	 *			순서가 존재 (인덱스)
+	 *			데이터 중복을 허용
+	 *			비동기 방식 => ORDER BY를 사용하지 않으면 순서가 일정하지 않는다
+	 *	
+	 *	=> Set (interface)
+	 *		=> HashSet
+	 *			웹 실시간 채팅 (사용자 정보)
+	 *			순서는 없다
+	 *			데이터 중복을 허용하지 않는다
+	 *	
+	 *	=> Map (interface)
+	 *		=> HashMap
+	 *			클래스 관리 : 스프링 / SQL 문장 관리 : MyBatis
+	 *			키, 값 => 두개를 동시에 저장
+	 *			키는 중복이 없고, 값은 중복이 가능 => Cookie / Session
+	 */
+	// 2. 글 쓰기 => 시퀀스 사용법
+	// SELECT 외에는 => 오라클 자체 처리 => 결과값이 없다
+	// 글쓰기 => 시퀀스 사용법 => 매개 변수는 특별한 경우 외에는 3개 이상 초과 시 반드시 배열, 클래스 객체
+	// ex) memberInsert(String a,String b,String c,String d,String e,String f,String g...)
+	//                  -----------------------------------------------------------------
+	//					MemberVO vo
+	public void boardInsert(BoardVO vo)
+	{
+		try
+		{
+			// 연결
+			getConnection();
+			// SQL 문장
+			
+			// 전송
+			
+			// 실행 요청
+			/*
+			 * 	executeQuery() => 결과값이 있다 => SELECT
+			 * 	executeUpdate() => 결과값이 없다 => commit() => INSERT / UPDATE / DELETE
+			 */
+		}catch(Exception ex)
+		{
+			
+		}
+		finally
+		{
+			
+		}
+	}
+	// 3. 상세 보기 => WHERE => 조회수 / 조회수 증가 / 데이터 읽기 
+	// 4. 수정 => 비밀 번호 체크 => 비밀 번호 체크 / 실제 수정 => 묻고 답하기 : SQL(5)
+	// 5. 삭제 => 비밀 번호 체크 => 비밀 번호 체크 / 실제 삭제 => 묻고 답하기 : SQL(7)
+	// 기능 수행을 위해서는 SQL 문장이 1개가 아닐 수 있다 => 여러개의 SQL 문장을 사용할 수 있다
 }
