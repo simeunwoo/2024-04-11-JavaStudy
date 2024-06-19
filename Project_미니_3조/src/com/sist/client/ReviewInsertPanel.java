@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import com.sist.dao.BoardDAO;
 import com.sist.dao.BoardVO;
+import com.sist.dao.GoodsDAO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,7 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
     JButton b1,b2;
     ControlPanel cp;
     BoardDAO dao;
+    GoodsDAO goods;
     /*
     타이틀
     제목
@@ -27,6 +29,7 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
     {
     	this.cp=cp;
     	dao=BoardDAO.newInstance();
+    	goods=GoodsDAO.newInstance();
     	
     	setLayout(null);
     	titleLa=new JLabel("제품 후기",JLabel.CENTER);

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GoodsDAO {
 	private Connection conn;
@@ -186,5 +187,10 @@ public class GoodsDAO {
 		finally {
 			disConnection();
 		}
+	}
+////////////////////////////////////////////////////////////////////
+	public List<String> getComboBoxItems() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
