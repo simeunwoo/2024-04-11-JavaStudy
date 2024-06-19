@@ -2,20 +2,22 @@ package com.sist.client;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import com.sist.dao.*;
+import com.sist.client.*;
+import com.sist.dao.BoardDAO;
 
-public class BoardDeletePanel extends JPanel implements ActionListener {
+public class ReviewDeletePanel extends JPanel implements ActionListener {
 	JLabel titleLa,pwdLa;
 	JPasswordField pf;
 	JButton b1,b2;
-	ControllPanel cp;
+	ControlPanel cp;
 	BoardDAO dao; // 싱글턴 => 모두 같은 주소 => 하나의 메모리만 가진다 => new를 줘도 메모리 할당만 한다
 	int no=0;
 	
-	public BoardDeletePanel(ControllPanel cp)
+	public ReviewDeletePanel(ControlPanel cp)
 	{
 		this.cp=cp;
 		dao=BoardDAO.newInstance();
+		
     	titleLa=new JLabel("삭제하기",JLabel.CENTER);// <table>
     	titleLa.setFont(new Font("맑은 고딕",Font.BOLD,30)); //<h3></h3>
     	setLayout(null);
@@ -47,7 +49,7 @@ public class BoardDeletePanel extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource()==b2)
 		{
-			cp.card.show(cp, "DETAIL");
+			cp.card.show(cp, "RDP");
 		}
 		else if(e.getSource()==b1)
 		{
@@ -63,8 +65,8 @@ public class BoardDeletePanel extends JPanel implements ActionListener {
 			{
 				JOptionPane.showMessageDialog(this, "게시물이 삭제되었습니다");
 				// 이동
-				cp.bp.print();
-				cp.card.show(cp, "LIST");
+				cp.rp.print();
+				cp.card.show(cp, "rp");
 			}
 			else
 			{

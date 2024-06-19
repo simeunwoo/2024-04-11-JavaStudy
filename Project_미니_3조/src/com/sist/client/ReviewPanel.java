@@ -3,6 +3,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
+import com.sist.dao.BoardDAO;
+
 public class ReviewPanel extends JPanel {
 
 	JButton prevBtn,nextBtn,updateBtn;
@@ -10,11 +12,16 @@ public class ReviewPanel extends JPanel {
 	JTable table;
 	DefaultTableModel model;
 	TableColumn column;
+    ControlPanel cp;
+    BoardDAO dao;
 /*
 번호, 제목, 아이디, 작성일, 조회수
  */
-    public ReviewPanel()
+    public ReviewPanel(ControlPanel cp)
     {
+    	this.cp=cp;
+    	dao=BoardDAO.newInstance();
+    	
     	prevBtn=new JButton("이전");
     	nextBtn=new JButton("다음");
     	updateBtn=new JButton("작성하기");
@@ -87,4 +94,8 @@ public class ReviewPanel extends JPanel {
         	
         	
     }
+	public void print() {
+		// TODO Auto-generated method stub
+		
+	}
 }

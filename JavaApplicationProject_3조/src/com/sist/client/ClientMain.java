@@ -81,7 +81,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	mp.findBtn.addActionListener(this);
     	mp.boardBtn.addActionListener(this);
     	
-    	cp.chatP.tf.addActionListener(this);
+    	cp.chatp.tf.addActionListener(this);
     	
     }
 	public static void main(String[] args) {
@@ -108,21 +108,21 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		{
 			cp.card.show(cp, "FP");
 		}
-		else if(e.getSource()==cp.chatP.tf)
+		else if(e.getSource()==cp.chatp.tf)
 		{
-			String msg=cp.chatP.tf.getText();
+			String msg=cp.chatp.tf.getText();
 			if(msg.length()<1)
 				return;
 			
-			String color=cp.chatP.box1.getSelectedItem().toString();
+			String color=cp.chatp.box1.getSelectedItem().toString();
 			
 			try
 			{
 				out.write((Function.CHAT+"|"+msg+"|"+color+"\n").getBytes());
 			}catch(Exception ex){}
 			
-			cp.chatP.tf.setText("");
-			cp.chatP.tf.requestFocus();
+			cp.chatp.tf.setText("");
+			cp.chatp.tf.requestFocus();
 		}
 		else if(e.getSource()==mp.exitBtn)
 		{
@@ -455,12 +455,12 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 						 st.nextToken(),
 						 st.nextToken()
 					  };
-					  cp.chatP.model.addRow(data);
+					  cp.chatp.model.addRow(data);
 					  String admin=st.nextToken();
 					  
 					  if(!myId.equals(data[0]) && admin.equals("y"))
 					  {
-						  cp.chatP.box2.addItem(data[0]);
+						  cp.chatp.box2.addItem(data[0]);
 					  }
 					  
 				  }
@@ -478,9 +478,9 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 				  {
 					  String message=st.nextToken();
 					  String color=st.nextToken();
-					  cp.chatP.initStyle();
+					  cp.chatp.initStyle();
 					  
-					  cp.chatP.append(message, color);
+					  cp.chatp.append(message, color);
 				  }
 				  break;
 				  case Function.MYEXIT:
@@ -491,22 +491,22 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 				  case Function.EXIT:
 				  {
 					  String yid=st.nextToken();
-					  for(int i=0;i<cp.chatP.model.getRowCount();i++)
+					  for(int i=0;i<cp.chatp.model.getRowCount();i++)
 					  {
-						  String s=cp.chatP.model.getValueAt(i, 0).toString();
+						  String s=cp.chatp.model.getValueAt(i, 0).toString();
 						  // 테이블에 등록된 ID읽기 
 						  if(s.equals(yid))
 						  {
-							  cp.chatP.model.removeRow(i);
+							  cp.chatp.model.removeRow(i);
 							  break;
 						  }
 					  }
-					  for(int i=0;i<cp.chatP.box2.getItemCount();i++)
+					  for(int i=0;i<cp.chatp.box2.getItemCount();i++)
 					  {
-						  String s=cp.chatP.box2.getItemAt(i);
+						  String s=cp.chatp.box2.getItemAt(i);
 						  if(s.equals(yid))
 						  {
-							  cp.chatP.box2.removeItemAt(i);
+							  cp.chatp.box2.removeItemAt(i);
 							  break;
 						  }
 					  }

@@ -10,6 +10,7 @@ import javax.swing.*;
 
 import com.sist.client.ReviewBoard;
 import com.sist.client.ReviewBoardSystem;
+import com.sist.dao.BoardVO;
 
 // import com.sist.commons.Function;
 // import com.sist.dao.*;
@@ -22,7 +23,11 @@ import java.util.*;
 public class ClientMain extends JFrame implements ActionListener,MouseListener,Runnable {
     CardLayout card=new CardLayout();
     ControlPanel cp=new ControlPanel();
-    ReviewPanel rp=new ReviewPanel();
+    ReviewPanel rp=new ReviewPanel(cp);
+    ReviewInsertPanel rip=new ReviewInsertPanel(cp);
+    ReviewUpdatePanel rup=new ReviewUpdatePanel(cp);
+    ReviewDeletePanel rdelp=new ReviewDeletePanel(cp);
+    ReviewDetailPanel rdp=new ReviewDetailPanel(cp);
     
     ReviewBoard rb=new ReviewBoard();
     ReviewBoardSystem rbs=new ReviewBoardSystem();
@@ -49,10 +54,10 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	setSize(1280,720);
     	setVisible(true);
     	
-    	//listPrint();
+    	listPrint();
     	
-    	cp.rdp.b.addActionListener(this);
-    	cp.rip.b.addActionListener(this);
+    	cp.rdelp.b1.addActionListener(this);
+    	cp.rdelp.b2.addActionListener(this);
     	cp.rp.prevBtn.addActionListener(this);
     	cp.rp.nextBtn.addActionListener(this);
     	cp.rp.updateBtn.addActionListener(this);
@@ -60,8 +65,11 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	cp.rip.subtf.addActionListener(this);
     	
     	cp.rp.table.addMouseListener(this);
+    	
+    	cp.rup.b1.addActionListener(this);
+    	cp.rup.b2.addActionListener(this);
     }
-    /*
+    
     public void listPrint()
     {
     	// 테이블 전체를 한번 지운다
@@ -86,7 +94,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     		rp.model.addRow(data);
     	}
     }
-	*/
+	
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -161,45 +169,12 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource()==cp.rdp.b)
-		{
-			cp.card.show(cp, "RP");
-		}
-		else if(e.getSource()==cp.rip.b)
-		{
-			String subject=cp.rip.subtf.getText();
-			if(subject.length()<1)
-			{
-				cp.rip.subtf.requestFocus();
-				return;
-			}
-			String content=cp.rip.ta.getText();
-			if(content.length()<1)
-			{
-				cp.rip.ta.requestFocus();
-				return;
-			}
-			
-			ReviewBoard rb=new ReviewBoard();
-			
-		//	rb.setId(id);
-			rb.setSub(subject);
-			rb.setTa(content);
-			rb.setDay(new Date());
-			rb.setHit(0);
-		//	rb.setNo(no);
-			
-			rbs.boardInsert(rb);
-			
-			cp.card.show(cp, "RP");
-		//	listPrint();	
-		}
-		else if(e.getSource()==cp.rp.prevBtn)
+		if(e.getSource()==cp.rp.prevBtn)
 		{
 			if(curpage>1)
 			{
 				curpage--;
-		//		listPrint();
+				listPrint();
 			}
 		}
 		else if(e.getSource()==cp.rp.nextBtn)
@@ -207,15 +182,15 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		    if(curpage<totalpage)
 		    {
 		    	curpage++;
-		    //	listPrint();
+		    	listPrint();
 		    }
 		}
 		else if(e.getSource()==cp.rp.updateBtn)
 		{
-//			rip.subtf.setText("");
-//			rip.ta.setText("");
-			cp.card.show(cp, "RIP");
-//			rip.subtf.requestFocus();
+			rip.subtf.setText("");
+			rip.ta.setText("");
+			cp.card.show(cp, "RDP");
+			rip.subtf.requestFocus();
 		}
 	}
 

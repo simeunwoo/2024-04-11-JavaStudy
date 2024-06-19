@@ -13,6 +13,8 @@ public class LoginPanel extends JFrame{
     {
     	back=Toolkit.getDefaultToolkit().getImage("c:\\javaDev\\back.jpg");
     	
+    	
+    	
     	idLa=new JLabel("아이디",JLabel.RIGHT);
     	pwdLa=new JLabel("비밀번호",JLabel.RIGHT);
     	
@@ -44,12 +46,12 @@ public class LoginPanel extends JFrame{
     	setSize(960, 700);
     	setVisible(true);
     }
-    
-    // 스킨 => 이미지 배경 => 
-	
-	  protected void paintComponent(Graphics g) { g.drawImage(back, 0,
-	  0,getWidth(),getHeight(),null); }
+
+    // 스킨 => 이미지 배경
+	@Override
+	public void paintComponents(Graphics g) {
+		// TODO Auto-generated method stub
+		g.drawImage(back, 0, 0,getWidth(),getHeight(),this);
+	}
 	 
-    
-    
 }

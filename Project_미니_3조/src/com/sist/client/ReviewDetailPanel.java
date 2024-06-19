@@ -1,21 +1,34 @@
 
 package com.sist.client;
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 // detail.jsp
 import javax.swing.*;
-public class ReviewDetailPanel extends JPanel{
+
+import com.sist.dao.BoardDAO;
+import com.sist.dao.BoardVO;
+public class ReviewDetailPanel extends JPanel implements ActionListener{
      JLabel titleLa,idLa,dayLa,hitLa,subLa;
      JLabel id,day,hit,sub;
      JTextArea ta;
-     JButton b;
+     JButton b1,b2;
+     ControlPanel cp;
+     BoardDAO dao;
+     
+     int no=0;
 /*
 아이디 / 작성일
 조회수
 제목 / 내용
  */
-     public ReviewDetailPanel()
+     public ReviewDetailPanel(ControlPanel cp)
      {
+     	this.cp=cp;
+     	dao=BoardDAO.newInstance();
+    	 
     	 titleLa=new JLabel("제품 후기",JLabel.CENTER);
      	 titleLa.setFont(new Font("휴먼모음T",Font.BOLD,35));
      	 setLayout(null);
@@ -23,24 +36,32 @@ public class ReviewDetailPanel extends JPanel{
     	 add(titleLa);
     	 
     	 idLa=new JLabel("아이디",JLabel.CENTER);
+    	 idLa.setOpaque(true);
+	   	 idLa.setBackground(new Color(207,255,229));
     	 idLa.setBounds(410, 100 , 80, 30);
     	 id=new JLabel("",JLabel.LEFT);
     	 id.setBounds(500, 100, 300, 30);
     	 add(idLa);add(id);
     	 
     	 dayLa=new JLabel("작성일",JLabel.CENTER);
+    	 dayLa.setOpaque(true);
+	   	 dayLa.setBackground(new Color(207,255,229));
     	 dayLa.setBounds(410, 135 , 80, 30);
     	 day=new JLabel("",JLabel.LEFT);
     	 day.setBounds(500, 135, 150, 30);
     	 add(dayLa);add(day);
     	 
     	 hitLa=new JLabel("조회수",JLabel.CENTER);
+    	 hitLa.setOpaque(true);
+	   	 hitLa.setBackground(new Color(207,255,229));
     	 hitLa.setBounds(665, 135 , 40, 30);
     	 hit=new JLabel("",JLabel.LEFT);
     	 hit.setBounds(715, 135, 120, 30);
     	 add(hitLa);add(hit);
    
     	 subLa=new JLabel("제목",JLabel.CENTER);
+    	 subLa.setOpaque(true);
+	   	 subLa.setBackground(new Color(207,255,229));
     	 subLa.setBounds(410, 170 , 80, 30);
     	 sub=new JLabel("");
     	 sub.setBounds(500, 170, 400, 30);
@@ -52,15 +73,42 @@ public class ReviewDetailPanel extends JPanel{
     	 add(ta);
     	 
     	 JPanel p=new JPanel();
-    	 b=new JButton("목록으로");
-    	 p.add(b);
+    	 b1=new JButton("수정");
+    	 b2=new JButton("목록으로");
+    	 p.add(b1); p.add(b2);
     	 p.setBounds(400, 625, 485, 35);
     	 add(p);
     	 
     	 setSize(1280, 720);
+    	 
+    	 b1.addActionListener(this);
+    	 b2.addActionListener(this);
      }
- /*	public static void main(String[] args) {
+     public void print(int no)
+     {
+     	BoardVO vo=dao.boardDetailData(no);
+    // 	this.no.setText(String.valueOf(vo.getNo()));
+     	id.setText(vo.getName());
+     	sub.setText(vo.getSubject());
+     	hit.setText(String.valueOf(vo.getHit()));
+     	day.setText(vo.getRegdate().toString());
+     	ta.setText(vo.getContent());
+     }
+	@Override
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
- 		new ReviewDetailPanel();
- 	}*/
+		if(e.getSource()==b1)
+		{
+			BoardVO vo=dao.boardUpdateData(no);
+			cp.rup.subtf.setText(vo.getSubject());
+			cp.rup.ta.setText(vo.getContent());
+			cp.card.show(cp, "rup");
+		}
+		else if(e.getSource()==b2)
+		{
+			cp.rp.print();
+			cp.card.show(cp, "rp");
+		}
+	}
+
 }

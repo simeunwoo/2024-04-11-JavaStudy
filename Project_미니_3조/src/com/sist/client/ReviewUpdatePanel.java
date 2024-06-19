@@ -8,22 +8,24 @@ import com.sist.dao.BoardVO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-public class ReviewInsertPanel extends JPanel implements ActionListener {
+public class ReviewUpdatePanel extends JPanel implements ActionListener{
 
-    JLabel titleLa,subLa,contentLa,recomLa;
+    JLabel titleLa,subLa,contentLa,recomLa,pwdLa;
     JTextField subtf;
+    JPasswordField pwdpf;
     JTextArea ta;
     JComboBox<String> box;
     JButton b1,b2;
     ControlPanel cp;
     BoardDAO dao;
+    int no=0;
     /*
     타이틀
     제목
     내용
     사원 추천하기
      */
-    public ReviewInsertPanel(ControlPanel cp)
+    public ReviewUpdatePanel(ControlPanel cp)
     {
     	this.cp=cp;
     	dao=BoardDAO.newInstance();
@@ -60,7 +62,13 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
     	js.setBounds(365, 165, 550, 420);
     	add(js);
     	
-    	b1=new JButton("입력 완료");
+    	pwdLa=new JLabel("비밀 번호",JLabel.CENTER);
+    	pwdpf=new JPasswordField();
+    	pwdLa.setBounds(250, 640, 80, 30);
+    	pwdpf.setBounds(365, 640, 150, 30);
+    	add(pwdLa);add(pwdpf);
+    	
+    	b1=new JButton("수정 완료");
     	b1.setBounds(765, 600, 150, 30);
     	add(b1);
     	
@@ -79,7 +87,7 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
 		if(e.getSource()==b1)
 		{
 			String subject=subtf.getText();
-			if(subject.length()<1)
+			if(subject.length()<1) // NOT NULL => 강제로 입력 => 웹 (유효성 검사 => 자바스크립트)
 			{
 				subtf.requestFocus();
 				return;
@@ -91,19 +99,31 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
 				return;
 			}
 			
+			// 데이터를 모아서 DAO로 전송
 			BoardVO vo=new BoardVO();
 			vo.setSubject(subject);
 			vo.setContent(content);
-			vo.setHit(0);
+			vo.setNo(no);
 			
-			dao.boardInsert(vo);
-			
-			cp.rp.print();
-			cp.card.show(cp, "RP");
+			// 데이터베이스 연동
+			boolean bCheck=dao.boardUpdate(vo);
+			// 이동
+			if(bCheck==true)
+			{
+				JOptionPane.showMessageDialog(this, "수정이 완료되었습니다");
+				cp.rdp.print(no);
+				cp.card.show(cp, "RDP");
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "비밀 번호가 틀립니다\n다시 입력하세요");
+				pwdpf.setText("");
+				pwdpf.requestFocus();
+			}
 		}
 		else if(e.getSource()==b2)
 		{
-			cp.card.show(cp, "RP");
+			cp.card.show(cp, "RDP");
 		}
 	}
 }
