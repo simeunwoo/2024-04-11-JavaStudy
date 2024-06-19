@@ -232,10 +232,18 @@ public class BoardDAO {
 			// 연결
 			getConnection();
 			// SQL 문장
-			
+			String sql="INSERT INTO board(name,subject,content,pwd) "
+					+"VALUES(board_no_seq.nextval,?,?,?,?)";
 			// 전송
-			
+			ps=conn.prepareStatement(sql);
 			// 실행 요청
+			// ?에 값을 채운다
+			ps.setString(1, vo.getName());
+			ps.setString(2, vo.getSubject());
+			ps.setString(3, vo.getContent());
+			ps.setString(4, vo.getPwd());
+			
+			ps.executeUpdate();
 			/*
 			 * 	executeQuery() => 결과값이 있다 => SELECT
 			 * 	executeUpdate() => 결과값이 없다 => commit() => INSERT / UPDATE / DELETE
