@@ -189,7 +189,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		{
 			rip.subtf.setText("");
 			rip.ta.setText("");
-			cp.card.show(cp, "RDP");
+			cp.card.show(cp, "RIP");
 			rip.subtf.requestFocus();
 		}
 	}

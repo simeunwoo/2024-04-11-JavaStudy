@@ -96,7 +96,7 @@ public class BoardDAO {
 	// 오라클 송수신 => Socket / OutputStream, BufferedReader => Network 이용
 	private PreparedStatement ps;
 	// 오라클 주소 : 상수형
-	private final String URL="jdbc:oracle:thin:@localhost:1521:XE"; // XE : 테이블이 저장된 데이터베이스 (폴더)
+	private final String URL="jdbc:oracle:thin:@localhost:3355:XE"; // XE : 테이블이 저장된 데이터베이스 (폴더)
 	// 객체는 한번만 생성 => 싱글턴
 	private static BoardDAO dao;
 	// 드라이버 등록 = 오라클 연결 = SQL 문장 전송 = 결과값 읽기 = 데이터 모아서 = 윈도우로 전송

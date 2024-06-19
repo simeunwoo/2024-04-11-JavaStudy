@@ -13,22 +13,22 @@ import java.util.*;
 import java.io.*;
 public class ReviewBoardSystem {
    // 데이터 저장 => 모든 사용자 공통으로 사용 
-   private static ArrayList<ReviewBoard> list;
+   private static ArrayList<ReviewBoard> list=new ArrayList<ReviewBoard>();
    
    public ReviewBoardSystem()
    {
 	  
-	   boardGetData();
+	//   boardGetData();
    }
    
-   public void boardGetData()
+ /*  public void boardGetData()
    {
 	   ObjectInputStream ois=null;
 	   try
 	   {
 		   FileInputStream fis=new FileInputStream("c:\\java_data\\board.txt");
 		   ois=new ObjectInputStream(fis);
-		 //  list=(ArrayList<ReviewBoard>)ois.readObject();
+		   list=(ArrayList<Board>)ois.readObject();
 	   }catch(Exception ex)
 	   {
 		   ex.printStackTrace();// 에러 확인 
@@ -40,7 +40,7 @@ public class ReviewBoardSystem {
 			  ois.close();
 		  }catch(Exception ex) {}
 	   }
-   }
+   } */
    // 저장 
    public void boardSave()
    {
