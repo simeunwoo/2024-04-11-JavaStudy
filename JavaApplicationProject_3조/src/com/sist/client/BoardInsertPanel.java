@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import com.sist.dao.*;
-public class BoardInsertPanel extends JPanel{
+public class BoardInsertPanel extends JPanel implements ActionListener {
 	JLabel titleLa,nameLa,subLa,contLa,pwdLa;
     JTextField nameTf,subTf;
     JPasswordField pwdPf;
@@ -59,6 +59,56 @@ public class BoardInsertPanel extends JPanel{
     	p.add(b1);p.add(b2);
     	p.setBounds(120, 435, 535, 35);
     	add(p);
+    	
+    	b1.addActionListener(this);
+    	b2.addActionListener(this);
     }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==b2)
+		{
+			cp.card.show(cp, "LIST");
+		}
+		else if(e.getSource()==b1)
+		{
+			String name=nameTf.getText();
+			if(name.length()<1) // NOT NULL => 강제로 입력 => 웹 (유효성 검사 => 자바스크립트)
+			{
+				nameTf.requestFocus();
+				return;
+			}
+			String subject=subTf.getText();
+			if(subject.length()<1)
+			{
+				subTf.requestFocus();
+				return;
+			}
+			String content=ta.getText();
+			if(content.length()<1)
+			{
+				ta.requestFocus();
+				return;
+			}
+			String pwd=String.valueOf(pwdPf.getPassword()); // pwd는 * 사용 => char[] 계열이므로 String으로 변환
+			if(pwd.length()<1)
+			{
+				pwdPf.requestFocus();
+				return;
+			}
+			// 데이터를 모아서 DAO로 전송
+			BoardVO vo=new BoardVO();
+			vo.setName(name);
+			vo.setSubject(subject);
+			vo.setContent(content);
+			vo.setPwd(pwd);
+			
+			dao.boardInsert(vo);
+			
+			// 이동
+			cp.bp.print(); // 이거 설정 안하면 작성글이 목록에 한번에 안올라오고 다른 페이지 갔다가 다시 와야 그 때 올라온다
+			cp.card.show(cp, "LIST");
+		}
+	}
     	
 }
