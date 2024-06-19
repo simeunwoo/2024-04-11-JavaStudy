@@ -23,5 +23,5 @@ import lombok.Data;
 public class BoardVO {
 	private int no,hit;
 	private String name,subject,content,pwd;
-	private Date redgate;
+	private Date regdate;
 }

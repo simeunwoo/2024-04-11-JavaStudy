@@ -46,10 +46,10 @@ public class LoginPanel extends JFrame{
     }
     
     // 스킨 => 이미지 배경 => 
-	/*
-	 * @Override protected void paintComponent(Graphics g) { g.drawImage(back, 0,
-	 * 0,getWidth(),getHeight(),this); }
-	 */
+	
+	  protected void paintComponent(Graphics g) { g.drawImage(back, 0,
+	  0,getWidth(),getHeight(),null); }
+	 
     
     
 }

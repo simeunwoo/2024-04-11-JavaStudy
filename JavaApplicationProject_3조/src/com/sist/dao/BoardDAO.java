@@ -180,7 +180,7 @@ public class BoardDAO {
 				vo.setNo(rs.getInt(1));
 				vo.setSubject(rs.getString(2));				
 				vo.setName(rs.getString(3));				
-				vo.setRedgate(rs.getDate(4));				
+				vo.setRegdate(rs.getDate(4));				
 				vo.setHit(rs.getInt(5));
 				list.add(vo);
 			}
@@ -196,6 +196,29 @@ public class BoardDAO {
 			disConnection();
 		}
 		return list;
+	}
+	// 1-1. 총 페이지
+	public int boardTotalPage()
+	{
+		int total=0;
+		try
+		{
+			getConnection();
+			String sql="SELECT CEIL(COUNT(*)/10.0) FROM board";
+			ps=conn.prepareStatement(sql);
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			total=rs.getInt(1);
+			rs.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return total;
 	}
 	/*
 	 *	Collection
