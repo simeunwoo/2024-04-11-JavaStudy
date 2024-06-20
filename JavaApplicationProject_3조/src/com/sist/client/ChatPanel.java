@@ -1,4 +1,3 @@
-
 package com.sist.client;
 import java.util.*;
 import java.awt.*;
@@ -9,17 +8,18 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 public class ChatPanel extends JPanel{
     JTextPane pane;
-    JTextField tf,youTf,sendTf;
+    JTextField tf;
     JComboBox<String> box1,box2;
     JTable table; 
     DefaultTableModel model;
-    JButton b1,b2,ob;
-    JTextArea ta;
-	JPanel pan=new JPanel();
+    JButton b1,b2;
     
-    // 상담
+    // 상담 
     JLabel la;
-    
+    JTextField youTf,sendTf;
+    JTextArea ta;
+    JButton ob;
+    JPanel pan=new JPanel();
     public ChatPanel()
     {
     	setLayout(null);
@@ -59,21 +59,20 @@ public class ChatPanel extends JPanel{
 			}
     		
     	};
-    	
     	table=new JTable(model);
     	JScrollPane js2=new JScrollPane(table);
     	js2.setBounds(495, 15, 400, 150);
     	add(js2);
     	
     	box2=new JComboBox<String>();
-    	box2.setBounds(495, 170, 100, 30);
+    	box2.setBounds(495,170, 100, 30);
     	box2.addItem("상담자");
     	add(box2);
     	
-    	b1=new JButton("1:1 상담");
+    	b1=new JButton("1:1상담");
     	b1.setBounds(600, 170, 120, 30);
     	
-    	b2=new JButton("정보 보기");
+    	b2=new JButton("정보보기");
     	b2.setBounds(725, 170, 100, 30);
     	
     	add(b1);add(b2);
@@ -89,16 +88,17 @@ public class ChatPanel extends JPanel{
     	
     	sendTf=new JTextField(30);
     	
-    	JPanel pan=new JPanel();
+    	
     	pan.setLayout(new BorderLayout());
     	
     	JPanel p=new JPanel();
-    	p.add(la); p.add(youTf);
+    	p.add(la);p.add(youTf);p.add(ob);
     	pan.add("North",p);
+    	
     	pan.add("Center",js3);
     	pan.add("South",sendTf);
     	
-    	pan.setBounds(495, 220, 400, 300);
+    	pan.setBounds(495, 220, 400, 330);
     	add(pan);
     	
     	pan.setVisible(false);
