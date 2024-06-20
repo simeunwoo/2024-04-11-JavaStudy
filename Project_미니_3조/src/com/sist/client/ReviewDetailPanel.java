@@ -10,13 +10,16 @@ import javax.swing.*;
 
 import com.sist.dao.BoardDAO;
 import com.sist.dao.BoardVO;
+import com.sist.dao.GoodsDAO;
+import com.sist.dao.GoodsVO;
 public class ReviewDetailPanel extends JPanel implements ActionListener{
-     JLabel titleLa,idLa,dayLa,hitLa,subLa;
-     JLabel id,day,hit,sub;
+     JLabel titleLa,idLa,dayLa,hitLa,subLa,recomLa;
+     JLabel id,day,hit,sub,recom;
      JTextArea ta;
      JButton b1,b2;
      ControlPanel cp;
      BoardDAO dao;
+     GoodsDAO gdao;
      
      int no=0;
 /*
@@ -40,8 +43,16 @@ public class ReviewDetailPanel extends JPanel implements ActionListener{
 	   	 idLa.setBackground(new Color(207,255,229));
     	 idLa.setBounds(410, 100 , 80, 30);
     	 id=new JLabel("",JLabel.LEFT);
-    	 id.setBounds(500, 100, 300, 30);
+    	 id.setBounds(500, 100, 150, 30);
     	 add(idLa);add(id);
+
+    	 recomLa=new JLabel("제품",JLabel.CENTER);
+    	 recomLa.setOpaque(true);
+    	 recomLa.setBackground(new Color(207,255,229));
+    	 recomLa.setBounds(665, 100 , 80, 30);
+    	 recom=new JLabel("",JLabel.LEFT);
+    	 recom.setBounds(715, 100, 400, 30);
+    	 add(recomLa);add(recom);
     	 
     	 dayLa=new JLabel("작성일",JLabel.CENTER);
     	 dayLa.setOpaque(true);
@@ -100,7 +111,9 @@ public class ReviewDetailPanel extends JPanel implements ActionListener{
 		if(e.getSource()==b1)
 		{
 			BoardVO vo=dao.boardUpdateData(no);
+			GoodsVO gvo=gdao.goodsUpdateData(no);
 			cp.rup.subtf.setText(vo.getSubject());
+			cp.rup.box.setToolTipText(gvo.getGoods_name());
 			cp.rup.ta.setText(vo.getContent());
 			cp.card.show(cp, "rup");
 		}

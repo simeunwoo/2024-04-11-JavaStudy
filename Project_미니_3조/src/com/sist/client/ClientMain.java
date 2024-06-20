@@ -30,7 +30,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     ReviewDetailPanel rdp=new ReviewDetailPanel(cp);
     
     ReviewBoard rb=new ReviewBoard();
-    ReviewBoardSystem rbs=new ReviewBoardSystem();
+    ReviewBoardSystem rbs=new ReviewBoardSystem(cp);
     
     // 네트워크에 필요한 객체
     Socket s; // 통신기기 => 핸드폰 
@@ -56,18 +56,11 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	
     	listPrint();
     	
-    	cp.rdelp.b1.addActionListener(this);
-    	cp.rdelp.b2.addActionListener(this);
     	cp.rp.prevBtn.addActionListener(this);
     	cp.rp.nextBtn.addActionListener(this);
-    	cp.rp.updateBtn.addActionListener(this);
-    	
-    	cp.rip.subtf.addActionListener(this);
-    	
+    	cp.rp.insertBtn.addActionListener(this);
     	cp.rp.table.addMouseListener(this);
     	
-    	cp.rup.b1.addActionListener(this);
-    	cp.rup.b2.addActionListener(this);
     }
     
     public void listPrint()
@@ -185,12 +178,12 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		    	listPrint();
 		    }
 		}
-		else if(e.getSource()==cp.rp.updateBtn)
+		else if(e.getSource()==cp.rp.insertBtn)
 		{
 			rip.subtf.setText("");
 			rip.ta.setText("");
-			cp.card.show(cp, "RIP");
 			rip.subtf.requestFocus();
+			cp.card.show(cp, "RIP");
 		}
 	}
 

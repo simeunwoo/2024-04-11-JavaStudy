@@ -5,6 +5,7 @@ import javax.swing.*;
 import com.sist.dao.BoardDAO;
 import com.sist.dao.BoardVO;
 import com.sist.dao.GoodsDAO;
+import com.sist.dao.GoodsVO;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -40,29 +41,29 @@ public class ReviewUpdatePanel extends JPanel implements ActionListener{
     	add(titleLa);
     	
     	subLa=new JLabel("제목",JLabel.RIGHT);
-    	subLa.setBounds(250, 118, 90, 30);
+    	subLa.setBounds(250, 165, 90, 30);
     	add(subLa);
     	
     	subtf=new JTextField();
-    	subtf.setBounds(365, 120, 550, 30);
+    	subtf.setBounds(365, 165, 550, 30);
     	add(subtf);
     	
-    	recomLa=new JLabel("사원 추천하기",JLabel.RIGHT);
-    	recomLa.setBounds(250, 600, 90, 30);
+    	recomLa=new JLabel("제품",JLabel.RIGHT);
+    	recomLa.setBounds(250, 120, 90, 30);
     	add(recomLa);
     	
     	box=new JComboBox();
     	box.addItem("");
-    	box.setBounds(365, 600, 90, 30);
+    	box.setBounds(365, 120, 550, 30);
     	add(box);
     	
     	contentLa=new JLabel("내용",JLabel.RIGHT);
-    	contentLa.setBounds(250, 160, 90, 30);
+    	contentLa.setBounds(250, 210, 90, 30);
     	add(contentLa);
     	
     	ta=new JTextArea();
     	JScrollPane js=new JScrollPane(ta);
-    	js.setBounds(365, 165, 550, 420);
+    	js.setBounds(365, 210, 550, 420);
     	add(js);
     	
     	pwdLa=new JLabel("비밀 번호",JLabel.CENTER);
@@ -106,7 +107,6 @@ public class ReviewUpdatePanel extends JPanel implements ActionListener{
 			BoardVO vo=new BoardVO();
 			vo.setSubject(subject);
 			vo.setContent(content);
-			vo.setNo(no);
 			
 			// 데이터베이스 연동
 			boolean bCheck=dao.boardUpdate(vo);

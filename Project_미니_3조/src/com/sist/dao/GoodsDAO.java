@@ -188,6 +188,35 @@ public class GoodsDAO {
 			disConnection();
 		}
 	}
+	
+	public GoodsVO goodsUpdateData(int no)
+	{
+		// 한개의 게시물에 대한 구분자 => no
+		GoodsVO gvo=new GoodsVO();
+		try
+		{
+			getConnection();
+			String sql="SELECT goods_name "
+					+"FROM goods_all "
+					+"WHERE no=?";
+			ps=conn.prepareStatement(sql);
+			// ?의 값을 채워라
+			ps.setInt(1, no);
+			// 결과값 출력
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			gvo.setGoods_name(rs.getString(1));
+			rs.close();
+		}catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		finally
+		{
+			disConnection();
+		}
+		return gvo;
+	}
 ////////////////////////////////////////////////////////////////////
 	public List<String> getComboBoxItems() {
 		// TODO Auto-generated method stub

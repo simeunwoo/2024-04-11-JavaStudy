@@ -96,7 +96,7 @@ public class BoardDAO {
 	// 오라클 송수신 => Socket / OutputStream, BufferedReader => Network 이용
 	private PreparedStatement ps;
 	// 오라클 주소 : 상수형
-	private final String URL="jdbc:oracle:thin:@localhost:3355:XE"; // XE : 테이블이 저장된 데이터베이스 (폴더)
+	private final String URL="jdbc:oracle:thin:@192.168.10.124:1521:XE"; // XE : 테이블이 저장된 데이터베이스 (폴더)
 	// 객체는 한번만 생성 => 싱글턴
 	private static BoardDAO dao;
 	// 드라이버 등록 = 오라클 연결 = SQL 문장 전송 = 결과값 읽기 = 데이터 모아서 = 윈도우로 전송
@@ -113,7 +113,7 @@ public class BoardDAO {
 	{
 		try
 		{
-			conn=DriverManager.getConnection(URL,"hr","happy");
+			conn=DriverManager.getConnection(URL,"hr3","happy");
 			// 대문자 구분
 			// 오라클로 명령 => conn hr/happy
 		}catch(Exception ex) {}
@@ -255,16 +255,15 @@ public class BoardDAO {
 			// 연결
 			getConnection();
 			// SQL 문장
-			String sql="INSERT INTO board(no,name,subject,content,pwd) "
-					+"VALUES(board_no_seq.nextval,?,?,?,?)";
+			String sql="INSERT INTO board(id,title,content) "
+					+"VALUES(?,?,?)";
 			// 전송
 			ps=conn.prepareStatement(sql);
 			// 실행 요청
 			// ?에 값을 채운다
-			ps.setString(1, vo.getName());
-			ps.setString(2, vo.getSubject());
+			ps.setString(1, vo.getId());
+			ps.setString(2, vo.getTitle());
 			ps.setString(3, vo.getContent());
-			ps.setString(4, vo.getPwd());
 			
 			ps.executeUpdate();
 			/*
@@ -273,11 +272,11 @@ public class BoardDAO {
 			 */
 		}catch(Exception ex)
 		{
-			
+			ex.printStackTrace();
 		}
 		finally
 		{
-			
+			disConnection();
 		}
 	}
 	// 3. 상세 보기 => WHERE => 조회수 / 조회수 증가 / 데이터 읽기
@@ -296,7 +295,7 @@ public class BoardDAO {
 			ps.executeUpdate();
 			// 데이터 읽기
 			// sql 문장은 여러개 쓸 수 있다
-			sql="SELECT no,name,subject,content,regdate,hit "
+			sql="SELECT id,regdate,hit,title,content "
 					+"FROM board "
 					+"WHERE no=?";
 			ps=conn.prepareStatement(sql);
@@ -305,12 +304,11 @@ public class BoardDAO {
 			// 결과값 출력
 			ResultSet rs=ps.executeQuery();
 			rs.next();
-			vo.setNo(rs.getInt(1));
-			vo.setName(rs.getString(2));
-			vo.setSubject(rs.getString(3));
-			vo.setContent(rs.getString(4));
-			vo.setRegdate(rs.getDate(5));
-			vo.setHit(rs.getInt(6));
+			vo.setId(rs.getString(1));
+			vo.setRegdate(rs.getDate(2));
+			vo.setHit(rs.getInt(3));
+			vo.setTitle(rs.getString(4));
+			vo.setContent(rs.getString(5));
 			rs.close();
 		}catch(Exception ex)
 		{
@@ -331,7 +329,7 @@ public class BoardDAO {
 		try
 		{
 			getConnection();
-			String sql="SELECT no,name,subject,content "
+			String sql="SELECT id,regdate,hit,title,content "
 					+"FROM board "
 					+"WHERE no=?";
 			ps=conn.prepareStatement(sql);
@@ -340,10 +338,11 @@ public class BoardDAO {
 			// 결과값 출력
 			ResultSet rs=ps.executeQuery();
 			rs.next();
-			vo.setNo(rs.getInt(1));
-			vo.setName(rs.getString(2));
-			vo.setSubject(rs.getString(3));
-			vo.setContent(rs.getString(4));
+			vo.setId(rs.getString(1));
+			vo.setRegdate(rs.getDate(2));
+			vo.setHit(rs.getInt(3));
+			vo.setTitle(rs.getString(4));
+			vo.setContent(rs.getString(5));
 			rs.close();
 		}catch(Exception ex)
 		{
@@ -378,14 +377,13 @@ public class BoardDAO {
 				bCheck=true;
 				// 데이터베이스 수정
 				sql="UPDATE board SET "
-						+"name=?, subject=?, content=? "
+						+"id=?, title=?, content=? "
 						+"WHERE no=?";
 				ps=conn.prepareStatement(sql);
 				// ?에 값을 채운다 => 실행 => commit() 자동 실행
-				ps.setString(1, vo.getName());
-				ps.setString(2, vo.getSubject());
+				ps.setString(1, vo.getId());
+				ps.setString(2, vo.getTitle());
 				ps.setString(3, vo.getContent());
-				ps.setInt(4, vo.getNo());
 				
 				ps.executeUpdate();
 			}

@@ -7,7 +7,7 @@ import com.sist.dao.BoardDAO;
 
 public class ReviewPanel extends JPanel {
 
-	JButton prevBtn,nextBtn,updateBtn;
+	JButton prevBtn,nextBtn,insertBtn;
 	JLabel pageLa,titleLa;
 	JTable table;
 	DefaultTableModel model;
@@ -24,7 +24,7 @@ public class ReviewPanel extends JPanel {
     	
     	prevBtn=new JButton("이전");
     	nextBtn=new JButton("다음");
-    	updateBtn=new JButton("작성하기");
+    	insertBtn=new JButton("작성하기");
     	pageLa=new JLabel("0 page / 0 pages");
     	titleLa=new JLabel("제품 후기 게시판 목록",JLabel.CENTER);
     	titleLa.setFont(new Font("휴먼모음T",Font.BOLD,45));
@@ -79,8 +79,8 @@ public class ReviewPanel extends JPanel {
         	add(titleLa);
         	js.setBounds(170, 210, 900, 390);
         	add(js);
-        	updateBtn.setBounds(170, 160, 100, 35);
-        	add(updateBtn);
+        	insertBtn.setBounds(170, 160, 100, 35);
+        	add(insertBtn);
         	
         	JPanel p=new JPanel();
         	p.add(prevBtn);

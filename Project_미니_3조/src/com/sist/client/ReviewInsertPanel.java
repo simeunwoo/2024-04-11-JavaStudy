@@ -75,6 +75,7 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
     	
     	b1.addActionListener(this);
     	b2.addActionListener(this);
+    	subtf.addActionListener(this);
     }
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -101,11 +102,15 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
 			
 			dao.boardInsert(vo);
 			
+			subtf.setText("");
+			ta.setText("");
 			cp.rp.print();
 			cp.card.show(cp, "RP");
 		}
 		else if(e.getSource()==b2)
 		{
+			subtf.setText("");
+			ta.setText("");
 			cp.card.show(cp, "RP");
 		}
 	}

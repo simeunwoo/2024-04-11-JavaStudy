@@ -14,8 +14,9 @@ import java.io.*;
 public class ReviewBoardSystem {
    // 데이터 저장 => 모든 사용자 공통으로 사용 
    private static ArrayList<ReviewBoard> list=new ArrayList<ReviewBoard>();
+   ControlPanel cp;
    
-   public ReviewBoardSystem()
+   public ReviewBoardSystem(ControlPanel cp)
    {
 	  
 	//   boardGetData();
