@@ -41,7 +41,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
      *      --- PORT/IP을 직접 결정 => 고정이여야 한다 
      */
     // 개인마다 필요한 변수 
-    String myId,youId;
+    String myId;
     int oto=0;
     public ClientMain()
     {
@@ -140,6 +140,21 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 			{
 				out.write((Function.EXIT+"|\n").getBytes());
 			}catch(Exception ex){}
+		}
+		else if(e.getSource()==cp.chatp.b1)
+		{
+			String you=cp.chatp.box2.getSelectedItem().toString();
+			if(!you.equals("상담자"))
+			{
+				try
+				{
+					out.write((Function.ONEINIT+"|"+you+"|"+myId+"\n").getBytes());
+				}catch(Exception ex) {}
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "상담자를 선택하세요");
+			}
 		}
 		else if(e.getSource()==mp.chatBtn)
 		{

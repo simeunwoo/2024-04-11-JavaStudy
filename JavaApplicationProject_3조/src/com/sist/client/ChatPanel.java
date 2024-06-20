@@ -66,7 +66,7 @@ public class ChatPanel extends JPanel{
     	
     	box2=new JComboBox<String>();
     	box2.setBounds(495, 170, 100, 30);
-    	box2.addItem("all");
+    	box2.addItem("상담자");
     	add(box2);
     	
     	b1=new JButton("1:1 상담");
