@@ -1,6 +1,7 @@
 
 package com.sist.dao;
 import java.util.*;
+import java.util.Date;
 import java.sql.*;
 /*
  *   1. JDBC (자바에서 데이터베이스 연결하는 라이브러리) => java.sql
@@ -313,6 +314,96 @@ public class GoodsDAO {
     	 return list;
      }
      // 구매 => INSERT , UPDATE , DELETE 
+/*
+	private int cno,gno,price,account;
+	private String id;
+	private Date regdate;
+ */
+     public void cartInsert(CartVO vo)
+     {
+    	 try
+    	 {
+    		 getConnection();
+    		 String sql="INSERT INTO cart(cno,gno,id,price,accout) "
+    				 	+"VALUES(cart_cno_seq.nextval,?,?,?,?)";
+    		 ps=conn.prepareStatement(sql);
+    		 ps.setInt(1, vo.getGno());
+    		 ps.setString(2, vo.getId());
+    		 ps.setInt(3, vo.getPrice());
+    		 ps.setInt(4, vo.getAccount());
+    		 
+    		 ps.executeUpdate();
+    	 }catch(Exception ex)
+    	 {
+    		 ex.printStackTrace();
+    	 }
+    	 finally
+    	 {
+    		 disConnection();
+    	 }
+     }
+     public void cartCancel(int cno)
+     {
+    	 try
+    	 {
+    		 getConnection();
+    		 String sql="DELETE FROM cart "
+    				 +"WHERE cno="+cno;
+    		 ps=conn.prepareStatement(sql);
+    		 ps.executeUpdate();
+    	 }catch(Exception ex)
+    	 {
+    		 ex.printStackTrace();
+    	 }
+    	 finally
+    	 {
+    		 disConnection();
+    	 }
+     }
+     /*
+      * 	설계 => 테이블 설계 => 6, 7장 = 정규화
+      * 	---------------
+      * 	시퀀스
+      * 	인덱스 : 자주 검색 / 데이터 출력이 많은 경우 => 속도 최적화
+      * 	---------------------------------------------
+      * 	자주 사용하는 SQL : View
+      * 	테이블 여러개 연결 : Join / SubQuery
+      * 	---------------------------------------------
+      * 	반복 수행 => 댓글 => 함수화 => PL / SQL
+      * 	SQL 소스량을 줄인다 => 자동화 처리 => Trigger
+      */
+     public List<CartVO> cartSelect(String id)
+     {
+    	List<CartVO> list=new ArrayList<CartVO>();
+    	
+    	try
+    	{
+    		getConnection();
+    		String sql="SELECT /* + INDEX_DESC(cart cart_cno_pk) */ cno,price,account,"
+    				+"(SELECT goods_poster FROM goods_all WHERE no=cart.gno),"
+    				+"(SELECT goods_name FROM goods_all WHERE no=cart.gno),"
+    				+"(SELECT goods_price FROM goods_all WHERE no=cart.gno) "
+    				+"FROM cart "
+    				+"WHERE id=?";
+    		ps=conn.prepareStatement(sql);
+    		ps.setString(1, id);
+    		ResultSet rs=ps.executeQuery();
+    		while(rs.next())
+    		{
+    			CartVO vo=new CartVO();
+    			
+    		}
+    	}catch(Exception ex)
+    	{
+    		ex.printStackTrace();
+    	}
+    	finally
+    	{
+    		disConnection();
+    	}
+    	
+    	return list;
+     }
      
 }
 
