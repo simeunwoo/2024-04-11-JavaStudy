@@ -480,6 +480,11 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 				  {
 					  myId=st.nextToken();
 					  String name=st.nextToken();
+					  String admin=st.nextToken();
+					  if(admin.equals("y"))
+					  {
+						  cp.chatp.b1.setEnabled(false);
+					  }
 					  setTitle(name+"님의 채팅창");
 					  lp.setVisible(false);
 					  setVisible(true);
