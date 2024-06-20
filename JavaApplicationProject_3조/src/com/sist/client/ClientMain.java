@@ -107,6 +107,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		// 마이페이지
 		else if(e.getSource()==mp.myBtn)
 		{
+			cp.mpp.print();
 			cp.card.show(cp, "MYPAGE");
 		}
 		else if(e.getSource()==mp.boardBtn)

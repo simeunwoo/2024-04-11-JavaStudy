@@ -1,5 +1,8 @@
 package com.sist.client;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.*;
 import javax.swing.table.*;
 import com.sist.commons.*;
@@ -8,7 +11,7 @@ import java.util.List;
 import java.util.*;
 import java.net.*;
 
-public class MyPagePanel extends JPanel{
+public class MyPagePanel extends JPanel implements MouseListener {
     JLabel titleLa;
     JTable table;
     DefaultTableModel model;
@@ -49,7 +52,8 @@ public class MyPagePanel extends JPanel{
     	
     	js.setBounds(70, 75, 800, 400);
     	add(js);
-    	print();
+    	
+    	table.addMouseListener(this);
     }
     public void print()
     {
@@ -78,4 +82,44 @@ public class MyPagePanel extends JPanel{
     		
     	}
     }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==table)
+		{
+			if(e.getClickCount()==2)
+			{
+				int row=table.getSelectedRow();
+				String cno=model.getValueAt(row, 0).toString();
+				
+				int sel=JOptionPane.showConfirmDialog(this, "장바구니에서 삭제할까요?",
+						"삭제",JOptionPane.YES_NO_OPTION);
+				if(sel==JOptionPane.YES_OPTION)
+				{
+					dao.cartCancel(Integer.parseInt(cno));
+					print();
+				}
+			}
+		}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }
