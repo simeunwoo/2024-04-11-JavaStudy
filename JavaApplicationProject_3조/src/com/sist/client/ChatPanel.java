@@ -15,6 +15,7 @@ public class ChatPanel extends JPanel{
     DefaultTableModel model;
     JButton b1,b2,ob;
     JTextArea ta;
+	JPanel pan=new JPanel();
     
     // 상담
     JLabel la;

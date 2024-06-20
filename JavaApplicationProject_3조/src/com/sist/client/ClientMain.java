@@ -87,6 +87,8 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	
     	cp.chatp.tf.addActionListener(this);
     	cp.chatp.b1.addActionListener(this);
+    	cp.chatp.sendTf.addActionListener(this);
+    	cp.chatp.ob.addActionListener(this);
     	
     }
 	public static void main(String[] args) {
@@ -156,6 +158,19 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 			{
 				JOptionPane.showMessageDialog(this, "상담자를 선택하세요");
 			}
+		}
+		else if(e.getSource()==cp.chatp.sendTf)
+		{
+			String youId=cp.chatp.youTf.getText();
+			String message=cp.chatp.sendTf.getText();
+			if(message.length()<1)
+				return;
+			try
+			{
+				out.write((Function.ONETOONE+"|"+youId+"|"+message+"\n").getBytes());
+			}catch(Exception ex) {}
+			cp.chatp.sendTf.setText("");
+			cp.chatp.sendTf.requestFocus();
 		}
 		else if(e.getSource()==mp.chatBtn)
 		{
@@ -405,7 +420,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 					// 로그인 ==> 서버로 전송 
 					try
 					{
-						//1. 소켓 => 전화 걸기 
+						// 소켓 => 전화 걸기 
 						s=new Socket("192.168.10.116",2226); // 조별 
 						out=s.getOutputStream();
 						System.out.println("id="+id);
@@ -537,6 +552,12 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 					  JOptionPane.showMessageDialog(this, adminId+"님이 거절하였습니다");
 				  }
 				  break;
+				  case Function.ONEYES:
+				  {
+					  String id=st.nextToken();
+					  cp.chatp.youTf.setText(id);
+					  cp.chatp.pan.setVisible(true);
+				  }
 				  case Function.MYEXIT:
 				  {
 					  System.exit(0);
