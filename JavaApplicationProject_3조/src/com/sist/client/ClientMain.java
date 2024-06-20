@@ -11,6 +11,7 @@ import javax.swing.*;
 
 import com.sist.commons.Function;
 import com.sist.dao.*;
+import com.sist.server.Client;
 
 // 네트워크 연결 
 import java.io.*;
@@ -512,6 +513,28 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 					  cp.chatp.initStyle();
 					  
 					  cp.chatp.append(message, color);
+				  }
+				  break;
+				  // 상담
+				  case Function.ONEINIT:
+				  {
+					  String userId=st.nextToken();
+					  int sel=JOptionPane.showConfirmDialog(this, userId+"님이 상담을 요청하였습니다",
+							  "상담 요청",JOptionPane.YES_NO_OPTION);
+					  if(sel==JOptionPane.YES_OPTION)
+					  {
+						  out.write((Function.ONEYES+"|"+userId+"\n").getBytes());
+					  }
+					  else
+					  {
+						  out.write((Function.ONENO+"|"+userId+"\n").getBytes());
+					  }
+				  }
+				  break;
+				  case Function.ONENO:
+				  {
+					  String adminId=st.nextToken();
+					  JOptionPane.showMessageDialog(this, adminId+"님이 거절하였습니다");
 				  }
 				  break;
 				  case Function.MYEXIT:

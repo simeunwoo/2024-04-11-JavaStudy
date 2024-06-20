@@ -139,6 +139,37 @@ public class ChatServer implements Runnable{
 						   
 					   }
 					   break;
+					   // 상담
+					   case Function.ONEINIT:
+					   {
+						   String adminId=st.nextToken();
+						   String userId=st.nextToken();
+						   for(Client client:waitVc)
+						   {
+							   if(adminId.equals(client.id))
+							   {
+								   client.messageTo(Function.ONEINIT+"|"+userId+"님이 상담을 요청하였습니다");
+							   }
+						   }
+					   }
+					   break;
+					   case Function.ONENO:
+					   {
+						  String userId=st.nextToken();
+						  for(Client client:waitVc)
+						  {
+							  if(userId.equals(client.id))
+							  {
+								  client.messageTo(Function.ONENO+"|"+id);
+							  }
+						  }
+					   }
+					   break;
+					   case Function.ONEYES:
+					   {
+						  
+					   }
+					   break;
 					   case Function.EXIT:
 					   {
 						   messageAll(Function.EXIT+"|"+id);
