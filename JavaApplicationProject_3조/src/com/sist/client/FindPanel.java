@@ -1,4 +1,3 @@
-
 package com.sist.client;
 import java.util.*;
 import com.sist.dao.*;
@@ -76,7 +75,13 @@ public class FindPanel extends JPanel implements ActionListener,MouseListener{
     	tf.addActionListener(this);
     	b.addActionListener(this);
     	table.addMouseListener(this);
+    	
+    	//setSize(960, 680);
+    	//setVisible(true);
     }
+    public static void main(String[] args) {
+		new FindPanel(null);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -130,7 +135,7 @@ public class FindPanel extends JPanel implements ActionListener,MouseListener{
 			{
 				int row=table.getSelectedRow();
 				String no=model.getValueAt(row, 0).toString();
-				cp.dp.print(Integer.parseInt(no));
+				//cp.dp.print(Integer.parseInt(no));
 				cp.card.show(cp, "DP");
 			}
 		}

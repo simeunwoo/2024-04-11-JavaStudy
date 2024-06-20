@@ -28,7 +28,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     PostFindFrame post=new PostFindFrame();// 우편번호 검색 
     IdCheckFrame idfrm=new IdCheckFrame();
     
-    ControllPanel cp=new ControllPanel();
+    ControllPanel cp;
     MenuPanel mp=new MenuPanel();
     // 네트워크에 필요한 객체
     Socket s; // 통신기기 => 핸드폰 
@@ -41,9 +41,11 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
      *      --- PORT/IP을 직접 결정 => 고정이여야 한다 
      */
     // 개인마다 필요한 변수 
-    String myId;
+    String myId,youId;
+    int oto=0;
     public ClientMain()
     {
+    	cp=new ControllPanel(this);
     	setLayout(null);
     	
     	mp.setBounds(200, 15, 700, 35);
@@ -80,8 +82,10 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	mp.homeBtn.addActionListener(this);
     	mp.findBtn.addActionListener(this);
     	mp.boardBtn.addActionListener(this);
+    	mp.myBtn.addActionListener(this);
     	
     	cp.chatp.tf.addActionListener(this);
+    	cp.chatp.b1.addActionListener(this);
     	
     }
 	public static void main(String[] args) {
@@ -99,6 +103,11 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		{
 			dispose();// window메모리 해제 
 			System.exit(0);// 프로그램 종료
+		}
+		// 마이페이지
+		else if(e.getSource()==mp.myBtn)
+		{
+			cp.card.show(cp, "MYPAGE");
 		}
 		else if(e.getSource()==mp.boardBtn)
 		{
@@ -137,6 +146,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		}
 		else if(e.getSource()==mp.homeBtn)
 		{
+			cp.hp.myId=myId;
 			cp.card.show(cp, "HP");
 		}
 		else if(e.getSource()==jp.b1)// 아이디 중복 체크 

@@ -1,4 +1,3 @@
-
 package com.sist.client;
 
 import java.awt.CardLayout;
@@ -17,20 +16,26 @@ public class ControllPanel extends JPanel{
    BoardDetailPanel bdp;
    BoardDeletePanel bdelp;
    BoardUpdatePanel bup;
+   MyPagePanel mpp;
    ChatPanel chatp=new ChatPanel();
-   // 웹에서 => 화면 변경 => Controller
+   // 웹에서 => 화면 변경 => Controller 
    /*
-    * 	처리 : Model
-    * 	화면 : View
-    * 	화면 변경 : Controller => MVC
-    * 
-    * 	최근 => Spring MVC가 사라졌다 => 프레임워크가 사라졌다 ㅋ
+    *    처리 : Model 
+    *    화면 : View 
+    *    화면변경 : Controller ==> MVC
+    *    
+    *    최근 => Spring MVC가 사라졌다
+    *          ----------- JSP 
+    *                      ThymeLeaf / Vue / React => HTML
     */
-   public ControllPanel() // 화면을 변경해주는 역할
+   ClientMain cMain;
+   public ControllPanel(ClientMain cm)
    {
+	   cMain=cm;
 	   setLayout(card);
 	   //add("EP",ep);
 	   hp=new HomePanel(this);
+	   chatp=new ChatPanel();
 	   dp=new GoodsDetailPanel(this);
 	   fp=new FindPanel(this);
 	   bp=new BoardListPanel(this);
@@ -38,6 +43,7 @@ public class ControllPanel extends JPanel{
 	   bdp=new BoardDetailPanel(this);
 	   bdelp=new BoardDeletePanel(this);
 	   bup=new BoardUpdatePanel(this);
+	   mpp=new MyPagePanel(this);
 	   add("HP",hp);
 	   add("CHAT",chatp);
 	   add("DP",dp);
@@ -47,7 +53,6 @@ public class ControllPanel extends JPanel{
 	   add("DETAIL",bdp);
 	   add("DELETE",bdelp);
 	   add("UPDATE",bup);
-	   
-	  
+	   add("MYPAGE",mpp);
    }
 }
