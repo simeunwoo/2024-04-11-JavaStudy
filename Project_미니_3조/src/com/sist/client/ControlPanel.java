@@ -17,9 +17,9 @@ public class ControlPanel extends JPanel {
 	{
 		setLayout(card);
 		
-		rip = new ReviewInsertPanel(this);
-		rdp = new ReviewDetailPanel(this);
-		rp = new ReviewPanel(this);
+		rip=new ReviewInsertPanel(this);
+		rdp=new ReviewDetailPanel(this);
+		rp=new ReviewPanel(this);
 		rdelp=new ReviewDeletePanel(this);
 		rup=new ReviewUpdatePanel(this);
 		

@@ -18,7 +18,7 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
     JButton b1,b2;
     ControlPanel cp;
     BoardDAO dao;
-    GoodsDAO goods;
+    GoodsDAO gdao;
     /*
     타이틀
     제목
@@ -29,7 +29,7 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
     {
     	this.cp=cp;
     	dao=BoardDAO.newInstance();
-    	goods=GoodsDAO.newInstance();
+    	gdao=GoodsDAO.newInstance();
     	
     	setLayout(null);
     	titleLa=new JLabel("제품 후기",JLabel.CENTER);
@@ -96,9 +96,9 @@ public class ReviewInsertPanel extends JPanel implements ActionListener {
 			}
 			
 			BoardVO vo=new BoardVO();
-			vo.setSubject(subject);
+			vo.setId("sim");
+			vo.setTitle(subject);
 			vo.setContent(content);
-			vo.setHit(0);
 			
 			dao.boardInsert(vo);
 			

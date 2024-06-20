@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 
 import com.sist.dao.BoardDAO;
+import com.sist.dao.GoodsDAO;
 
 public class ReviewPanel extends JPanel {
 
@@ -14,6 +15,7 @@ public class ReviewPanel extends JPanel {
 	TableColumn column;
     ControlPanel cp;
     BoardDAO dao;
+    GoodsDAO gdao;
 /*
 번호, 제목, 아이디, 작성일, 조회수
  */
@@ -21,6 +23,7 @@ public class ReviewPanel extends JPanel {
     {
     	this.cp=cp;
     	dao=BoardDAO.newInstance();
+    	gdao=GoodsDAO.newInstance();
     	
     	prevBtn=new JButton("이전");
     	nextBtn=new JButton("다음");

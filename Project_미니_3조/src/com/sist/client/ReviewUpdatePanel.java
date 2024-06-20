@@ -20,7 +20,7 @@ public class ReviewUpdatePanel extends JPanel implements ActionListener{
     JButton b1,b2;
     ControlPanel cp;
     BoardDAO dao;
-    GoodsDAO goods;
+    GoodsDAO gdao;
     int no=0;
     /*
     타이틀
@@ -32,7 +32,7 @@ public class ReviewUpdatePanel extends JPanel implements ActionListener{
     {
     	this.cp=cp;
     	dao=BoardDAO.newInstance();
-    	goods=GoodsDAO.newInstance();
+    	gdao=GoodsDAO.newInstance();
     	
     	setLayout(null);
     	titleLa=new JLabel("제품 후기",JLabel.CENTER);
@@ -105,7 +105,7 @@ public class ReviewUpdatePanel extends JPanel implements ActionListener{
 			
 			// 데이터를 모아서 DAO로 전송
 			BoardVO vo=new BoardVO();
-			vo.setSubject(subject);
+			vo.setTitle(subject);
 			vo.setContent(content);
 			
 			// 데이터베이스 연동

@@ -6,8 +6,8 @@ import java.util.*;
 
 import javax.swing.JPanel;
 /*
-JLabel id,day,hit,sub;
-JTextArea ta;				
+JLabel id,regdate,hit,title;
+JTexcontentrea content;				
 */
 	/*
 	아이디 / 작성일
@@ -16,22 +16,22 @@ JTextArea ta;
 	 */
 public class ReviewBoard extends JPanel implements Serializable{
     private String id; // 구분자 => 상세,수정,삭제 
-    private Date day=new Date(); 
+    private Date regdate=new Date(); 
     private int hit;
-    private String sub;
-    private String ta;
-    private int no;
+    private String title;
+    private String content;
+    private int bno;
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Date getDay() {
-		return day;
+	public Date getRegdate() {
+		return regdate;
 	}
-	public void setDay(Date day) {
-		this.day = day;
+	public void setRegdate(Date regdate) {
+		this.regdate = regdate;
 	}
 	public int getHit() {
 		return hit;
@@ -39,23 +39,23 @@ public class ReviewBoard extends JPanel implements Serializable{
 	public void setHit(int hit) {
 		this.hit = hit;
 	}
-	public String getSub() {
-		return sub;
+	public String getTitle() {
+		return title;
 	}
-	public void setSub(String sub) {
-		this.sub = sub;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public String getTa() {
-		return ta;
+	public String getContent() {
+		return content;
 	}
-	public void setTa(String ta) {
-		this.ta = ta;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public int getNo() {
-		return no;
+	public int getBno() {
+		return bno;
 	}
-	public void setNo(int no) {
-		this.no = no;
+	public void setBno(int bno) {
+		this.bno = bno;
 	}
 	
 	   

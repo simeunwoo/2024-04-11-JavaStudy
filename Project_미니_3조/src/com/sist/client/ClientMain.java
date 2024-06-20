@@ -11,6 +11,7 @@ import javax.swing.*;
 import com.sist.client.ReviewBoard;
 import com.sist.client.ReviewBoardSystem;
 import com.sist.dao.BoardVO;
+import com.sist.dao.GoodsDAO;
 
 // import com.sist.commons.Function;
 // import com.sist.dao.*;
@@ -31,6 +32,8 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     
     ReviewBoard rb=new ReviewBoard();
     ReviewBoardSystem rbs=new ReviewBoardSystem(cp);
+    
+    GoodsDAO gdao;
     
     // 네트워크에 필요한 객체
     Socket s; // 통신기기 => 핸드폰 
@@ -78,10 +81,10 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
     	{
     		ReviewBoard b=list.get(i);
     		String[] data={
-    			String.valueOf(b.getNo()),
-    			b.getSub(),
+    			String.valueOf(b.getBno()),
+    			b.getTitle(),
     			b.getId(),
-    			new SimpleDateFormat("yyyy-MM-dd").format(b.getDay()),
+    			new SimpleDateFormat("yyyy-MM-dd").format(b.getRegdate()),
     			String.valueOf(b.getHit())
     		};
     		rp.model.addRow(data);
@@ -116,10 +119,10 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 				String no=cp.rp.model.getValueAt(row, 0).toString();
 				ReviewBoard b=rbs.boardDetail(Integer.parseInt(no));
 				cp.rdp.id.setText(b.getId());
-				cp.rdp.day.setText(new SimpleDateFormat("yyyy-MM-dd").format(b.getDay()));
+				cp.rdp.day.setText(new SimpleDateFormat("yyyy-MM-dd").format(b.getRegdate()));
 				cp.rdp.hit.setText(String.valueOf(b.getHit()));
-				cp.rdp.sub.setText(b.getSub());
-				cp.rdp.ta.setText(b.getTa());
+				cp.rdp.sub.setText(b.getTitle());
+				cp.rdp.ta.setText(b.getContent());
 				// 화면 이동 
 				cp.card.show(cp, "RDP");
 /*
@@ -180,6 +183,7 @@ public class ClientMain extends JFrame implements ActionListener,MouseListener,R
 		}
 		else if(e.getSource()==cp.rp.insertBtn)
 		{
+			GoodsDAO gdao=new GoodsDAO();
 			rip.subtf.setText("");
 			rip.ta.setText("");
 			rip.subtf.requestFocus();

@@ -157,11 +157,11 @@ public class BoardDAO {
 			// 연결
 			getConnection();
 			// 오라클로 보낼 SQL 문장
-			String sql="SELECT no,subject,name,regdate,hit,num "
-						+"FROM (SELECT no,subject,name,regdate,hit,rownum as num "
-						+"FROM (SELECT no,subject,name,regdate,hit "
+			String sql="SELECT subject,id,regdate,hit,bno "
+						+"FROM (SELECT subject,name,regdate,hit,rownum as bno "
+						+"FROM (SELECT subject,name,regdate,hit "
 						+"FROM board ORDER BY no DESC)) "
-						+"WHERE num BETWEEN ? AND ?"; // 페이지 나누기 (인라인뷰)
+						+"WHERE bno BETWEEN ? AND ?"; // 페이지 나누기 (인라인뷰)
 			ps=conn.prepareStatement(sql); // 먼저 전송
 			// 1page => 1 ~ 10
 			// 2page => 11 ~ 20 ...
@@ -177,9 +177,9 @@ public class BoardDAO {
 			while(rs.next())
 			{
 				BoardVO vo=new BoardVO();
-				vo.setNo(rs.getInt(1));
-				vo.setSubject(rs.getString(2));				
-				vo.setName(rs.getString(3));				
+				vo.setBno(rs.getInt(1));
+				vo.setTitle(rs.getString(2));				
+				vo.setId(rs.getString(3));				
 				vo.setRegdate(rs.getDate(4));				
 				vo.setHit(rs.getInt(5));
 				list.add(vo);
@@ -255,8 +255,8 @@ public class BoardDAO {
 			// 연결
 			getConnection();
 			// SQL 문장
-			String sql="INSERT INTO board(id,title,content) "
-					+"VALUES(?,?,?)";
+			String sql="INSERT INTO board(bno,id,title,content) "
+					+"VALUES(board_bno_seq.nextval,?,?,?)";
 			// 전송
 			ps=conn.prepareStatement(sql);
 			// 실행 요청
@@ -363,30 +363,15 @@ public class BoardDAO {
 		{
 			getConnection();
 			// 비밀 번호 체크
-			String sql="SELECT pwd FROM board "
-					+"WHERE no=?";
+			String sql="UPDATE board SET "
+					+"id=?, title=?, content=? "
+					+"WHERE bno=?";
 			ps=conn.prepareStatement(sql);
-			ps.setInt(1, vo.getNo());
-			ResultSet rs=ps.executeQuery();
-			rs.next();
-			String db_pwd=rs.getString(1);
-			rs.close();
-			// 확인
-			if(db_pwd.equals(vo.getPwd()))
-			{
-				bCheck=true;
-				// 데이터베이스 수정
-				sql="UPDATE board SET "
-						+"id=?, title=?, content=? "
-						+"WHERE no=?";
-				ps=conn.prepareStatement(sql);
-				// ?에 값을 채운다 => 실행 => commit() 자동 실행
-				ps.setString(1, vo.getId());
-				ps.setString(2, vo.getTitle());
-				ps.setString(3, vo.getContent());
-				
-				ps.executeUpdate();
-			}
+			ps.setString(1, vo.getId());
+			ps.setString(2, vo.getTitle());
+			ps.setString(3, vo.getContent());
+			ps.setInt(4, vo.getBno());
+			ps.executeUpdate();
 		}catch(Exception ex)
 		{
 			ex.printStackTrace();
@@ -396,7 +381,7 @@ public class BoardDAO {
 			disConnection();
 		}
 		return bCheck;
-	}
+	} 
 	/*
 	 * 	체크 => boolean => pwd, no
 	 * 	목록 => List => page
@@ -405,7 +390,7 @@ public class BoardDAO {
 	 *	추가 => void => VO
 	 */
 	// 5. 삭제 => 비밀 번호 체크 => 비밀 번호 체크 / 실제 삭제 => 묻고 답하기 : SQL(7)
-	public boolean boardDelete(int no,String pwd)
+/*	public boolean boardDelete(int no,String pwd)
 	{
 		boolean bCheck=false;
 		try
@@ -443,6 +428,6 @@ public class BoardDAO {
 			disConnection();
 		}
 		return bCheck;
-	}
+	} */
 	// 기능 수행을 위해서는 SQL 문장이 1개가 아닐 수 있다 => 여러개의 SQL 문장을 사용할 수 있다
 }

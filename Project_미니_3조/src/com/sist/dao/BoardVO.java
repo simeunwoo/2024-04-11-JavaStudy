@@ -21,7 +21,11 @@ import lombok.Data;
  */
 @Data
 public class BoardVO {
-	private int no,hit;
-	private String id,title,name,subject,content,pwd;
+	private int bno;
+	private int hit;
+	private String id;
+	private String title;
+	private String content;
 	private Date regdate;
+	
 }

@@ -31,6 +31,7 @@ public class ReviewDetailPanel extends JPanel implements ActionListener{
      {
      	this.cp=cp;
      	dao=BoardDAO.newInstance();
+     	gdao=GoodsDAO.newInstance();
     	 
     	 titleLa=new JLabel("제품 후기",JLabel.CENTER);
      	 titleLa.setFont(new Font("휴먼모음T",Font.BOLD,35));
@@ -99,8 +100,8 @@ public class ReviewDetailPanel extends JPanel implements ActionListener{
      {
      	BoardVO vo=dao.boardDetailData(no);
     // 	this.no.setText(String.valueOf(vo.getNo()));
-     	id.setText(vo.getName());
-     	sub.setText(vo.getSubject());
+     	id.setText(vo.getId());
+     	sub.setText(vo.getTitle());
      	hit.setText(String.valueOf(vo.getHit()));
      	day.setText(vo.getRegdate().toString());
      	ta.setText(vo.getContent());
@@ -112,7 +113,7 @@ public class ReviewDetailPanel extends JPanel implements ActionListener{
 		{
 			BoardVO vo=dao.boardUpdateData(no);
 			GoodsVO gvo=gdao.goodsUpdateData(no);
-			cp.rup.subtf.setText(vo.getSubject());
+			cp.rup.subtf.setText(vo.getTitle());
 			cp.rup.box.setToolTipText(gvo.getGoods_name());
 			cp.rup.ta.setText(vo.getContent());
 			cp.card.show(cp, "rup");

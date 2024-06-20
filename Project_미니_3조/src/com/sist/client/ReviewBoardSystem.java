@@ -65,7 +65,7 @@ public class ReviewBoardSystem {
    }
    public void boardInsert(ReviewBoard board)
    {
-	   board.setNo(boardSequence()+1);
+	   board.setBno(boardSequence()+1);
 	   list.add(board);
 	   boardSave();
    }
@@ -119,7 +119,7 @@ public class ReviewBoardSystem {
 	    */
 	   for(ReviewBoard b:list)
 	   {
-		   if(b.getNo()==no)
+		   if(b.getBno()==no)
 		   {
 			   b.setHit(b.getHit()+1);// 조회수 증가 
 			   board=b;
@@ -136,7 +136,7 @@ public class ReviewBoardSystem {
 	  
 	   for(ReviewBoard b:list)
 	   {
-		   if(b.getNo()==no)
+		   if(b.getBno()==no)
 		   {
 			   
 			   board=b;
@@ -153,7 +153,7 @@ public class ReviewBoardSystem {
 	   for(int i=0;i<list.size();i++)
 	   {
 		   ReviewBoard b=list.get(i);
-		   if(b.getNo()==no)
+		   if(b.getBno()==no)
 		   {
 			   index=i; // 인덱스 번호 구하기 
 			   break;
@@ -169,7 +169,7 @@ public class ReviewBoardSystem {
 	   for(int i=0;i<list.size();i++)
 	   {
 		   ReviewBoard b=list.get(i);
-		   if(b.getNo()==no)
+		   if(b.getBno()==no)
 		   {
 			   index=i; // 인덱스 번호 구하기 
 			   break;
@@ -191,7 +191,7 @@ public class ReviewBoardSystem {
 	   ArrayList<ReviewBoard> bList=new ArrayList<ReviewBoard>();
 	   for(ReviewBoard b:list)
 	   {
-		   if(b.getSub().contains(subject))
+		   if(b.getTitle().contains(subject))
 		   {
 			   bList.add(b);
 		   }
@@ -214,8 +214,8 @@ public class ReviewBoardSystem {
 		   // list => 처음에는 null
 		   for(ReviewBoard b:list) // 오류 발생 
 		   {
-			   if(b.getNo()>max)
-				   max=b.getNo();
+			   if(b.getBno()>max)
+				   max=b.getBno();
 		   }
 	   }catch(Exception ex) 
 	   {
