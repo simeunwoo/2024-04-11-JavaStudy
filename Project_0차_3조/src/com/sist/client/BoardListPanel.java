@@ -36,7 +36,7 @@ public class BoardListPanel extends JPanel {
     	titleLa=new JLabel("제품 후기 게시판 목록",JLabel.CENTER);
     	titleLa.setFont(new Font("휴먼모음T",Font.BOLD,45));
     	
-    	String[] col={"번호","제목","아이디","작성일","조회수"};
+    	String[] col={"번호","제목", "리뷰제품", "아이디","작성일","조회수"};
     	String[][] row=new String[0][5];
     	
        	model=new DefaultTableModel(row,col)
@@ -63,11 +63,12 @@ public class BoardListPanel extends JPanel {
        	   		}
        	   		else if(i==1)
        	   		{
-       	   			column.setPreferredWidth(875);
+       	   			column.setPreferredWidth(450);	//875
+       	   			rend.setHorizontalAlignment(JLabel.LEFT);
        	   		}
        	   		else if(i==2)
        	   		{
-       	   			column.setPreferredWidth(250);
+       	   			column.setPreferredWidth(600);
        	   			rend.setHorizontalAlignment(JLabel.CENTER);
        	   		}
        	   		else if(i==3)
@@ -125,6 +126,7 @@ public class BoardListPanel extends JPanel {
     		String[] data={
     			String.valueOf(vo.getBno()),
     			vo.getTitle(),
+    			vo.getGvo().getGoods_name(),
     			vo.getId(),
     			vo.getRegdate().toString(),
     			String.valueOf(vo.getHit())

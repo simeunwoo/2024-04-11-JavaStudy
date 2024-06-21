@@ -1,4 +1,3 @@
-
 package com.sist.dao;
 
 import java.sql.Connection;
@@ -189,16 +188,19 @@ public class GoodsDAO {
 		}
 	}
 	
-	public ArrayList<String> buyGoodsName(String id){
-		ArrayList<String> list = new ArrayList<String>();
+	public ArrayList<GoodsVO> buyGoodsName(String id){
+		ArrayList<GoodsVO> list = new ArrayList<GoodsVO>();
 		try {
 			getConnection();
-			String sql = "SELECT goods_name from goods_all where no in (SELECT goods_id from orders where custid = ?)";
+			String sql = "SELECT goods_name, no from goods_all where no in (SELECT goods_id from orders where custid = ?)";
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				list.add(rs.getString(1));
+				GoodsVO vo = new GoodsVO();
+				vo.setGoods_name(rs.getString(1));
+				vo.setNo(rs.getInt(2));
+				list.add(vo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

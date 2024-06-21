@@ -12,6 +12,8 @@ public class ControlPanel extends JPanel{
 	public CardLayout card = new CardLayout();
 	public ChatPanel cp;
 	public SearchPanel sp;
+	EmpUpdatePanel eup;
+	EmpInsetPanel eip;
 	BoardListPanel blp;
 	BoardInsertPanel bip;
 	BoardDetailPanel bdp;
@@ -29,6 +31,8 @@ public class ControlPanel extends JPanel{
 		bdp = new BoardDetailPanel();
 		bup = new BoardUpdatePanel();
 		edp = new EmpDetailPanel();
+		eip = new EmpInsetPanel();
+		eup = new EmpUpdatePanel(this);
 		setLayout(card);
 		add("HOME", hp);
 		add("DETAIL", dp);
@@ -41,6 +45,8 @@ public class ControlPanel extends JPanel{
 		add("BDETAIL", bdp);
 		add("BUPDATE", bup);
 		add("EDETAIL", edp);
+		add("EINSERT", eip);
+		add("EUPDATE", eup);
 	}
 	
 }

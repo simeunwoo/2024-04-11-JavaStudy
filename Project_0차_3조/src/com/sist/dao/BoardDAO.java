@@ -157,9 +157,9 @@ public class BoardDAO {
 			// 연결
 			getConnection();
 			// 오라클로 보낼 SQL 문장
-			String sql="SELECT bno, title, id, regdate, hit, num "
-						+"FROM (SELECT bno, title,id,regdate,hit,rownum as num "
-						+"FROM (SELECT bno, title,id,regdate,hit "
+			String sql="SELECT bno, title, id, regdate, hit,gno, (SELECT goods_name FROM goods_all where gno = no), num "
+						+"FROM (SELECT bno, title,id,regdate,hit, gno,(SELECT goods_name FROM goods_all where gno = no),  rownum as num "
+						+"FROM (SELECT bno, title,id,regdate,hit,(SELECT goods_name FROM goods_all where gno = no),  gno "
 						+"FROM board ORDER BY bno DESC)) "
 						+"WHERE bno BETWEEN ? AND ?"; // 페이지 나누기 (인라인뷰)
 			ps=conn.prepareStatement(sql); // 먼저 전송
@@ -182,6 +182,8 @@ public class BoardDAO {
 				vo.setId(rs.getString(3));				
 				vo.setRegdate(rs.getDate(4));				
 				vo.setHit(rs.getInt(5));
+				vo.setGno(rs.getInt(6));
+				vo.getGvo().setGoods_name(rs.getString(7));
 				list.add(vo);
 			}
 			rs.close();
@@ -255,8 +257,8 @@ public class BoardDAO {
 			// 연결
 			getConnection();
 			// SQL 문장
-			String sql="INSERT INTO board(bno,id,title,content) "
-					+"VALUES(board_bno_seq.nextval,?,?,?)";
+			String sql="INSERT INTO board(bno,id,title,content, gno) "
+					+"VALUES(board_bno_seq.nextval,?,?,?, ?)";
 			// 전송
 			ps=conn.prepareStatement(sql);
 			// 실행 요청
@@ -264,7 +266,7 @@ public class BoardDAO {
 			ps.setString(1, vo.getId());
 			ps.setString(2, vo.getTitle());
 			ps.setString(3, vo.getContent());
-			
+			ps.setInt(4, vo.getGno());
 			ps.executeUpdate();
 			/*
 			 * 	executeQuery() => 결과값이 있다 => SELECT
@@ -295,7 +297,7 @@ public class BoardDAO {
 			ps.executeUpdate();
 			// 데이터 읽기
 			// sql 문장은 여러개 쓸 수 있다
-			sql="SELECT id,regdate,hit,title,content "
+			sql="SELECT id,regdate,hit,title,content, (SELECT goods_name FROM goods_all where gno = no) "
 					+"FROM board "
 					+"WHERE bno=?";
 			ps=conn.prepareStatement(sql);
@@ -309,6 +311,7 @@ public class BoardDAO {
 			vo.setHit(rs.getInt(3));
 			vo.setTitle(rs.getString(4));
 			vo.setContent(rs.getString(5));
+			vo.getGvo().setGoods_name(rs.getString(6));
 			rs.close();
 		}catch(Exception ex)
 		{
@@ -365,13 +368,14 @@ public class BoardDAO {
 			getConnection();
 			// 비밀 번호 체크
 			String sql="UPDATE board SET "
-					+"id=?, title=?, content=? "
+					+"id=?, title=?, content=?, gno = ? "
 					+"WHERE bno=?";
 			ps=conn.prepareStatement(sql);
 			ps.setString(1, vo.getId());
 			ps.setString(2, vo.getTitle());
 			ps.setString(3, vo.getContent());
-			ps.setInt(4, vo.getBno());
+			ps.setInt(4, vo.getGno());
+			ps.setInt(5, vo.getBno());
 			ps.executeUpdate();
 		}catch(Exception ex)
 		{
@@ -383,6 +387,24 @@ public class BoardDAO {
 		}
 		return bCheck;
 	} 
+	public String isMine(int no) {
+		String name = "";
+		try {
+			getConnection();
+			String sql = "SELECT id FROM board WHERE bno = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			name = rs.getString(1);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			disConnection();
+		}
+		return name;
+	}
 	/*
 	 * 	체크 => boolean => pwd, no
 	 * 	목록 => List => page

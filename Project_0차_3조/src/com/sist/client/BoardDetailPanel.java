@@ -14,7 +14,8 @@ import com.sist.dao.GoodsDAO;
 import com.sist.dao.GoodsVO;
 public class BoardDetailPanel extends JPanel{
 	JLabel titleLa,idLa,dayLa,hitLa,subLa,recomLa;
-	JLabel id,day,hit,sub,recom;
+	JLabel id,day,hit,sub;
+	JTextField recom;
 	JTextArea ta;
 	JButton b1,b2;
 	BoardDAO dao;
@@ -49,8 +50,9 @@ public class BoardDetailPanel extends JPanel{
 		recomLa.setOpaque(true);
 		recomLa.setBackground(new Color(207,255,229));
 		recomLa.setBounds(665, 100 , 80, 30);
-		recom=new JLabel("",JLabel.LEFT);
+		recom=new JTextField("",JLabel.LEFT);
 		recom.setBounds(715, 100, 400, 30);
+		recom.setEditable(false);
 		add(recomLa);add(recom);
 
 		dayLa=new JLabel("작성일",JLabel.CENTER);
@@ -100,6 +102,8 @@ public class BoardDetailPanel extends JPanel{
 		hit.setText(String.valueOf(vo.getHit()));
 		day.setText(vo.getRegdate().toString());
 		ta.setText(vo.getContent());
+		System.out.println(vo.getGvo().getGoods_name());
+		recom.setText(vo.getGvo().getGoods_name());
 	}
 
 

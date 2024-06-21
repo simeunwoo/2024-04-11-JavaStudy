@@ -3,6 +3,8 @@ import javax.swing.*;
 
 import com.sist.dao.BoardDAO;
 import com.sist.dao.GoodsDAO;
+import com.sist.dao.GoodsVO;
+
 import java.awt.*;
 import java.util.ArrayList;
 public class BoardUpdatePanel extends JPanel{
@@ -72,8 +74,12 @@ public class BoardUpdatePanel extends JPanel{
     }
     public void printBox(String id) {
     	gdao=GoodsDAO.newInstance();
-    	ArrayList<String> list_temp = gdao.buyGoodsName(id);
-    	String[] list = list_temp.toArray(new String[list_temp.size()]);
+    	ArrayList<GoodsVO> list_temp = gdao.buyGoodsName(id);
+    	ArrayList<String> list_ = new ArrayList<String>();
+    	for(GoodsVO vo : list_temp) {
+    		list_.add(vo.getNo() + ". " + vo.getGoods_name());
+    	}
+    	String[] list = list_.toArray(new String[list_.size()]);
     	box=new JComboBox(list);
     	box.setBounds(365, 120, 550, 30);
     	add(box);

@@ -57,6 +57,60 @@ public class MemberDAO {
 		}
 		return bCheck;
 	}
+	
+	public String getId(int no) {
+		String result = "";
+		try {
+			getConnection();
+			String sql = "SELECT COUNT(*) FROM member WHERE empno = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, no);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			if(rs.getInt(1) == 0) {
+				result = "NONE";
+				rs.close();
+			}
+			else {
+				rs.close();
+				sql = "SELECT name FROM member where empno = ?";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, no);
+				rs = ps.executeQuery();
+				rs.next();
+				result = rs.getString(1);
+				System.out.println(rs.getString(1));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			disConnection();
+		}
+		System.out.println(result);
+		return result;
+	}
+	
+	public DeptVO getDept(int deptno) {
+		DeptVO vo = new DeptVO();
+		try {
+			getConnection();
+			String sql = "SELECT dname, loc FROM dept WHERE deptno = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, deptno);
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			vo.setDname(rs.getString(1));
+			vo.setLoc(rs.getString(2));
+			vo.setDeptno(deptno);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			disConnection();
+		}
+		return vo;
+	}
 
 
 	public String memberLogin(String id, String pwd) {

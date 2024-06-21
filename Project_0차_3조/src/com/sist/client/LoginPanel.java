@@ -14,7 +14,7 @@ public class LoginPanel extends JPanel{
 	public LoginPanel() {
 		setLayout(null);
 		
-		back = Toolkit.getDefaultToolkit().getImage("C:\\javaDev\\back.jpg");
+		back = Toolkit.getDefaultToolkit().getImage("C:\\javaDev\\project.jpg");
 		
 		laId = new JLabel("ID", JLabel.RIGHT);
 		laPwd = new JLabel("PWD", JLabel.RIGHT);

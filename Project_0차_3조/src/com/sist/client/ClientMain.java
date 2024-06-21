@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -19,6 +20,7 @@ import javax.swing.*;
 import com.sist.common.Function;
 import com.sist.dao.BoardDAO;
 import com.sist.dao.BoardVO;
+import com.sist.dao.DeptVO;
 import com.sist.dao.EmpMemberDAO;
 import com.sist.dao.EmpVO;
 import com.sist.dao.GoodsDAO;
@@ -34,7 +36,8 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 	MainPanel mp = new MainPanel();
 	JoinPanel jp = new JoinPanel();
 	PostFindFrame pff = new PostFindFrame();
-
+	
+	
 	String myId;
 
 	Socket s; // 통신기기 => 핸드폰 
@@ -60,6 +63,10 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 		mp.mp.searchBtn.addActionListener(this);	// 상품검색 버튼
 		mp.mp.homeBtn.addActionListener(this);		// 쇼핑몰 홈 버튼
 		mp.mp.empBtn.addActionListener(this);		// 사원목록 버튼
+		mp.mp.insertBtn.addActionListener(this);
+		
+		mp.cp.eip.cbDeptno.addActionListener(this);
+		mp.cp.eip.check.addActionListener(this);
 
 		mp.cp.dp.b1.addActionListener(this);		//
 		mp.cp.dp.b2.addActionListener(this);		//
@@ -68,16 +75,15 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 		mp.cp.fp.b.addActionListener(this);			// 검색버튼 눌러서 검색
 		mp.cp.fp.table.addMouseListener(this);		// 상세보기 위해 회원 클릭
 
-		mp.cp.cp.b1.addActionListener(this);
+		mp.cp.cp.b1.addActionListener(this);		// 채팅패널
 		mp.cp.cp.b2.addActionListener(this);
 		mp.cp.cp.ob.addActionListener(this);
 		mp.cp.cp.sendTf.addActionListener(this);
 		mp.cp.cp.tf.addActionListener(this);
 		
-		mp.cp.ep.table.addMouseListener(this);
+		mp.cp.ep.table.addMouseListener(this);		// 사원 목록 패널
 		mp.cp.ep.table2.addMouseListener(this);
 		
-		mp.cp.fp.table.addMouseListener(this);
 
 		login.btnClose.addActionListener(this);		// 로그인 종료창
 		login.btnLogin.addActionListener(this);		// 로그인 버튼
@@ -88,13 +94,15 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 		jp.b3.addActionListener(this);			// 회원가입
 		jp.b4.addActionListener(this);			// 취소
 
-		pff.btn1.addActionListener(this);
+		pff.btn1.addActionListener(this);		// 우편번호 검색 패널
 		pff.tfAddress.addActionListener(this);
 		pff.table.addMouseListener(this);
 		
-		mp.cp.blp.insertBtn.addActionListener(this);
+		mp.cp.blp.insertBtn.addActionListener(this);	// 보드 리스트패널
+		mp.cp.blp.nextBtn.addActionListener(this);
+		mp.cp.blp.prevBtn.addActionListener(this);
 		
-		mp.cp.bip.b1.addActionListener(this);
+		mp.cp.bip.b1.addActionListener(this);			// 게시글 작성 패널
 		mp.cp.bip.b2.addActionListener(this);
 		mp.cp.blp.table.addMouseListener(this);
 		
@@ -106,6 +114,9 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 		
 		mp.cp.edp.list.addActionListener(this);
 		mp.cp.edp.update.addActionListener(this);
+		
+		mp.cp.eip.list.addActionListener(this);
+		mp.cp.eip.update.addActionListener(this);
 		
 	}
 	public static void main(String[] args) {
@@ -147,9 +158,70 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 			mp.cp.blp.print();
 			mp.cp.card.show(mp.cp, "BLIST");
 		}
+		else if(e.getSource() == mp.cp.eip.list) {
+			mp.cp.card.show(mp.cp, "LIST");
+		}
 		else if(e.getSource() == mp.cp.blp.insertBtn) {
 			mp.cp.bip.printBox(login.tfId.getText());
 			mp.cp.card.show(mp.cp, "BINSERT");
+		}
+		else if(e.getSource() == mp.mp.insertBtn) {
+			mp.cp.card.show(mp.cp, "EINSERT");
+		}
+		else if(e.getSource() == mp.cp.eip.update){
+			if(!check)
+			{
+				JOptionPane.showMessageDialog(this, "사번 확인을 해주세요");
+				mp.cp.eip.enotf.requestFocus();
+				return;
+			}
+			int empno = Integer.parseInt(mp.cp.eip.enotf.getText().trim());
+			String ename = mp.cp.eip.enamela2.getText();
+			String job = mp.cp.eip.jobtf.getText();
+			if(job.length() < 1) {
+				JOptionPane.showMessageDialog(this, "직위 입력");
+				mp.cp.eip.jobtf.requestFocus();
+				return;
+			}
+			String sal_ = mp.cp.eip.saltf.getText();
+			if(sal_.length() < 1) {
+				JOptionPane.showMessageDialog(this, "연봉 입력");
+				mp.cp.eip.saltf.requestFocus();
+				return;
+			}
+			int sal = Integer.parseInt(sal_);
+			String hiredate = mp.cp.eip.hiredatela2.getText();
+			if(hiredate.length() < 1) {
+				JOptionPane.showMessageDialog(this, "생년월일 입력");
+				mp.cp.eip.hiredatela2.requestFocus();
+				return;
+			}
+			int deptno = Integer.parseInt(mp.cp.eip.cbDeptno.getSelectedItem().toString());
+			EmpVO vo = new EmpVO();
+			vo.setEmpno(empno);
+			vo.setEname(ename);
+			vo.setJob(job);
+			vo.setSal(sal);
+			vo.setHiredate(hiredate);
+			vo.setDeptno(deptno);
+			EmpMemberDAO dao = EmpMemberDAO.newInstance();
+			dao.empInsert(vo);
+			JOptionPane.showMessageDialog(this, "등록 완료");
+			mp.cp.card.show(mp.cp, "LIST");
+		}
+		else if(e.getSource() == mp.cp.blp.prevBtn) {
+			if(mp.cp.blp.curpage>1)
+			{
+				mp.cp.blp.curpage--;
+				mp.cp.blp.print();
+			}
+		}
+		else if(e.getSource() == mp.cp.blp.nextBtn) {
+			if(mp.cp.blp.curpage<mp.cp.blp.totalpage)
+			{
+				mp.cp.blp.curpage++;
+				mp.cp.blp.print();
+			}
 		}
 		else if(e.getSource() == jp.b1) {
 			MemberDAO dao = MemberDAO.newInstance();
@@ -176,6 +248,37 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 		}
 		else if(e.getSource() == jp.b2) {
 			pff.setVisible(true);
+		}
+		else if(e.getSource() == mp.cp.eip.cbDeptno) {
+			MemberDAO dao = MemberDAO.newInstance();
+			int deptno = Integer.parseInt(mp.cp.eip.cbDeptno.getSelectedItem().toString());
+			DeptVO vo = dao.getDept(deptno);
+			mp.cp.eip.dnamela2.setText(vo.getDname());
+			mp.cp.eip.locla2.setText(vo.getLoc());
+		}
+		else if(e.getSource() == mp.cp.eip.check) {
+			MemberDAO dao = MemberDAO.newInstance();
+			String empno_ = mp.cp.eip.enotf.getText().trim();
+			if(empno_.length() < 1) {
+				JOptionPane.showMessageDialog(this, "사번을 입력 하세요");
+				mp.cp.eip.enotf.requestFocus();
+				return;
+			}
+			int empno = Integer.parseInt(empno_);
+			String name = dao.getId(empno);
+			if(name.equals("NONE")) {
+				check = false;
+				JOptionPane.showMessageDialog(this, "존재하지 않는 회원의 사번입니다");
+				mp.cp.eip.enotf.setText("");
+				mp.cp.eip.enotf.requestFocus();
+				return;
+			}
+			else {
+				check = true;
+				mp.cp.eip.check.setVisible(false);
+				mp.cp.eip.enamela2.setText(name);
+			}
+			
 		}
 		else if(e.getSource() == jp.b3) {
 			MemberVO vo = new MemberVO();
@@ -354,9 +457,12 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 						// result에 들어간 admin 값이 N인 경우	=> 권한 없음
 						if(result.toUpperCase().equals("N")) {
 							System.out.println("관리자권한 X");
+							card.show(getContentPane(), "CONTROL");
+							mp.cp.card.show(mp.cp, "LIST");
 						}
 						// result에 들어간 admin 값이 Y인 경우	=> 권한 있음
 						else if(result.toUpperCase().equals("Y")) {
+							mp.mp.insertBtn.setVisible(true);
 							System.out.println("관리자권한 O");
 							card.show(getContentPane(), "CONTROL");
 							mp.cp.card.show(mp.cp, "LIST");
@@ -364,6 +470,9 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 					}
 				}
 			}catch(Exception e1) {}
+		}
+		else if(e.getSource() == mp.mp.insertBtn) {
+			mp.cp.card.show(mp.cp, "BINSERT");
 		}
 		else if(e.getSource() == login.btnSignUp) {
 			if(login.rbNemp.isSelected()) {
@@ -531,6 +640,10 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 			vo.setId(login.tfId.getText());
 			vo.setTitle(subject);
 			vo.setContent(content);
+			String no_ = mp.cp.bip.box.getSelectedItem().toString();
+			int no = Integer.parseInt(no_.substring(0, no_.indexOf('.')));
+			System.out.println(no);
+			vo.setGno(no);
 			
 			mp.cp.bip.dao.boardInsert(vo);
 			
@@ -568,6 +681,10 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 			vo.setId(login.tfId.getText());
 			vo.setTitle(subject);
 			vo.setContent(content);
+			String no_ = mp.cp.bup.box.getSelectedItem().toString();
+			int no = Integer.parseInt(no_.substring(0, no_.indexOf('.')));
+			System.out.println(no);
+			vo.setGno(no);
 			
 			dao.boardUpdate(vo);
 			
@@ -591,15 +708,8 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getSource() == mp.cp.fp.table) {
-			if(e.getClickCount() == 2) {
-				int row = mp.cp.fp.table.getSelectedRow();
-				String no = mp.cp.fp.model.getValueAt(row, 0).toString();
-				mp.cp.fp.tf.setText("");
-				mp.cp.card.show(mp.cp, "LIST");
-			}
-		}
-		else if (pff.table == e.getSource()) {
+		
+		if (pff.table == e.getSource()) {
 			if (e.getClickCount() == 2) {
 				int row = pff.table.getSelectedRow();
 				String post = (String) pff.table.getValueAt(row, 0);
@@ -624,17 +734,55 @@ public class ClientMain extends JFrame implements ActionListener, MouseListener,
 				mp.cp.bdp.hit.setText(String.valueOf(vo.getHit()));
 				mp.cp.bdp.sub.setText(vo.getTitle());
 				mp.cp.bdp.ta.setText(vo.getContent());
+				mp.cp.bdp.recom.setText(vo.getGvo().getGoods_name());
+				String id = dao.isMine(Integer.parseInt(no));
+				if(id.equals(login.tfId.getText()))
+					mp.cp.bdp.b1.setVisible(true);
+				else
+					mp.cp.bdp.b1.setVisible(false);
 				// 화면 이동 
 				mp.cp.card.show(mp.cp, "BDETAIL");
 			}
 		}
 		else if(e.getSource() == mp.cp.ep.table) {
+			EmpMemberDAO dao =  EmpMemberDAO.newInstance();
 			if(e.getClickCount() == 2) {
 				int row=mp.cp.ep.table.getSelectedRow();
 				System.out.println(row);
 				String no=mp.cp.ep.model.getValueAt(row, 0).toString();
 				System.out.println(no);
 				mp.cp.edp.print(no);
+				if(!dao.isAdmin(login.tfId.getText())) {
+					mp.cp.edp.update.setVisible(false);
+				}
+				mp.cp.card.show(mp.cp, "EDETAIL");
+			}
+		}
+		else if(e.getSource() == mp.cp.ep.table2) {
+			EmpMemberDAO dao =  EmpMemberDAO.newInstance();
+			System.out.println("check");
+			if(e.getClickCount() == 2) {
+				int row=mp.cp.ep.table2.getSelectedRow();
+				System.out.println(row);
+				String no=mp.cp.ep.model2.getValueAt(row, 0).toString();
+				System.out.println(no);
+				mp.cp.edp.print(no);
+				if(!dao.isAdmin(login.tfId.getText()))
+					mp.cp.edp.update.setVisible(false);
+				mp.cp.card.show(mp.cp, "EDETAIL");
+			}
+		}
+		else if(e.getSource() == mp.cp.fp.table) {
+			EmpMemberDAO dao =  EmpMemberDAO.newInstance();
+			if(e.getClickCount() == 2) {
+				int row=mp.cp.fp.table.getSelectedRow();
+				System.out.println(row);
+				String no=mp.cp.fp.model.getValueAt(row, 0).toString();
+				System.out.println(no);
+				mp.cp.fp.tf.setText("");
+				mp.cp.edp.print(no);
+				if(!dao.isAdmin(login.tfId.getText()))
+					mp.cp.edp.update.setVisible(false);
 				mp.cp.card.show(mp.cp, "EDETAIL");
 			}
 		}

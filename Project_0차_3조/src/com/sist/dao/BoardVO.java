@@ -21,6 +21,8 @@ public class BoardVO{
     private String title;
     private String content;
     private int bno;
+    private int gno;
+    private GoodsVO gvo = new GoodsVO();
 	
 	   
 }

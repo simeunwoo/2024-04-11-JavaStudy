@@ -318,4 +318,65 @@ public class EmpMemberDAO {
 	 		}
 	 		return vo;
 	 	}
+	     public void empInsert(EmpVO vo) {
+	    	 try {
+				getConnection();
+				String sql = "INSERT INTO emp values(?, ?, ?, ?, ?, 0, 'n', ?)";
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, vo.getEmpno());
+				ps.setString(2, vo.getEname());
+				ps.setString(3, vo.getJob());
+				ps.setInt(4, vo.getSal());
+				ps.setString(5, vo.getHiredate());
+				ps.setInt(6, vo.getDeptno());
+				ps.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    	 finally {
+				disConnection();
+			}
+	     }
+	     public boolean empUpdate(EmpVO vo) {
+	         boolean bCheck = false;
+	         try {
+	             getConnection();
+	             String sql = "UPDATE emp SET sal=?, job=? WHERE empno=?";
+	             ps = conn.prepareStatement(sql);
+	             ps.setInt(1, vo.getSal());
+	             ps.setString(2, vo.getJob());
+	             ps.setInt(3, vo.getEmpno());
+	             int rowsUpdated = ps.executeUpdate();
+	             if (rowsUpdated > 0) {
+	                 bCheck = true;
+	             }
+	         } catch (Exception ex) {
+	             ex.printStackTrace();
+	         } finally {
+	             disConnection();
+	         }
+	         return bCheck;
+	     }
+	     public boolean isAdmin(String id) {
+	    	 boolean bCheck = false;
+	    	 try {
+				getConnection();
+				String sql = "SELECT admin FROM emp WHERE empno = (SELECT empno FROM member WHERE id = ?)";
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, id);
+				ResultSet rs = ps.executeQuery();
+				rs.next();
+				if(rs.getString(1).equals("n"))
+					bCheck = false;
+				else
+					bCheck = true;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	    	 finally {
+				disConnection();
+			}
+	    	 System.out.println(bCheck);
+	    	 return bCheck;
+	     }
 }
