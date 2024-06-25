@@ -170,11 +170,11 @@ public class StudentDAO {
 			cs.executeQuery();
 		}catch(Exception ex)
 		{
-			
+			ex.printStackTrace();
 		}
 		finally
 		{
-			
+			disConnection();
 		}
 	}
 	// 수정
